@@ -3,7 +3,7 @@ Classical Finite Differences Schemes for numerically solve different Partial Dif
 
 All the codes are distributed under MIT License on [GitHub](https://github.com/gstinoco/GFD-Wave) and are free to use, modify, and distribute giving the proper copyright notice.
 
-![Approximate and Theoretical solutions of the problem on ZIR region](/Results/Clouds/Explicit/Steps/ZIR_2_05.png)
+<!--![Approximate and Theoretical solutions of the problem on ZIR region](/Results/Clouds/Explicit/Steps/ZIR_2_05.png)*/-->
 
 ## Description :memo:
 This repository contains a variety of Classical Finite Differences Schemes to solve:<br>
@@ -14,10 +14,11 @@ This repository contains a variety of Classical Finite Differences Schemes to so
 5. Wave Equation.
 6. Shallow Water Equations.
 
+<!--
 Havana Cloud of Points With Holes                             | Havana Cloud of Points
 :------------------------------------------------------------:|:------------------------------------------------------------:
 ![Havana Bay Cloud of Points](/Data/Holes/HAB_3.png)          | ![Havana Bay Cloud of Points](/Data/Clouds/HAB_3_n.png)
-
+-->
 
 It is possible to find all test data in the "Data" folder and some sample results in the "Results" folder.
 
