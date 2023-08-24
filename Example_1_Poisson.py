@@ -30,11 +30,11 @@ from Poisson_Equation import Poisson1D_Matrix
 from Scripts.Graphs import Graph_1D_Stationary
 
 # Problem Parameters
-a = 0
-b = 2*np.pi
-m = 21
-f = lambda x: 2*np.sin(x) + x*np.cos(x)
-u = lambda x: x*np.cos(x)
+a       = 0
+b       = 2*np.pi
+m       = 21
+f       = lambda x: 2*np.sin(x) + x*np.cos(x)
+u       = lambda x: x*np.cos(x)
 
 x, u_ap = Poisson1D_Matrix(a, b, m, f, u)
 x       = np.linspace(a,b,m)
