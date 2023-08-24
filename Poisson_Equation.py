@@ -49,10 +49,10 @@ def Poisson1D_Matrix(a, b, m, f, g):
     A         = A/dx**2
     rhs       = -f(x[1:m-1])
     rhs[0]   -= alpha/dx**2
-    rhs[m-3] -= beta/dx**2
+    rhs[-1]  -= beta/dx**2
 
     # Problem Solving
-    A = np.linalg.pinv(A)
+    A = np.linalg.inv(A)
     u = A@rhs
 
     phi_ap[1:m-1] = u
