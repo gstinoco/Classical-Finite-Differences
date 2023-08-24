@@ -1,11 +1,11 @@
-'''
+"""
 Classical Finite Difference Schemes to solve Poisson Equation.
 
 The problem to solve is:
-    \phi(x)_{xx} = -f(x)
+    u(x)_{xx} = -f(x)
 
 Subject to conditions:
-    \phi(x)_\Omega = g(x)
+    u(x)_\Omega = g(x)
 
 All the codes were developed by:
     Dr. Gerardo Tinoco Guerrero
@@ -22,41 +22,37 @@ Date:
 
 Last Modification:
     August, 2023.
-'''
+"""
 
 # Library Importation
 import numpy as np
 
-# Conditions
-f = lambda x: 2*np.sin(x) + x*np.cos(x)
-g = lambda x: x*np.cos(x)
-
-def Poisson1D_Matrix(a, b, m, f, g):
+def Poisson1D_Matrix(a, b, m, f, u):
     # Variable Initialization
-    x       = np.linspace(a,b,m)
-    dx      = x[1] - x[0]
-    phi_ap  = np.zeros([m])
+    x      = np.linspace(a,b,m)
+    dx     = x[1] - x[0]
+    u_ap   = np.zeros([m])
 
     # Boundary Conditions
-    alpha = g(x[0])
-    beta  = g(x[-1])
+    alpha  = u(x[0])
+    beta   = u(x[-1])
 
     # Finite Differences Matrix
-    dA        = np.diag(-2*np.ones(m-2))
-    dAp1      = np.diag(np.ones((m-2)-1), k = 1)
-    dAm1      = np.diag(np.ones((m-2)-1), k = -1)
-    A         = dA + dAp1 + dAm1
-    A         = A/dx**2
-    rhs       = -f(x[1:m-1])
-    rhs[0]   -= alpha/dx**2
-    rhs[-1]  -= beta/dx**2
+    dA     = np.diag(-2*np.ones(m-2))
+    dAp1   = np.diag(np.ones((m-2)-1), k = 1)
+    dAm1   = np.diag(np.ones((m-2)-1), k = -1)
+    A      = dA + dAp1 + dAm1
+    A      = A/dx**2
+    F      = -f(x[1:m-1])
+    F[0]  -= alpha/dx**2
+    F[-1] -= beta/dx**2
 
     # Problem Solving
-    A = np.linalg.inv(A)
-    u = A@rhs
+    A      = np.linalg.inv(A)
+    u      = A@F
 
-    phi_ap[1:m-1] = u
-    phi_ap[0]     = alpha
-    phi_ap[-1]    = beta
+    u_ap[1:m-1] = u
+    u_ap[0]     = alpha
+    u_ap[-1]    = beta
 
-    return x, phi_ap
+    return x, u_ap

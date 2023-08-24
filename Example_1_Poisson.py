@@ -1,11 +1,11 @@
-'''
+""""
 Example 1 for Classical Finite Difference Schemes to solve Poisson Equation.
 
 The problem to solve is:
-    \phi(x)_{xx} = -(2Sin(x) + xCos(x))
+    u(x)_{xx} = -(2Sin(x) + xCos(x))
 
 Subject to conditions:
-    \phi(x)_\Omega = xCos(x)
+    u(x)_\Omega = xCos(x)
 
 All the codes were developed by:
     Dr. Gerardo Tinoco Guerrero
@@ -22,7 +22,7 @@ Date:
 
 Last Modification:
     August, 2023.
-'''
+"""
 
 # Library Importation
 import numpy as np
@@ -34,10 +34,10 @@ a = 0
 b = 2*np.pi
 m = 21
 f = lambda x: 2*np.sin(x) + x*np.cos(x)
-g = lambda x: x*np.cos(x)
+u = lambda x: x*np.cos(x)
 
-x, phi_ap = Poisson1D_Matrix(a, b, m, f, g)
-x         = np.linspace(a,b,m)
-phi_ex    = g(x)
+x, u_ap = Poisson1D_Matrix(a, b, m, f, u)
+x       = np.linspace(a,b,m)
+u_ex    = u(x)
 
-Graph_1D_Stationary(a, b, m, phi_ap, phi_ex)
+Graph_1D_Stationary(a, b, m, u_ap, u_ex)
