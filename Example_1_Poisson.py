@@ -28,11 +28,14 @@ Last Modification:
 import numpy as np
 from Poisson_Equation import Poisson1D_Matrix
 from Scripts.Graphs import Graph_1D_Stationary
+from Scripts.Error_norms import E_inf
+from Scripts.Error_norms import E_uno
+from Scripts.Error_norms import E_dos
 
 # Problem Parameters
 a       = 0
 b       = 2*np.pi
-m       = 21
+m       = 80
 f       = lambda x: 2*np.sin(x) + x*np.cos(x)
 u       = lambda x: x*np.cos(x)
 
@@ -40,4 +43,13 @@ x, u_ap = Poisson1D_Matrix(a, b, m, f, u)
 x       = np.linspace(a,b,m)
 u_ex    = u(x)
 
-Graph_1D_Stationary(a, b, m, u_ap, u_ex)
+#Graph_1D_Stationary(a, b, m, u_ap, u_ex)
+
+E_inf = E_inf(u_ap, u_ex)
+print('La norma infinito es:', E_inf)
+
+E_uno = E_uno(u_ap, u_ex)
+print('La norma uno es:', E_uno)
+
+E_dos = E_dos(u_ap, u_ex)
+print('La norma dos es:', E_dos)
