@@ -37,3 +37,11 @@ def Graph_1D_Stationary(a, b, m, u_ap, u_ex):
     ax2.plot(x, u_ex)
     ax2.set_ylim([min,max])
     plt.show()
+
+def Graph_1D_Stationary_1(a, b, m, u_ap):
+    x = np.linspace(a, b, m)
+    fig = plt.plot(x,u_ap)
+    plt.title('Cumpted Solution')
+    plt.rcParams['figure.figsize'] = (10,5)
+    
+    plt.show()
