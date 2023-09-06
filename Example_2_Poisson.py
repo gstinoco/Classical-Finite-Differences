@@ -26,16 +26,20 @@ Last Modification:
 
 # Library Importation
 import numpy as np
+from Poisson_Equation import Poisson1D_Matrix_Neumann_1
 from Poisson_Equation import Poisson1D_Matrix_Neumann_2
+from Poisson_Equation import Poisson1D_Matrix_Neumann_3
 from Scripts.Graphs import Graph_1D_Stationary_1
 
 # Problem Parameters
 a       = 0
 b       = 1
-m       = 11
-f       = lambda x: 0*x
-u       = lambda x: 0*x
+m       = 20
+f       = lambda x: np.exp(x)
 
-x, u_ap = Poisson1D_Matrix_Neumann_2(a, b, m, f, 2, 0)
-
+x, u_ap = Poisson1D_Matrix_Neumann_1(a, b, m, f, 0, 3)
+Graph_1D_Stationary_1(a, b, m, u_ap)
+x, u_ap = Poisson1D_Matrix_Neumann_2(a, b, m, f, 0, 3)
+Graph_1D_Stationary_1(a, b, m, u_ap)
+x, u_ap = Poisson1D_Matrix_Neumann_3(a, b, m, f, 0, 3)
 Graph_1D_Stationary_1(a, b, m, u_ap)

@@ -77,14 +77,14 @@ def Poisson1D_Matrix(a, b, m, f, u):
 
     return x, u_ap                                          # Return the mesh and the computed solution.
 
-def Poisson1D_Matrix_Neumann(a, b, m, f, sig, beta):
+def Poisson1D_Matrix_Neumann_1(a, b, m, f, sig, beta):
     '''
-        Poisson1D_Matrix
+        Poisson1D_Matrix_Neumann_1
 
         This code solves the 1D Poisson problem on a regular grid with Neumann and Dirichlet boundary conditions
         using a Matrix formulation of the Finite Difference centered scheme.
 
-        The Neumann boundary condition is applied with a backwards finite difference scheme.
+        The Neumann boundary condition is applied with a two-point-backward finite difference scheme.
 
         Input:
             a                       Real            Initial value of the test region.
@@ -111,15 +111,15 @@ def Poisson1D_Matrix_Neumann(a, b, m, f, sig, beta):
     # Handcrafted Neumann conditions
     A[0,0]      = -h                                        # Complete the Matrix.
     A[0,1]      = h                                         # Complete the Matrix.
-    A[m-1,m-2]  = 0                                         # Complete the Matrix.
-    A[m-1,m-1]  = h**2                                      # Complete the Matrix.
-    A            = A/h**2                                   # Complete the Matrix.
+    A[-1,-2]    = 0                                         # Complete the Matrix.
+    A[-1,-1]    = h**2                                      # Complete the Matrix.
+    A           = A/h**2                                    # Complete the Matrix.
 
     # Right Hand Size (RHS)
-    F           = -f(x[0:m])                                # Components of the RHS vector.
-    F[0]       -= sig                                       # Boundary condition on th RHS.
-    F[-1]      -= beta                                      # Boundary condition on the RHS.
-
+    F           = f(x[0:m])                                 # Components of the RHS vector.
+    F[0]        = sig                                       # Boundary condition on th RHS.
+    F[-1]       = beta                                      # Boundary condition on the RHS.
+    
     # Problem Solving
     A           = np.linalg.inv(A)                          # Solving the algebraic problem.
     u           = A@F                                       # Problem solution.
@@ -128,12 +128,12 @@ def Poisson1D_Matrix_Neumann(a, b, m, f, sig, beta):
 
 def Poisson1D_Matrix_Neumann_2(a, b, m, f, sig, beta):
     '''
-        Poisson1D_Matrix
+        Poisson1D_Matrix_Neumann_2
 
         This code solves the 1D Poisson problem on a regular grid with Neumann and Dirichlet boundary conditions
         using a Matrix formulation of the Finite Difference centered scheme.
 
-        The Neumann boundary condition is applied with a centered finite difference scheme.
+        The Neumann boundary condition is applied with a two-point-centered finite difference scheme.
 
         Input:
             a                       Real            Initial value of the test region.
@@ -160,14 +160,64 @@ def Poisson1D_Matrix_Neumann_2(a, b, m, f, sig, beta):
     # Handcrafted Neumann conditions
     A[0,0]      = -h                                        # Complete the Matrix.
     A[0,1]      = h                                         # Complete the Matrix.
-    A[m-1,m-2]  = 0                                         # Complete the Matrix.
-    A[m-1,m-1]  = h**2                                      # Complete the Matrix.
-    A            = A/h**2                                   # Complete the Matrix.
+    A[-1,-2]    = 0                                         # Complete the Matrix.
+    A[-1,-1]    = h**2                                      # Complete the Matrix.
+    A           = A/h**2                                    # Complete the Matrix.
     
     # Right Hand Size (RHS)
-    F           = -f(x[0:m])                                # Components of the RHS vector.
-    F[0]       -= sig+((h/2)*f(x[0]))                       # Boundary condition on th RHS.
-    F[-1]      -= beta                                      # Boundary condition on the RHS.
+    F           = f(x[0:m])                                 # Components of the RHS vector.
+    F[0]        = sig+((h/2)*f(x[0]))                       # Boundary condition on th RHS.
+    F[-1]       = beta                                      # Boundary condition on the RHS.
+    
+    # Problem Solving
+    A           = np.linalg.inv(A)                          # Solving the algebraic problem.
+    u           = A@F                                       # Problem solution.
+
+    return x, u                                             # Return the mesh and the computed solution.
+
+def Poisson1D_Matrix_Neumann_3(a, b, m, f, sig, beta):
+    '''
+        Poisson1D_Matrix_Neumann_3
+
+        This code solves the 1D Poisson problem on a regular grid with Neumann and Dirichlet boundary conditions
+        using a Matrix formulation of the Finite Difference centered scheme.
+
+        The Neumann boundary condition is applied with a three-point-forward finite difference scheme.
+
+        Input:
+            a                       Real            Initial value of the test region.
+            b                       Real            Final value of the test region.
+            m                       Integer         Number of nodes in the grid.
+            f                       Function        Function with the sources and sinks.
+            sig                     Real            Value of the derivative on the Neumann boundary condition.
+            beta                    Real            Value of the function on the Dirichlet boundary condition.
+        
+        Output:
+            x           m x 1       Array           Array with the grid generated for the problem.
+            u           m x 1       Array           Array with the computed solution of the method.
+    '''
+    # Variable Initialization
+    x           = np.linspace(a,b,m)                        # Creation of the mesh.
+    h           = x[1] - x[0]                               # h definition as dx.
+
+    # Finite Differences Matrix
+    dA          = np.diag(-2*np.ones(m))                    # Main diagonal of the Matrix.
+    dAp1        = np.diag(np.ones(m-1), k = 1)              # Lower diagonal of the Matrix.
+    dAm1        = np.diag(np.ones(m-1), k = -1)             # Upper diagonal of the Matrix.
+    A           = dA + dAp1 + dAm1                          # Matrix assembly.
+
+    # Handcrafted Neumann conditions
+    A[0,0]      = (3/2)*h                                   # Complete the Matrix.
+    A[0,1]      = -2*h                                      # Complete the Matrix.
+    A[0,2]      = (1/2)*h                                   # Complete the Matrix.
+    A[-1,-2]    = 0                                         # Complete the Matrix.
+    A[-1,-1]    = h**2                                      # Complete the Matrix.
+    A           = A/h**2                                    # Complete the Matrix.
+    
+    # Right Hand Size (RHS)
+    F           = f(x[0:m])                                 # Components of the RHS vector.
+    F[0]        = sig                                       # Boundary condition on th RHS.
+    F[-1]       = beta                                      # Boundary condition on the RHS.
     
     # Problem Solving
     A           = np.linalg.inv(A)                          # Solving the algebraic problem.
