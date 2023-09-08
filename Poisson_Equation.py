@@ -224,3 +224,59 @@ def Poisson1D_Matrix_Neumann_3(a, b, m, f, sig, beta):
     u           = A@F                                       # Problem solution.
 
     return x, u                                             # Return the mesh and the computed solution.
+
+def Poisson2D_Matrix(m, f, u):
+    '''
+        Poisson2D_Matrix
+
+        This code solves the 2D Poisson problem on a regular grid with Dirichlet boundary conditions
+        using a Matrix formulation of the Finite Difference centered scheme.
+
+        Input:
+            m                       Integer         Number of nodes in each direction of the grid.
+            f                       Function        Function with the sources and sinks.
+            u                       Function        Function for the boundary conditions.
+        
+        Output:
+            x           m x m       Array           Array with the x values of the nodes of the generated grid.
+            y           m x m       Array           Array with the y values of the nodes of the generated grid.
+            u_ap        m x m       Array           Array with the computed solution of the method.
+    '''
+    # Variable Initialization
+    x           = np.linspace(0,1,m)                        # Creates the x coordinates.
+    y           = np.linspace(0,1,m)                        # Creates the y coordinates.
+    x, y        = np.meshgrid(x,y)                          # Creates the mesh for the problem.
+    h           = x[1,0] - x[0,0]                           # h definition as dx.
+    u_ap        = np.zeros([m,m])                           # u_ap initialization.
+
+    # Boundary Conditions
+    for i in range(0,m):
+        u_ap[i,  0] = u(x[i,0],  y[i,0])
+        u_ap[0,  i] = u(x[0,i],  y[i,0])
+        u_ap[-1, i] = u(x[-1,i], y[-1,i])
+        u_ap[i, -1] = u(x[i,-1], y[i,-1])
+
+    # Finite Differences Matrix
+    dT          = np.diag(-4*np.ones(m-2))                  # Main diagonal of the Matrix.
+    dTp1        = np.diag(np.ones((m-2)-1), k = 1)          # Lower diagonal of the Matrix.
+    dTm1        = np.diag(np.ones((m-2)-1), k = -1)         # Upper diagonal of the Matrix.
+    T           = dT + dTp1 + dTm1
+    I           = np.eye(m-2)
+    print(T)
+    print(I)
+
+    # Right Hand Size (RHS)
+    F           = -f(x[1:m-1])                              # Components of the RHS vector.
+    F[0]       -= alpha/h**2                                # Boundary condition on th RHS.
+    F[-1]      -= beta/h**2                                 # Boundary condition on the RHS.
+
+    # Problem Solving
+    A           = np.linalg.inv(A)                          # Solving the algebraic problem.
+    u           = A@F                                       # Problem solution.
+
+    # Approximation saving
+    u_ap[1:m-1] = u                                         # Save the computed solution.
+    u_ap[0]     = alpha                                     # Add the boundary condition at x = a.
+    u_ap[-1]    = beta                                      # Add the boundary condition at x = b.
+
+    return x, u_ap                                          # Return the mesh and the computed solution.

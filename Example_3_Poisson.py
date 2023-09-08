@@ -1,11 +1,11 @@
 """"
-Example 1 for Classical Finite Difference Schemes to solve Poisson Equation.
+Example 3 for Classical Finite Difference Schemes to solve Poisson Equation.
 
 The problem to solve is:
-    u(x)_{xx} = -(2Sin(x) + xCos(x))
+    u(x,y)_{xx} + u(x,y)_yy = -f(x,y)
 
 Subject to conditions:
-    u(x)_\Omega = xCos(x)
+    u(x,y)_\Omega = g(x,y)
 
 All the codes were developed by:
     Dr. Gerardo Tinoco Guerrero
@@ -26,20 +26,13 @@ Last Modification:
 
 # Library Importation
 import numpy as np
-from Poisson_Equation import Poisson1D_Matrix_Neumann_1
-from Poisson_Equation import Poisson1D_Matrix_Neumann_2
-from Poisson_Equation import Poisson1D_Matrix_Neumann_3
-from Scripts.Graphs import Graph_1D_Stationary_1
+from Poisson_Equation import Poisson2D_Matrix
 
 # Problem Parameters
 a       = 0
 b       = 1
 m       = 20
-f       = lambda x: np.exp(x)
+f       = lambda x,y: np.exp(x,y)
+u       = lambda x,y: 0*x + 0*y
 
-x, u_ap = Poisson1D_Matrix_Neumann_1(a, b, m, f, 0, 3)
-#Graph_1D_Stationary_1(a, b, m, u_ap)
-x, u_ap = Poisson1D_Matrix_Neumann_2(a, b, m, f, 0, 3)
-#Graph_1D_Stationary_1(a, b, m, u_ap)
-x, u_ap = Poisson1D_Matrix_Neumann_3(a, b, m, f, 0, 3)
-Graph_1D_Stationary_1(a, b, m, u_ap)
+x, u_ap = Poisson2D_Matrix(21, f, u)
