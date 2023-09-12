@@ -45,3 +45,19 @@ def Graph_1D_Stationary_1(a, b, m, u_ap):
     plt.rcParams['figure.figsize'] = (10,5)
     
     plt.show()
+
+def Mesh_Static(x, y, u_ap, u_ex):
+    min  = u_ex.min()
+    max  = u_ex.max()
+    
+    fig, (ax1, ax2) = plt.subplots(1, 2, subplot_kw={"projection": "3d"}, figsize=(8, 4))
+    
+    ax1.set_title('Computed solution')
+    ax1.set_zlim([min, max])
+    ax1.plot_surface(x, y, u_ap)
+    
+    ax2.set_title('Theoretical Solution')
+    ax2.set_zlim([min, max])
+    ax2.plot_surface(x, y, u_ex)
+
+    plt.show()

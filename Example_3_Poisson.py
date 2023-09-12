@@ -27,12 +27,23 @@ Last Modification:
 # Library Importation
 import numpy as np
 from Poisson_Equation import Poisson2D_Matrix
+from Scripts.Graphs import Mesh_Static
 
 # Problem Parameters
 a       = 0
 b       = 1
 m       = 20
-f       = lambda x,y: np.exp(x,y)
-u       = lambda x,y: 0*x + 0*y
+f       = lambda x,y: 10*np.exp(2*x+y)
+u       = lambda x,y: 2*np.exp(2*x+y)
 
-x, u_ap = Poisson2D_Matrix(21, f, u)
+# Problem solving
+x, y, u_ap = Poisson2D_Matrix(21, f, u)
+
+# Exact Solution
+u_ex = np.zeros([m,m])
+for i in range(m):
+    for j in range(m):
+        u_ex[i,j] = u(x[i,j], y[i,j])
+
+# Plot the solutions
+Mesh_Static(x, y, u_ap, u_ex)

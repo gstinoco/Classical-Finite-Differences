@@ -279,4 +279,4 @@ def Poisson2D_Matrix(m, f, u):
     u_ap[0]     = alpha                                     # Add the boundary condition at x = a.
     u_ap[-1]    = beta                                      # Add the boundary condition at x = b.
 
-    return x, u_ap                                          # Return the mesh and the computed solution.
+    return x, y, u_ap                                          # Return the mesh and the computed solution.
