@@ -24,6 +24,14 @@ Last Modification:
     August, 2023.
 """
 
+# Path Importation
+import sys
+import os
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
+root_dir = os.path.dirname(parent_dir)
+sys.path.insert(1, root_dir)
+
 # Library Importation
 import numpy as np
 from Poisson_Equation import Poisson2D_Matrix

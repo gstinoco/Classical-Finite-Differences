@@ -24,22 +24,40 @@ Last Modification:
     August, 2023.
 """
 
+# Path Importation
+import sys
+import os
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
+root_dir = os.path.dirname(parent_dir)
+sys.path.insert(1, root_dir)
+
 # Library Importation
 import numpy as np
-from Poisson_Equation import Poisson1D_Matrix_Neumann_1
-from Poisson_Equation import Poisson1D_Matrix_Neumann_2
-from Poisson_Equation import Poisson1D_Matrix_Neumann_3
-from Scripts.Graphs import Graph_1D_Stationary_1
+from Poisson_Equation import Poisson1D_Matrix
+from Scripts.Graphs import Graph_1D_Stationary
+from Scripts.Error_norms import E_inf
+from Scripts.Error_norms import E_uno
+from Scripts.Error_norms import E_dos
 
 # Problem Parameters
 a       = 0
-b       = 1
-m       = 20
-f       = lambda x: np.exp(x)
+b       = 2*np.pi
+m       = 80
+f       = lambda x: 2*np.sin(x) + x*np.cos(x)
+u       = lambda x: x*np.cos(x)
 
-x, u_ap = Poisson1D_Matrix_Neumann_1(a, b, m, f, 0, 3)
-#Graph_1D_Stationary_1(a, b, m, u_ap)
-x, u_ap = Poisson1D_Matrix_Neumann_2(a, b, m, f, 0, 3)
-#Graph_1D_Stationary_1(a, b, m, u_ap)
-x, u_ap = Poisson1D_Matrix_Neumann_3(a, b, m, f, 0, 3)
-Graph_1D_Stationary_1(a, b, m, u_ap)
+x, u_ap = Poisson1D_Matrix(a, b, m, f, u)
+x       = np.linspace(a,b,m)
+u_ex    = u(x)
+
+Graph_1D_Stationary(a, b, m, u_ap, u_ex)
+
+E_inf = E_inf(u_ap, u_ex)
+print('La norma infinito es:', E_inf)
+
+E_uno = E_uno(u_ap, u_ex)
+print('La norma uno es:', E_uno)
+
+E_dos = E_dos(u_ap, u_ex)
+print('La norma dos es:', E_dos)
