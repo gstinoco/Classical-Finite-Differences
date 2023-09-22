@@ -5,7 +5,7 @@ The problem to solve is:
     u(x)_{xx} = -f(x)
 
 Subject to conditions:
-    u(x)_\Omega = g(x)
+    u(x)_Omega = g(x)
 
 All the codes were developed by:
     Dr. Gerardo Tinoco Guerrero
