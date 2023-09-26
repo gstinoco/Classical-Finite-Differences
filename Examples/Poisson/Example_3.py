@@ -34,7 +34,9 @@ sys.path.insert(1, root_dir)
 
 # Library Importation
 import numpy as np
+from Poisson_Equation import Poisson2D_Matrix_2
 from Poisson_Equation import Poisson2D_Matrix
+from Poisson_Equation import Poisson2D_Iter
 from Scripts.Graphs import Mesh_Static
 
 # Problem Parameters
@@ -45,7 +47,7 @@ f       = lambda x,y: 10*np.exp(2*x+y)
 u       = lambda x,y: 2*np.exp(2*x+y)
 
 # Problem solving
-x, y, u_ap = Poisson2D_Matrix(m, f, u)
+x, y, u_ap = Poisson2D_Iter(m, f, u)
 
 # Exact Solution
 u_ex = np.zeros([m,m])

@@ -35,6 +35,7 @@ sys.path.insert(1, root_dir)
 # Library Importation
 import numpy as np
 from Poisson_Equation import Poisson1D_Matrix
+from Poisson_Equation import Poisson1D_Iter
 from Scripts.Graphs import Graph_1D_Stationary
 from Scripts.Error_norms import E_inf
 from Scripts.Error_norms import E_uno
@@ -43,11 +44,11 @@ from Scripts.Error_norms import E_dos
 # Problem Parameters
 a       = 0
 b       = 2*np.pi
-m       = 80
+m       = 21
 f       = lambda x: 2*np.sin(x) + x*np.cos(x)
 u       = lambda x: x*np.cos(x)
 
-x, u_ap = Poisson1D_Matrix(a, b, m, f, u)
+x, u_ap = Poisson1D_Iter(a, b, m, f, u)
 x       = np.linspace(a,b,m)
 u_ex    = u(x)
 
