@@ -37,7 +37,7 @@ import numpy as np
 from Poisson_Equation import Poisson2D_Matrix_2
 from Poisson_Equation import Poisson2D_Matrix
 from Poisson_Equation import Poisson2D_Iter
-from Scripts.Graphs import Mesh_Static_una
+from Scripts.Graphs import Graph_2D_Static
 
 # Problem Parameters
 a       = 0
@@ -56,4 +56,4 @@ for i in range(m):
         u_ex[i,j] = u(x[i,j], y[i,j])
 
 # Plot the solutions
-Mesh_Static_una(x, y, u_ap)
+Graph_2D_Static(x, y, u_ap, u_ex)
