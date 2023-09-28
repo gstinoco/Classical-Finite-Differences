@@ -21,7 +21,7 @@ Date:
     October, 2022.
 
 Last Modification:
-    August, 2023.
+    September, 2023.
 """
 
 # Library Importation
@@ -46,36 +46,36 @@ def Poisson1D_Matrix(a, b, m, f, u):
             u_ap        m x 1       Array           Array with the computed solution of the method.
     '''
     # Variable Initialization
-    x           = np.linspace(a,b,m)                        # Creation of the mesh.
-    h           = x[1] - x[0]                               # h definition as dx.
-    u_ap        = np.zeros([m])                             # u_ap initialization.
+    x           = np.linspace(a,b,m)                                        # Mesh generation.
+    h           = x[1] - x[0]                                               # h definition as dx.
+    u_ap        = np.zeros([m])                                             # u_ap initialization.
 
     # Boundary Conditions
-    alpha       = u(x[0])                                   # Boundary condition at x = a.
-    beta        = u(x[-1])                                  # Boundary condition at x = b.
+    alpha       = u(x[0])                                                   # Boundary condition at x = a.
+    beta        = u(x[-1])                                                  # Boundary condition at x = b.
 
     # Finite Differences Matrix
-    dA          = np.diag(-2*np.ones(m-2))                  # Main diagonal of the Matrix.
-    dAp1        = np.diag(np.ones((m-2)-1), k = 1)          # Lower diagonal of the Matrix.
-    dAm1        = np.diag(np.ones((m-2)-1), k = -1)         # Upper diagonal of the Matrix.
-    A           = dA + dAp1 + dAm1                          # Matrix assembly.
-    A           = A/h**2                                    # Divide the Matrix by h^2.
+    dA          = np.diag(-2*np.ones(m-2))                                  # Main diagonal of the Matrix.
+    dAp1        = np.diag(np.ones((m-2)-1), k = 1)                          # Lower diagonal of the Matrix.
+    dAm1        = np.diag(np.ones((m-2)-1), k = -1)                         # Upper diagonal of the Matrix.
+    A           = dA + dAp1 + dAm1                                          # Matrix assembly.
+    A           = A/h**2                                                    # Divide the Matrix by h^2.
 
     # Right Hand Size (RHS)
-    F           = -f(x[1:m-1])                              # Components of the RHS vector.
-    F[0]       -= alpha/h**2                                # Boundary condition on th RHS.
-    F[-1]      -= beta/h**2                                 # Boundary condition on the RHS.
+    F           = -f(x[1:m-1])                                              # Components of the RHS vector.
+    F[0]       -= alpha/h**2                                                # Boundary condition on th RHS.
+    F[-1]      -= beta/h**2                                                 # Boundary condition on the RHS.
 
     # Problem Solving
-    A           = np.linalg.inv(A)                          # Solving the algebraic problem.
-    u           = A@F                                       # Problem solution.
+    A           = np.linalg.inv(A)                                          # Solving the algebraic problem.
+    u           = A@F                                                       # Problem solution.
 
     # Approximation saving
-    u_ap[1:m-1] = u                                         # Save the computed solution.
-    u_ap[0]     = alpha                                     # Add the boundary condition at x = a.
-    u_ap[-1]    = beta                                      # Add the boundary condition at x = b.
+    u_ap[1:m-1] = u                                                         # Save the computed solution.
+    u_ap[0]     = alpha                                                     # Add the boundary condition at x = a.
+    u_ap[-1]    = beta                                                      # Add the boundary condition at x = b.
 
-    return x, u_ap                                          # Return the mesh and the computed solution.
+    return x, u_ap                                                          # Return the mesh and the computed solution.
 
 def Poisson1D_Matrix_Neumann_1(a, b, m, f, sig, beta):
     '''
@@ -99,32 +99,32 @@ def Poisson1D_Matrix_Neumann_1(a, b, m, f, sig, beta):
             u           m x 1       Array           Array with the computed solution of the method.
     '''
     # Variable Initialization
-    x           = np.linspace(a,b,m)                        # Creation of the mesh.
-    h           = x[1] - x[0]                               # h definition as dx.
+    x           = np.linspace(a,b,m)                                        # Mesh generation.
+    h           = x[1] - x[0]                                               # h definition as dx.
 
     # Finite Differences Matrix
-    dA          = np.diag(-2*np.ones(m))                    # Main diagonal of the Matrix.
-    dAp1        = np.diag(np.ones(m-1), k = 1)              # Lower diagonal of the Matrix.
-    dAm1        = np.diag(np.ones(m-1), k = -1)             # Upper diagonal of the Matrix.
-    A           = dA + dAp1 + dAm1                          # Matrix assembly.
+    dA          = np.diag(-2*np.ones(m))                                    # Main diagonal of the Matrix.
+    dAp1        = np.diag(np.ones(m-1), k = 1)                              # Lower diagonal of the Matrix.
+    dAm1        = np.diag(np.ones(m-1), k = -1)                             # Upper diagonal of the Matrix.
+    A           = dA + dAp1 + dAm1                                          # Matrix assembly.
 
     # Handcrafted Neumann conditions
-    A[0,0]      = -h                                        # Complete the Matrix.
-    A[0,1]      = h                                         # Complete the Matrix.
-    A[-1,-2]    = 0                                         # Complete the Matrix.
-    A[-1,-1]    = h**2                                      # Complete the Matrix.
-    A           = A/h**2                                    # Complete the Matrix.
+    A[0,0]      = -h                                                        # Complete the Matrix.
+    A[0,1]      = h                                                         # Complete the Matrix.
+    A[-1,-2]    = 0                                                         # Complete the Matrix.
+    A[-1,-1]    = h**2                                                      # Complete the Matrix.
+    A           = A/h**2                                                    # Complete the Matrix.
 
     # Right Hand Size (RHS)
-    F           = f(x[0:m])                                 # Components of the RHS vector.
-    F[0]        = sig                                       # Boundary condition on th RHS.
-    F[-1]       = beta                                      # Boundary condition on the RHS.
+    F           = f(x[0:m])                                                 # Components of the RHS vector.
+    F[0]        = sig                                                       # Boundary condition on th RHS.
+    F[-1]       = beta                                                      # Boundary condition on the RHS.
     
     # Problem Solving
-    A           = np.linalg.inv(A)                          # Solving the algebraic problem.
-    u_ap        = A@F                                       # Problem solution.
+    A           = np.linalg.inv(A)                                          # Solving the algebraic problem.
+    u_ap        = A@F                                                       # Problem solution.
 
-    return x, u_ap                                          # Return the mesh and the computed solution.
+    return x, u_ap                                                          # Return the mesh and the computed solution.
 
 def Poisson1D_Matrix_Neumann_2(a, b, m, f, sig, beta):
     '''
@@ -148,32 +148,32 @@ def Poisson1D_Matrix_Neumann_2(a, b, m, f, sig, beta):
             u           m x 1       Array           Array with the computed solution of the method.
     '''
     # Variable Initialization
-    x           = np.linspace(a,b,m)                        # Creation of the mesh.
-    h           = x[1] - x[0]                               # h definition as dx.
+    x           = np.linspace(a,b,m)                                        # Mesh generation.
+    h           = x[1] - x[0]                                               # h definition as dx.
 
     # Finite Differences Matrix
-    dA          = np.diag(-2*np.ones(m))                    # Main diagonal of the Matrix.
-    dAp1        = np.diag(np.ones(m-1), k = 1)              # Lower diagonal of the Matrix.
-    dAm1        = np.diag(np.ones(m-1), k = -1)             # Upper diagonal of the Matrix.
-    A           = dA + dAp1 + dAm1                          # Matrix assembly.
+    dA          = np.diag(-2*np.ones(m))                                    # Main diagonal of the Matrix.
+    dAp1        = np.diag(np.ones(m-1), k = 1)                              # Lower diagonal of the Matrix.
+    dAm1        = np.diag(np.ones(m-1), k = -1)                             # Upper diagonal of the Matrix.
+    A           = dA + dAp1 + dAm1                                          # Matrix assembly.
 
     # Handcrafted Neumann conditions
-    A[0,0]      = -h                                        # Complete the Matrix.
-    A[0,1]      = h                                         # Complete the Matrix.
-    A[-1,-2]    = 0                                         # Complete the Matrix.
-    A[-1,-1]    = h**2                                      # Complete the Matrix.
-    A           = A/h**2                                    # Complete the Matrix.
+    A[0,0]      = -h                                                        # Complete the Matrix.
+    A[0,1]      = h                                                         # Complete the Matrix.
+    A[-1,-2]    = 0                                                         # Complete the Matrix.
+    A[-1,-1]    = h**2                                                      # Complete the Matrix.
+    A           = A/h**2                                                    # Complete the Matrix.
     
     # Right Hand Size (RHS)
-    F           = f(x[0:m])                                 # Components of the RHS vector.
-    F[0]        = sig+((h/2)*f(x[0]))                       # Boundary condition on th RHS.
-    F[-1]       = beta                                      # Boundary condition on the RHS.
+    F           = f(x[0:m])                                                 # Components of the RHS vector.
+    F[0]        = sig+((h/2)*f(x[0]))                                       # Boundary condition on th RHS.
+    F[-1]       = beta                                                      # Boundary condition on the RHS.
     
     # Problem Solving
-    A           = np.linalg.inv(A)                          # Solving the algebraic problem.
-    u_ap        = A@F                                       # Problem solution.
+    A           = np.linalg.inv(A)                                          # Solving the algebraic problem.
+    u_ap        = A@F                                                       # Problem solution.
 
-    return x, u_ap                                          # Return the mesh and the computed solution.
+    return x, u_ap                                                          # Return the mesh and the computed solution.
 
 def Poisson1D_Matrix_Neumann_3(a, b, m, f, sig, beta):
     '''
@@ -197,33 +197,33 @@ def Poisson1D_Matrix_Neumann_3(a, b, m, f, sig, beta):
             u           m x 1       Array           Array with the computed solution of the method.
     '''
     # Variable Initialization
-    x           = np.linspace(a,b,m)                        # Creation of the mesh.
-    h           = x[1] - x[0]                               # h definition as dx.
+    x           = np.linspace(a,b,m)                                        # Mesh generation.
+    h           = x[1] - x[0]                                               # h definition as dx.
 
     # Finite Differences Matrix
-    dA          = np.diag(-2*np.ones(m))                    # Main diagonal of the Matrix.
-    dAp1        = np.diag(np.ones(m-1), k = 1)              # Lower diagonal of the Matrix.
-    dAm1        = np.diag(np.ones(m-1), k = -1)             # Upper diagonal of the Matrix.
-    A           = dA + dAp1 + dAm1                          # Matrix assembly.
+    dA          = np.diag(-2*np.ones(m))                                    # Main diagonal of the Matrix.
+    dAp1        = np.diag(np.ones(m-1), k = 1)                              # Lower diagonal of the Matrix.
+    dAm1        = np.diag(np.ones(m-1), k = -1)                             # Upper diagonal of the Matrix.
+    A           = dA + dAp1 + dAm1                                          # Matrix assembly.
 
     # Handcrafted Neumann conditions
-    A[0,0]      = (3/2)*h                                   # Complete the Matrix.
-    A[0,1]      = -2*h                                      # Complete the Matrix.
-    A[0,2]      = (1/2)*h                                   # Complete the Matrix.
-    A[-1,-2]    = 0                                         # Complete the Matrix.
-    A[-1,-1]    = h**2                                      # Complete the Matrix.
-    A           = A/h**2                                    # Complete the Matrix.
+    A[0,0]      = (3/2)*h                                                   # Complete the Matrix.
+    A[0,1]      = -2*h                                                      # Complete the Matrix.
+    A[0,2]      = (1/2)*h                                                   # Complete the Matrix.
+    A[-1,-2]    = 0                                                         # Complete the Matrix.
+    A[-1,-1]    = h**2                                                      # Complete the Matrix.
+    A           = A/h**2                                                    # Complete the Matrix.
     
     # Right Hand Size (RHS)
-    F           = f(x[0:m])                                 # Components of the RHS vector.
-    F[0]        = sig                                       # Boundary condition on th RHS.
-    F[-1]       = beta                                      # Boundary condition on the RHS.
+    F           = f(x[0:m])                                                 # Components of the RHS vector.
+    F[0]        = sig                                                       # Boundary condition on th RHS.
+    F[-1]       = beta                                                      # Boundary condition on the RHS.
     
     # Problem Solving
-    A           = np.linalg.inv(A)                          # Solving the algebraic problem.
-    u_ap        = A@F                                       # Problem solution.
+    A           = np.linalg.inv(A)                                          # Solving the algebraic problem.
+    u_ap        = A@F                                                       # Problem solution.
 
-    return x, u_ap                                          # Return the mesh and the computed solution.
+    return x, u_ap                                                          # Return the mesh and the computed solution.
 
 def Poisson1D_Iter(a, b, m, f, u):
     '''
@@ -245,25 +245,28 @@ def Poisson1D_Iter(a, b, m, f, u):
     '''
 
     # Variable Initialization
-    x       = np.linspace(a,b,m)
-    dx      = x[2] - x[1]
-    u_ap    = np.zeros([m])
-    err     = 1
-    tol     = np.sqrt(np.finfo(float).eps)
+    x       = np.linspace(a,b,m)                                            # Mesh generation.
+    h      = x[2] - x[1]                                                    # h definition as dx.
+    u_ap    = np.zeros([m])                                                 # u_ap initialization with zeros.
+    err     = 1                                                             # err initialization with 1 to guarantee at least one iteration.
+    tol     = np.sqrt(np.finfo(float).eps)                                  # Tolerance of the method.
+    itera   = 0                                                             # Number of iterations performed.
 
     # Boundary Conditions
-    u_ap[0]  = u(x[0])
-    u_ap[-1] = u(x[-1])
+    u_ap[0]  = u(x[0])                                                      # Boundary condition at x = a
+    u_ap[-1] = u(x[-1])                                                     # Boundary condition at x = b.
 
     # Finite Difference Solution
-    while err >= tol:
-        err = 0
-        for i in range(1,m-1):
-            t   = (1/2)*(u_ap[i-1] + u_ap[i+1] + dx**2*f(x[i]))
-            err = max(err, abs(t - u_ap[i]))
-            u_ap[i] = t
+    while err >= tol:                                                       # While the error is greater than the tolerance.
+        itera += 1                                                          # A new iteration is performed.
+        err = 0                                                             # The error of this iteration is 0.
+        for i in range(1,m-1):                                              # For all the grin nodes.
+            t   = (1/2)*(u_ap[i-1] + u_ap[i+1] + h**2*f(x[i]))              # Finite Differences Approximation.
+            err = max(err, abs(t - u_ap[i]))                                # New error is computed.
+            u_ap[i] = t                                                     # The approximation is saved.
     
-    return x, u_ap
+    print(itera, 'were performed.')                                         # Print the total number of iterations.
+    return x, u_ap                                                          # Return the mesh and the computed solution.
 
 
 def Poisson2D_Matrix(m, f, u):
@@ -284,23 +287,23 @@ def Poisson2D_Matrix(m, f, u):
             u_ap        m x m       Array           Array with the computed solution of the method.
     '''
     # Variable Initialization
-    x      = np.linspace(0,1,m)
-    y      = np.linspace(0,1,m)
-    h      = x[2] - x[1]
-    x, y   = np.meshgrid(x,y)
-    A      = np.zeros([(m-2)*(m-2),(m-2)*(m-2)])
-    F      = np.zeros([(m-2)*(m-2),1])
-    u_ap   = np.zeros([m,m])
+    x      = np.linspace(0,1,m)                                             # x Discretization.
+    y      = np.linspace(0,1,m)                                             # y Discretization.
+    h      = x[2] - x[1]                                                    # h is defined as dx = dy.
+    x, y   = np.meshgrid(x,y)                                               # Mesh generation.
+    A      = np.zeros([(m-2)*(m-2),(m-2)*(m-2)])                            # A is initialized as a (m-2)*(m-2)x(m-2)*(m-2) square matrix.
+    F      = np.zeros([(m-2)*(m-2),1])                                      # F is initialized as a (m-1)*(m-2)x1 vector.
+    u_ap   = np.zeros([m,m])                                                # u_ap is initialized with zeros.
     
     # Finite Differences Matrix
-    dB   = np.diag(4*np.ones(m-2))
-    dBp1 = np.diag(1*np.ones((m-2)-1), k=1)
-    dBm1 = np.diag(1*np.ones((m-2)-1), k=-1)
-    B    = (dB - dBp1 - dBm1)
-    I    = -np.identity(m-2)
-    temp = 1
+    dB   = np.diag(4*np.ones(m-2))                                          # Main diagonal of first block of the matrix.
+    dBp1 = np.diag(1*np.ones((m-2)-1), k=1)                                 # Upper diagonal of the first block of the matrix.
+    dBm1 = np.diag(1*np.ones((m-2)-1), k=-1)                                # Lower diagonal of the first block of the matrix.
+    B    = (dB - dBp1 - dBm1)                                               # First block of the matrix.
+    I    = -np.identity(m-2)                                                # Identity matrix for the other two diagonals of the matrix.
+    temp = 1                                                                # temp as a counter.
 
-    for i in range(0,(m-2)*(m-2),(m-2)):
+    for i in range(0,(m-2)*(m-2),(m-2)):                                    # For all the 
         A[i:temp*(m-2), i:temp*(m-2)] = B
         if temp*(m-2) < (m-2)*(m-2):
             A[temp*(m-2):temp*(m-2)+(m-2), i:temp*(m-2)] = I
@@ -331,10 +334,10 @@ def Poisson2D_Matrix(m, f, u):
     # Approximation saving
     u_ap[1:(m-1), 1:(m-1)] = u2
     for i in range(m):
-        u_ap[i,0]   = u(x[i,0],  y[i,0])
-        u_ap[i,-1]  = u(x[i,-1], y[i,-1])
-        u_ap[0,i]   = u(x[0,i],  y[0,i])
-        u_ap[-1,i]  = u(x[-1,i], y[-1,i])
+        u_ap[i,0]   = u(x[i,0],y[i,0])
+        u_ap[i,m-1] = u(x[i,m-1],y[i,m-1])
+        u_ap[0,i]   = u(x[0,i],y[0,i])
+        u_ap[m-1,i] = u(x[m-1,i],y[m-1,i])
 
     return x, y, u_ap                                       # Return the mesh and the computed solution.
 
@@ -403,10 +406,10 @@ def Poisson2D_Matrix_2(m, f, u):
     # Approximation saving
     u_ap[1:(m-1), 1:(m-1)] = u2
     for i in range(m):
-        u_ap[i,0]   = u(x[i,0],  y[i,0])
-        u_ap[i,-1]  = u(x[i,-1], y[i,-1])
-        u_ap[0,i]   = u(x[0,i],  y[0,i])
-        u_ap[-1,i]  = u(x[-1,i], y[-1,i])
+        u_ap[i,0]   = u(x[i,0],y[i,0])
+        u_ap[i,m-1] = u(x[i,m-1],y[i,m-1])
+        u_ap[0,i]   = u(x[0,i],y[0,i])
+        u_ap[m-1,i] = u(x[m-1,i],y[m-1,i])
 
     return x, y, u_ap                                       # Return the mesh and the computed solution.
 

@@ -1,11 +1,5 @@
 """"
-Example 3 for Classical Finite Difference Schemes to solve Poisson Equation.
-
-The problem to solve is:
-    u(x,y)_{xx} + u(x,y)_yy = -f(x,y)
-
-Subject to conditions:
-    u(x,y)_\Omega = g(x,y)
+Example 1 for Classical Finite Difference Schemes to solve Diffusion Equation.
 
 All the codes were developed by:
     Dr. Gerardo Tinoco Guerrero
@@ -21,7 +15,7 @@ Date:
     October, 2022.
 
 Last Modification:
-    August, 2023.
+    September, 2023.
 """
 
 # Path Importation
@@ -34,26 +28,21 @@ sys.path.insert(1, root_dir)
 
 # Library Importation
 import numpy as np
-from Poisson_Equation import Poisson2D_Matrix_2
-from Poisson_Equation import Poisson2D_Matrix
-from Poisson_Equation import Poisson2D_Iter
-from Scripts.Graphs import Mesh_Static_una
+from Diffusion_Equation import Diffusion_1D_0
+from Scripts.Graphs import Transient_1D
 
 # Problem Parameters
-a       = 0
-b       = 1
-m       = 20
-f       = lambda x,y: 10*np.exp(2*x+y)
-u       = lambda x,y: 2*np.exp(2*x+y)
+m       = 21
+t       = 800
+u       = lambda x,t,nu: np.exp(-nu*t)*np.sin(x)
+nu      = 0.2
 
-# Problem solving
-x, y, u_ap = Poisson2D_Iter(m, f, u)
+x, T, u_ap = Diffusion_1D_0(m, t, u, nu)
 
-# Exact Solution
-u_ex = np.zeros([m,m])
-for i in range(m):
-    for j in range(m):
-        u_ex[i,j] = u(x[i,j], y[i,j])
+u_ex = np.zeros([m,t])
 
-# Plot the solutions
-Mesh_Static_una(x, y, u_ap)
+for k in range(t):
+    for i in range(m):
+        u_ex[i,k] = u(x[i], T[k], nu)
+
+Transient_1D(u_ap, u_ex, x, t)
