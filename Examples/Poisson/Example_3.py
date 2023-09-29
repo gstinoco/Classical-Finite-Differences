@@ -47,7 +47,7 @@ f       = lambda x,y: 10*np.exp(2*x+y)
 u       = lambda x,y: 2*np.exp(2*x+y)
 
 # Problem solving
-x, y, u_ap = Poisson2D_Iter(m, f, u)
+x, y, u_ap = Poisson2D_Matrix_2(m, f, u)
 
 # Exact Solution
 u_ex = np.zeros([m,m])

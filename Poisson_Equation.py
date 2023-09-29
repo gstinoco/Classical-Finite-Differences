@@ -2,10 +2,10 @@
 Classical Finite Difference Schemes to solve Poisson Equation.
 
 The problem to solve is:
-    u(x)_{xx} = -f(x)
+    u(x,y)_{xx} + u(x,y)_{yy} = -f(x,y)
 
 Subject to conditions:
-    u(x)_Omega = g(x)
+    u(x,y)_Omega = g(x,y)
 
 All the codes were developed by:
     Dr. Gerardo Tinoco Guerrero
@@ -27,7 +27,7 @@ Last Modification:
 # Library Importation
 import numpy as np
 
-def Poisson1D_Matrix(a, b, m, f, u):
+def Poisson1D_Matrix(m, f, u):
     '''
         Poisson1D_Matrix
 
@@ -35,8 +35,6 @@ def Poisson1D_Matrix(a, b, m, f, u):
         using a Matrix formulation of the Finite Difference centered scheme.
 
         Input:
-            a                       Real            Initial value of the test region.
-            b                       Real            Final value of the test region.
             m                       Integer         Number of nodes in the grid.
             f                       Function        Function with the sources and sinks.
             u                       Function        Function for the boundary conditions.
@@ -46,7 +44,7 @@ def Poisson1D_Matrix(a, b, m, f, u):
             u_ap        m x 1       Array           Array with the computed solution of the method.
     '''
     # Variable Initialization
-    x           = np.linspace(a,b,m)                                        # Mesh generation.
+    x           = np.linspace(0,1,m)                                        # Mesh generation.
     h           = x[1] - x[0]                                               # h definition as dx.
     u_ap        = np.zeros([m])                                             # u_ap initialization.
 
@@ -77,7 +75,7 @@ def Poisson1D_Matrix(a, b, m, f, u):
 
     return x, u_ap                                                          # Return the mesh and the computed solution.
 
-def Poisson1D_Matrix_Neumann_1(a, b, m, f, sig, beta):
+def Poisson1D_Matrix_Neumann_1(m, f, sig, beta):
     '''
         Poisson1D_Matrix_Neumann_1
 
@@ -87,8 +85,6 @@ def Poisson1D_Matrix_Neumann_1(a, b, m, f, sig, beta):
         The Neumann boundary condition is applied with a two-point-backward finite difference scheme.
 
         Input:
-            a                       Real            Initial value of the test region.
-            b                       Real            Final value of the test region.
             m                       Integer         Number of nodes in the grid.
             f                       Function        Function with the sources and sinks.
             sig                     Real            Value of the derivative on the Neumann boundary condition.
@@ -99,7 +95,7 @@ def Poisson1D_Matrix_Neumann_1(a, b, m, f, sig, beta):
             u           m x 1       Array           Array with the computed solution of the method.
     '''
     # Variable Initialization
-    x           = np.linspace(a,b,m)                                        # Mesh generation.
+    x           = np.linspace(0,1,m)                                        # Mesh generation.
     h           = x[1] - x[0]                                               # h definition as dx.
 
     # Finite Differences Matrix
@@ -126,7 +122,7 @@ def Poisson1D_Matrix_Neumann_1(a, b, m, f, sig, beta):
 
     return x, u_ap                                                          # Return the mesh and the computed solution.
 
-def Poisson1D_Matrix_Neumann_2(a, b, m, f, sig, beta):
+def Poisson1D_Matrix_Neumann_2(m, f, sig, beta):
     '''
         Poisson1D_Matrix_Neumann_2
 
@@ -136,8 +132,6 @@ def Poisson1D_Matrix_Neumann_2(a, b, m, f, sig, beta):
         The Neumann boundary condition is applied with a two-point-centered finite difference scheme.
 
         Input:
-            a                       Real            Initial value of the test region.
-            b                       Real            Final value of the test region.
             m                       Integer         Number of nodes in the grid.
             f                       Function        Function with the sources and sinks.
             sig                     Real            Value of the derivative on the Neumann boundary condition.
@@ -148,7 +142,7 @@ def Poisson1D_Matrix_Neumann_2(a, b, m, f, sig, beta):
             u           m x 1       Array           Array with the computed solution of the method.
     '''
     # Variable Initialization
-    x           = np.linspace(a,b,m)                                        # Mesh generation.
+    x           = np.linspace(0,1,m)                                        # Mesh generation.
     h           = x[1] - x[0]                                               # h definition as dx.
 
     # Finite Differences Matrix
@@ -175,7 +169,7 @@ def Poisson1D_Matrix_Neumann_2(a, b, m, f, sig, beta):
 
     return x, u_ap                                                          # Return the mesh and the computed solution.
 
-def Poisson1D_Matrix_Neumann_3(a, b, m, f, sig, beta):
+def Poisson1D_Matrix_Neumann_3(m, f, sig, beta):
     '''
         Poisson1D_Matrix_Neumann_3
 
@@ -185,8 +179,6 @@ def Poisson1D_Matrix_Neumann_3(a, b, m, f, sig, beta):
         The Neumann boundary condition is applied with a three-point-forward finite difference scheme.
 
         Input:
-            a                       Real            Initial value of the test region.
-            b                       Real            Final value of the test region.
             m                       Integer         Number of nodes in the grid.
             f                       Function        Function with the sources and sinks.
             sig                     Real            Value of the derivative on the Neumann boundary condition.
@@ -197,7 +189,7 @@ def Poisson1D_Matrix_Neumann_3(a, b, m, f, sig, beta):
             u           m x 1       Array           Array with the computed solution of the method.
     '''
     # Variable Initialization
-    x           = np.linspace(a,b,m)                                        # Mesh generation.
+    x           = np.linspace(0,1,m)                                        # Mesh generation.
     h           = x[1] - x[0]                                               # h definition as dx.
 
     # Finite Differences Matrix
@@ -225,7 +217,7 @@ def Poisson1D_Matrix_Neumann_3(a, b, m, f, sig, beta):
 
     return x, u_ap                                                          # Return the mesh and the computed solution.
 
-def Poisson1D_Iter(a, b, m, f, u):
+def Poisson1D_Iter(m, f, u):
     '''
         Poisson1D_Iter
 
@@ -233,8 +225,6 @@ def Poisson1D_Iter(a, b, m, f, u):
         using an Iterative formulation of the Finite Difference centered scheme.
 
         Input:
-            a                       Real            Initial value of the test region.
-            b                       Real            Final value of the test region.
             m                       Integer         Number of nodes in the grid.
             f                       Function        Function with the sources and sinks.
             u                       Function        Function for the boundary conditions.
@@ -245,7 +235,7 @@ def Poisson1D_Iter(a, b, m, f, u):
     '''
 
     # Variable Initialization
-    x       = np.linspace(a,b,m)                                            # Mesh generation.
+    x       = np.linspace(0,1,m)                                            # Mesh generation.
     h      = x[2] - x[1]                                                    # h definition as dx.
     u_ap    = np.zeros([m])                                                 # u_ap initialization with zeros.
     err     = 1                                                             # err initialization with 1 to guarantee at least one iteration.
@@ -260,12 +250,12 @@ def Poisson1D_Iter(a, b, m, f, u):
     while err >= tol:                                                       # While the error is greater than the tolerance.
         itera += 1                                                          # A new iteration is performed.
         err = 0                                                             # The error of this iteration is 0.
-        for i in range(1,m-1):                                              # For all the grin nodes.
+        for i in range(1,m-1):                                              # For all the grid nodes.
             t   = (1/2)*(u_ap[i-1] + u_ap[i+1] + h**2*f(x[i]))              # Finite Differences Approximation.
             err = max(err, abs(t - u_ap[i]))                                # New error is computed.
             u_ap[i] = t                                                     # The approximation is saved.
     
-    print(itera, 'were performed.')                                         # Print the total number of iterations.
+    print(itera, ' iterations were performed.')                             # Print the total number of iterations.
     return x, u_ap                                                          # Return the mesh and the computed solution.
 
 
@@ -303,43 +293,43 @@ def Poisson2D_Matrix(m, f, u):
     I    = -np.identity(m-2)                                                # Identity matrix for the other two diagonals of the matrix.
     temp = 1                                                                # temp as a counter.
 
-    for i in range(0,(m-2)*(m-2),(m-2)):                                    # For all the 
-        A[i:temp*(m-2), i:temp*(m-2)] = B
-        if temp*(m-2) < (m-2)*(m-2):
-            A[temp*(m-2):temp*(m-2)+(m-2), i:temp*(m-2)] = I
-            A[i:temp*(m-2), temp*(m-2):temp*(m-2)+(m-2)] = I
+    for i in range(0,(m-2)*(m-2),(m-2)):                                    # For all the nodes in the range.
+        A[i:temp*(m-2), i:temp*(m-2)] = B                                   # Save the main block of the matrix.
+        if temp*(m-2) < (m-2)*(m-2):                                        # If we are in the neighbor nodes.
+            A[temp*(m-2):temp*(m-2)+(m-2), i:temp*(m-2)] = I                # Save the identity in the matrix.
+            A[i:temp*(m-2), temp*(m-2):temp*(m-2)+(m-2)] = I                # Save the identity in the matrix.
         temp += 1
 
     # Right Hand Size (RHS)
-    for i in range(1,m-1):
-        temp       = i-1
-        F[temp] += u(x[i,0], y[i,0])
-        temp       = (i-1) + (m-2)*((m-1)-2)
-        F[temp] += u(x[i,m-1], y[i,m-1])
-        temp       = (m-2)*(i-1)
-        F[temp] += u(x[0,i], y[0,i])
-        temp       = ((m-1)-2) + (m-2)*(i-1)
-        F[temp] += u(x[m-1,i], y[m-1,i])
+    for i in range(1,m-1):                                                  # For all the inner nodes.
+        temp       = i-1                                                    # Value of a temporal counter.
+        F[temp] += u(x[i,0], y[i,0])                                        # Add the Right Hand Size to F.
+        temp       = (i-1) + (m-2)*((m-1)-2)                                # Value of a temporal counter.
+        F[temp] += u(x[i,m-1], y[i,m-1])                                    # Add the Right Hand Size to F.
+        temp       = (m-2)*(i-1)                                            # Value of a temporal counter.
+        F[temp] += u(x[0,i], y[0,i])                                        # Add the Right Hand Size to F.
+        temp       = ((m-1)-2) + (m-2)*(i-1)                                # Value of a temporal counter.
+        F[temp] += u(x[m-1,i], y[m-1,i])                                    # Add the Right Hand Size to F.
 
-    for i in range(1,m-1):
-        for j in range(1,m-2):
-            temp       = (i-1) + (m-2)*(j-1)
-            F[temp] += -(h**2)*f(x[i,j], y[i,j])
+    for i in range(1,m-1):                                                  # For all the inner nodes.
+        for j in range(1,m-2):                                              # For all the inner nodes.
+            temp       = (i-1) + (m-2)*(j-1)                                # Value of a temporal counter.    
+            F[temp] += -(h**2)*f(x[i,j], y[i,j])                            # Add -f to the RHS.
 
     # Problem Solving
-    A  = np.linalg.pinv(A)
-    u2 = A@F
-    u2 = np.reshape(u2, (m-2,m-2)).transpose()
+    A  = np.linalg.pinv(A)                                                  # Inverse matrix.
+    u2 = A@F                                                                # Problem solving.
+    u2 = np.reshape(u2, (m-2,m-2)).transpose()                              # Reshape the solution into a square matrix.
 
     # Approximation saving
-    u_ap[1:(m-1), 1:(m-1)] = u2
-    for i in range(m):
-        u_ap[i,0]   = u(x[i,0],y[i,0])
-        u_ap[i,m-1] = u(x[i,m-1],y[i,m-1])
-        u_ap[0,i]   = u(x[0,i],y[0,i])
-        u_ap[m-1,i] = u(x[m-1,i],y[m-1,i])
+    u_ap[1:(m-1), 1:(m-1)] = u2                                             # Add the solution to u_ap.
+    for i in range(m):                                                      # For all the nodes in the boundary.
+        u_ap[i,0]   = u(x[i,0],y[i,0])                                      # Add the boundary condition to the solution.
+        u_ap[i,m-1] = u(x[i,m-1],y[i,m-1])                                  # Add the boundary condition to the solution.
+        u_ap[0,i]   = u(x[0,i],y[0,i])                                      # Add the boundary condition to the solution.
+        u_ap[m-1,i] = u(x[m-1,i],y[m-1,i])                                  # Add the boundary condition to the solution.
 
-    return x, y, u_ap                                       # Return the mesh and the computed solution.
+    return x, y, u_ap                                                       # Return the mesh and the computed solution.
 
 def Poisson2D_Matrix_2(m, f, u):
     '''
@@ -360,58 +350,54 @@ def Poisson2D_Matrix_2(m, f, u):
             u_ap        m x m       Array           Array with the computed solution of the method.
     '''
     # Variable Initialization
-    x      = np.linspace(0,1,m)
-    y      = np.linspace(0,1,m)
-    h      = x[2] - x[1]
-    x, y   = np.meshgrid(x,y)
-    A      = np.zeros([(m-2)*(m-2),(m-2)*(m-2)])
-    F      = np.zeros([(m-2),(m-2)])
-    u_ap   = np.zeros([m,m])
-    
-    # Finite Differences Matrix
-    dB   = np.diag(4*np.ones(m-2))
-    dBp1 = np.diag(1*np.ones((m-2)-1), k=1)
-    dBm1 = np.diag(1*np.ones((m-2)-1), k=-1)
-    B    = (dB - dBp1 - dBm1)
-    I    = -np.identity(m-2)
-    temp = 1
+    x      = np.linspace(0,1,m)                                             # x Discretization.
+    y      = np.linspace(0,1,m)                                             # y Discretization.
+    h      = x[2] - x[1]                                                    # h is defined as dx = dy.
+    x, y   = np.meshgrid(x,y)                                               # Mesh generation.
+    A      = np.zeros([(m-2)*(m-2),(m-2)*(m-2)])                            # A is initialized as a (m-2)*(m-2)x(m-2)*(m-2) square matrix.
+    F      = np.zeros([(m-2),(m-2)])                                        # F is initialized as a (m-1)*(m-2)x1 vector.
+    u_ap   = np.zeros([m,m])                                                # u_ap is initialized with zeros.
 
-    for i in range(0,(m-2)*(m-2),(m-2)):
-        A[i:temp*(m-2), i:temp*(m-2)] = B
-        if temp*(m-2) < (m-2)*(m-2):
-            A[temp*(m-2):temp*(m-2)+(m-2), i:temp*(m-2)] = I
-            A[i:temp*(m-2), temp*(m-2):temp*(m-2)+(m-2)] = I
+    # Finite Differences Matrix
+    dB   = np.diag(4*np.ones(m-2))                                          # Main diagonal of first block of the matrix.
+    dBp1 = np.diag(1*np.ones((m-2)-1), k=1)                                 # Upper diagonal of the first block of the matrix.
+    dBm1 = np.diag(1*np.ones((m-2)-1), k=-1)                                # Lower diagonal of the first block of the matrix.
+    B    = (dB - dBp1 - dBm1)                                               # First block of the matrix.
+    I    = -np.identity(m-2)                                                # Identity matrix for the other two diagonals of the matrix.
+    temp = 1                                                                # temp as a counter.
+
+    for i in range(0,(m-2)*(m-2),(m-2)):                                    # For all the nodes in the range.
+        A[i:temp*(m-2), i:temp*(m-2)] = B                                   # Save the main block of the matrix.
+        if temp*(m-2) < (m-2)*(m-2):                                        # If we are in the neighbor nodes.
+            A[temp*(m-2):temp*(m-2)+(m-2), i:temp*(m-2)] = I                # Save the identity in the matrix.
+            A[i:temp*(m-2), temp*(m-2):temp*(m-2)+(m-2)] = I                # Save the identity in the matrix.
         temp += 1
 
     # Right Hand Size (RHS)
-    for i in range(m-2):
-        for j in range(m-2):
-            F[i,j] = -(h**2)*f(x[i+1,j+1], y[i+1,j+1])
+    for i in range(m-2):                                                    # For all the inner nodes in x direction.
+        for j in range(m-2):                                                # For all the inner nodes in y direction.
+            F[i,j] -= (h**2)*f(x[i+1,j+1], y[i+1,j+1])                      # Value of the RHS.
+        F[i,0]  += u(x[i+1,0],  y[i+1,0])                                   # Boundary conditions to the RHS.
+        F[i,-1] += u(x[i+1,-1], y[i+1,-1])                                  # Boundary conditions to the RHS.
+        F[0,i]  += u(x[0,i+1],  y[0,i+1])                                   # Boundary conditions to the RHS.
+        F[-1,i] += u(x[-1,i+1], y[-1,i+1])                                  # Boundary conditions to the RHS.
     
-    for i in range(m-2):
-        F[i,0]  += u(x[i+1,0],  y[i+1,0])
-        F[i,-1] += u(x[i+1,-1], y[i+1,-1])
-    
-    for j in range(m-2):
-        F[0,j]  += u(x[0,j+1],  y[0,j+1])
-        F[-1,j] += u(x[-1,j+1], y[-1,j+1])
-
-    F = F.flatten(order='F')
+    F = F.flatten(order='F')                                                # Make F a column vector.
 
     # Problem Solving
-    A  = np.linalg.pinv(A)
-    u2 = A@F
-    u2 = np.reshape(u2, (m-2,m-2)).transpose()
+    A  = np.linalg.pinv(A)                                                  # Inverse matrix.
+    u2 = A@F                                                                # Problem solving.
+    u2 = np.reshape(u2, (m-2,m-2)).transpose()                              # Reshape the solution into a square matrix.
 
     # Approximation saving
-    u_ap[1:(m-1), 1:(m-1)] = u2
-    for i in range(m):
-        u_ap[i,0]   = u(x[i,0],y[i,0])
-        u_ap[i,m-1] = u(x[i,m-1],y[i,m-1])
-        u_ap[0,i]   = u(x[0,i],y[0,i])
-        u_ap[m-1,i] = u(x[m-1,i],y[m-1,i])
+    u_ap[1:(m-1), 1:(m-1)] = u2                                             # Add the solution to u_ap.
+    for i in range(m):                                                      # For all the nodes in the boundary.
+        u_ap[i,0]   = u(x[i,0],y[i,0])                                      # Add the boundary condition to the solution.
+        u_ap[i,m-1] = u(x[i,m-1],y[i,m-1])                                  # Add the boundary condition to the solution.
+        u_ap[0,i]   = u(x[0,i],y[0,i])                                      # Add the boundary condition to the solution.
+        u_ap[m-1,i] = u(x[m-1,i],y[m-1,i])                                  # Add the boundary condition to the solution.
 
-    return x, y, u_ap                                       # Return the mesh and the computed solution.
+    return x, y, u_ap                                                       # Return the mesh and the computed solution.
 
 def Poisson2D_Iter(m, f, u):
     '''
@@ -431,29 +417,32 @@ def Poisson2D_Iter(m, f, u):
             u_ap        m x m       Array           Array with the computed solution of the method.
     '''
     # Variable Initialization
-    x      = np.linspace(0,1,m)
-    y      = np.linspace(0,1,m)
-    h      = x[2] - x[1]
-    x, y   = np.meshgrid(x,y)
-    u_ap   = np.zeros([m,m])
-    err    = 1
-    tol    = np.sqrt(np.finfo(float).eps)
+    x      = np.linspace(0,1,m)                                             # x Discretization.
+    y      = np.linspace(0,1,m)                                             # y Discretization.
+    h      = x[2] - x[1]                                                    # h is defined as dx = dy.
+    x, y   = np.meshgrid(x,y)                                               # Mesh generation.
+    u_ap   = np.zeros([m,m])                                                # u_ap initialization with zeros.
+    err     = 1                                                             # err initialization with 1 to guarantee at least one iteration.
+    tol     = np.sqrt(np.finfo(float).eps)                                  # Tolerance of the method.
+    itera   = 0                                                             # Number of iterations performed.
 
     # Boundary Condition
-    for i in range(m):
-        u_ap[i,0]  = u(x[i,0], y[i,0])
-        u_ap[i,-1] = u(x[i,-1], y[i,-1])
-        u_ap[0,i]  = u(x[0,i], y[0,i])
-        u_ap[-1,i] = u(x[-1,i], y[-1,i])
+    for i in range(m):                                                      # For all the boundary nodes.
+        u_ap[i,0]  = u(x[i,0], y[i,0])                                      # The boundary on the bottom is added.
+        u_ap[i,-1] = u(x[i,-1], y[i,-1])                                    # The boundary on the top is added.
+        u_ap[0,i]  = u(x[0,i], y[0,i])                                      # The boundary on the right is added.
+        u_ap[-1,i] = u(x[-1,i], y[-1,i])                                    # The boundary on the left is added.
     
-    while err >= tol:
-        err = 0
-        for i in range(1,m-1):
-            for j in range(1,m-1):
+    while err >= tol:                                                       # While the error is greater than the tolerance.
+        itera += 1                                                          # A new iteration is performed.
+        err = 0                                                             # The error of this iteration is 0.
+        for i in range(1,m-1):                                              # For all the grid nodes in x.
+            for j in range(1,m-1):                                          # For all the grin nodes in y.
                 t = (1/4)*(u_ap[i-1,j] + u_ap[i+1,j] + \
                     u_ap[i,j-1] + u_ap[i,j+1] - \
-                    (h**2)*f(x[i,j],y[i,j]))
-                err = max(err, abs(t - u_ap[i,j]))
-                u_ap[i,j] = t
+                    (h**2)*f(x[i,j],y[i,j]))                                # The new approximated solution is computed.
+                err = max(err, abs(t - u_ap[i,j]))                          # The new error is computed.
+                u_ap[i,j] = t                                               # The approximated solution is stored.
     
-    return x, y, u_ap                                       # Return the mesh and the computed solution.
+    print(itera, ' iterations were performed.')                             # Print the total number of iterations.
+    return x, y, u_ap                                                       # Return the mesh and the computed solution.

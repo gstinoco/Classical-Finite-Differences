@@ -48,30 +48,10 @@ m       = 21
 f       = lambda x: 2*np.sin(x) + x*np.cos(x)
 u       = lambda x: x*np.cos(x)
 
-print('Este es el iterativo')
-
-x, u_ap = Poisson1D_Iter(a, b, m, f, u)
-x       = np.linspace(a,b,m)
+x, u_ap = Poisson1D_Iter(m, f, u)
 u_ex    = u(x)
 
-Graph_1D_Stationary(a, b, m, u_ap, u_ex)
-
-E_in = E_inf(u_ap, u_ex)
-print('La norma infinito es:', E_in)
-
-E_un = E_uno(u_ap, u_ex)
-print('La norma uno es:', E_un)
-
-E_do = E_dos(u_ap, u_ex)
-print('La norma dos es:', E_do)
-
-print('A partir de aquí es la formulación de Matriz')
-
-x, u_ap = Poisson1D_Matrix(a, b, m, f, u)
-x       = np.linspace(a,b,m)
-u_ex    = u(x)
-
-Graph_1D_Stationary(a, b, m, u_ap, u_ex)
+Graph_1D_Stationary(x, u_ap, u_ex)
 
 E_in = E_inf(u_ap, u_ex)
 print('La norma infinito es:', E_in)

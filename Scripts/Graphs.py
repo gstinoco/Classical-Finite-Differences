@@ -22,8 +22,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits import mplot3d
 
-def Graph_1D_Stationary(a, b, m, u_ap, u_ex):
-    x = np.linspace(a, b, m)
+def Graph_1D_Stationary(x, u_ap, u_ex):
     fig, (ax1, ax2) = plt.subplots(1, 2)
     plt.rcParams['figure.figsize'] = (10,5)
     plt.suptitle('Solution Comparison')
@@ -39,18 +38,17 @@ def Graph_1D_Stationary(a, b, m, u_ap, u_ex):
     ax2.set_ylim([min,max])
     plt.show()
 
-def Graph_1D_Stationary_1(a, b, m, u_ap):
-    x = np.linspace(a, b, m)
+def Graph_1D_Stationary_1(x, u_ap):
     fig = plt.plot(x,u_ap)
     plt.title('Computed Solution')
     plt.rcParams['figure.figsize'] = (10,5)
     
     plt.show()
 
-def Graph_1D_Transient(u_ap, u_ex, x, t):
+def Graph_1D_Transient(x, t, u_ap, u_ex):
     fig, (ax1, ax2) = plt.subplots(1, 2)
     plt.rcParams["figure.figsize"] = (10,5)
-    plt.suptitle('Diffusion Equation')
+    plt.suptitle('Solution Comparison')
     min  = u_ex.min()
     max  = u_ex.max()
     p = int(np.ceil(t/100))
@@ -58,11 +56,11 @@ def Graph_1D_Transient(u_ap, u_ex, x, t):
     for i in range(0,t,p):
         ax1.plot(x, u_ap[:,i])
         ax1.set_ylim([min,max])
-        ax1.set_title('Solución Aproximada')
+        ax1.set_title('Computed Solution')
     
         ax2.plot(x, u_ex[:,i])
         ax2.set_ylim([min,max])
-        ax2.set_title('Solución Exacta')
+        ax2.set_title('Theoretical Solution')
     
         plt.pause(0.01)
         ax1.clear()

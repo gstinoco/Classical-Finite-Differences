@@ -45,9 +45,9 @@ b       = 1
 m       = 20
 f       = lambda x: np.exp(x)
 
-x, u_ap = Poisson1D_Matrix_Neumann_1(a, b, m, f, 0, 3)
-#Graph_1D_Stationary_1(a, b, m, u_ap)
-x, u_ap = Poisson1D_Matrix_Neumann_2(a, b, m, f, 0, 3)
-#Graph_1D_Stationary_1(a, b, m, u_ap)
-x, u_ap = Poisson1D_Matrix_Neumann_3(a, b, m, f, 0, 3)
-Graph_1D_Stationary_1(a, b, m, u_ap)
+x, u_ap = Poisson1D_Matrix_Neumann_1(m, f, 0, 3)
+#Graph_1D_Stationary_1(x, u_ap)
+x, u_ap = Poisson1D_Matrix_Neumann_2(m, f, 0, 3)
+#Graph_1D_Stationary_1(x, u_ap)
+x, u_ap = Poisson1D_Matrix_Neumann_3(m, f, 0, 3)
+Graph_1D_Stationary_1(x, u_ap)
