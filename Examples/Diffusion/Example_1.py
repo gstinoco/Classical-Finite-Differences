@@ -28,7 +28,7 @@ sys.path.insert(1, root_dir)
 
 # Library Importation
 import numpy as np
-from Diffusion_Equation import Diffusion_1D_0
+from Diffusion_Equation import Diffusion_1D_1
 from Scripts.Graphs import Graph_1D_Transient
 
 # Problem Parameters
@@ -37,7 +37,7 @@ t       = 800
 u       = lambda x,t,nu: np.exp(-nu*t)*np.sin(x)
 nu      = 0.2
 
-x, T, u_ap = Diffusion_1D_0(m, t, u, nu)
+x, T, u_ap = Diffusion_1D_1(m, t, u, nu)
 
 u_ex = np.zeros([m,t])
 
