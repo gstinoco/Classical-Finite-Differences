@@ -17,3 +17,12 @@ def E_dos(u_ap, u_ex):
     E      = np.sqrt((1/m)*np.sum((E**2)))
 
     return E
+
+def l2_err_t(u_ap, u_ex):
+    m   = np.size(u_ap, 0)
+    t   = np.size(u_ap, 1)
+    err = np.zeros([t])
+    for k in range(t):
+        err[k] = E_dos(u_ap[:,k], u_ex[:,k])
+    
+    return err
