@@ -27,6 +27,7 @@ Last Modification:
 
 # Library Importation
 import numpy as np
+from Scripts.Runge_Kutta import RungeKutta3
 
 def Diffusion_1D_0(m, t, u, nu):
     x    = np.linspace(0,1,m)                                               # Mesh generation.
@@ -116,12 +117,26 @@ def Diffusion_1D_CN_0(m, t, u, nu):
     
     return x, T, u_ap                                                       # Return the meshes and the approximated solution.
 
-def Diffusion_1D_MOL(m, t, u, nu):
+def Diffusion_1D_MOL_RK(m, t, u, nu):
     x    = np.linspace(0,1,m)                                               # Mesh generation.
     T    = np.linspace(0, 1, t)                                             # Mesh generation in time.
     dx   = x[1] - x[0]                                                      # dx is defined as the space step-length.
     dt   = T[1] - T[0]                                                      # dt is defined as the time step-length.
     u_ap = np.zeros([m,t])                                                  # u_ap is initialized with zeros.
+
+    # Initial condition
+    for i in range(m):                                                      # For all the grid nodes.
+        u_ap[i,0] = u(x[i],T[0],nu)                                         # The initial condition is assigned.
+    
+    # Boundary conditions
+    for k in range(t):                                                      # For all the time steps.
+        u_ap[0,k]  = u(x[0],T[k],nu)                                        # Boundary condition at x = 0.
+        u_ap[-1,k] = u(x[-1],T[k],nu)                                       # Boundary condition at x = 1.
+    
+    # Runge-Kutta
+    u_ap[1:-1,:] = RungeKutta3(x, T, nu, u, u_ap)
+
+    return x, T, u_ap
 
 def Diffusion_2D_0(m, t, u, nu):
     x    = np.linspace(0,1,m)                                               # Mesh generation for x.

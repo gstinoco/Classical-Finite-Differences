@@ -31,12 +31,13 @@ import numpy as np
 from Diffusion_Equation import Diffusion_1D_0
 from Diffusion_Equation import Diffusion_1D_1
 from Diffusion_Equation import Diffusion_1D_CN_0
+from Diffusion_Equation import Diffusion_1D_MOL_RK
 from Scripts.Graphs import Graph_1D_Transient
 from Scripts.Error_norms import l2_err_t
 
 # Problem Parameters
 m       = 10
-t       = 5
+t       = 200
 u       = lambda x,t,nu: np.exp(-nu*t)*np.sin(x)
 nu      = 0.2
 x    = np.linspace(0, 1, m)
@@ -47,17 +48,7 @@ for k in range(t):
     for i in range(m):
         u_ex[i,k] = u(x[i], T[k], nu)
 
-x, T, u_ap = Diffusion_1D_0(m, t, u, nu)
-err = l2_err_t(u_ap, u_ex)
-print(max(err))
+x, T, u_ap = Diffusion_1D_MOL_RK(m, t, u, nu)
+#err = l2_err_t(u_ap, u_ex)
+#print(max(err))
 Graph_1D_Transient(x, t, u_ap, u_ex)
-
-x, T, u_ap = Diffusion_1D_1(m, t, u, nu)
-err = l2_err_t(u_ap, u_ex)
-print(max(err))
-#Graph_1D_Transient(x, t, u_ap, u_ex)
-
-x, T, u_ap = Diffusion_1D_CN_0(m, t, u, nu)
-err = l2_err_t(u_ap, u_ex)
-print(max(err))
-#Graph_1D_Transient(x, t, u_ap, u_ex)
