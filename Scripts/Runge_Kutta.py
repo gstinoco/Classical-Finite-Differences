@@ -40,9 +40,9 @@ def RungeKutta3(x, T, nu, u, u_ap):
     dt = T[1] - T[0]
 
     for k in range(t-1):
-        k1 = rhs(u_ap[:,k],           T,        k, x, nu, u)
-        k2 = rhs(u_ap[:,k]+(dt/2)*k1, T+(dt/2), k, x, nu, u)
-        k3 = rhs(u_ap[:,k]+dt*(2*k2-k1), T+dt, k, x, nu, u)
+        k1 = rhs(u_ap[:,k],              T,        k, x, nu, u)
+        k2 = rhs(u_ap[:,k]+(dt/2)*k1,    T+(dt/2), k, x, nu, u)
+        k3 = rhs(u_ap[:,k]+dt*(2*k2-k1), T+dt,     k, x, nu, u)
         u_ap[1:-1,k+1] = u_ap[1:-1,k] + (dt/6)*(k1[1:-1] + 4*k2[1:-1] + k3[1:-1])
     
     return u_ap[1:-1,:]
