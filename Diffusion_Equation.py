@@ -138,7 +138,7 @@ def Diffusion_1D_MOL_RK(m, t, u, nu):
 
     return x, T, u_ap
 
-def Diffusion_2D_0(m, t, u, nu):
+def Diffusion_2D_1(m, t, u, nu):
     x    = np.linspace(0,1,m)                                               # Mesh generation for x.
     y    = np.linspace(0,1,m)                                               # Mesh generation for y.
     dx   = x[1] - x[0]                                                      # dx is defined as the space step-length in x.
@@ -147,8 +147,7 @@ def Diffusion_2D_0(m, t, u, nu):
     T    = np.linspace(0, 1, t)                                             # Mesh generation in time.
     dt   = T[1] - T[0]                                                      # dt is defined as the time step-length.
     u_ap = np.zeros([m,m,t])                                                # u_ap is initialized with zeros.
-    A    = np.zeros([m-2,m])                                                # A is the Finite Differences matrix.
-
+    
     # Initial condition
     for i in range(m):                                                      # For all the grid nodes in x.
         for j in range(m):                                                  # For all the grid nodes in y.
@@ -157,9 +156,9 @@ def Diffusion_2D_0(m, t, u, nu):
     # Boundary conditions
     for k in range(t):                                                      # For all the time steps.
         for i in range(m):
-            u_ap[i,0,k]  = u(x[i,0],  y[i,0],T[k],nu)                       # Boundary condition at x = 0.
+            u_ap[i,0,k]  = u(x[i,0],  y[i,0], T[k],nu)                      # Boundary condition at x = 0.
             u_ap[i,-1,k] = u(x[i,-1], y[i,-1],T[k],nu)                      # Boundary condition at x = 1.
-            u_ap[0,i,k]  = u(x[0,i],  y[0,i],T[k],nu)                       # Boundary condition at x = 0.
+            u_ap[0,i,k]  = u(x[0,i],  y[0,i], T[k],nu)                      # Boundary condition at x = 0.
             u_ap[-1,i,k] = u(x[-1,i], y[-1,i],T[k],nu)                      # Boundary condition at x = 1.
     
     # Finite Differences Matrix
