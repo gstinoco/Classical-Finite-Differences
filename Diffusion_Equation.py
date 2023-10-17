@@ -161,16 +161,8 @@ def Diffusion_2D_1(m, t, u, nu):
             u_ap[0,i,k]  = u(x[0,i],  y[0,i], T[k],nu)                      # Boundary condition at x = 0.
             u_ap[-1,i,k] = u(x[-1,i], y[-1,i],T[k],nu)                      # Boundary condition at x = 1.
     
-    # Finite Differences Matrix
-    for i in range(m-2):                                                    # For the nodes in the range.
-        A[i,i]   = 1                                                        # First diagonal of the matrix.
-        A[i,i+1] = -4                                                       # Second diagonal of the matrix.
-        A[i,i+2] = 1                                                        # Third diagonal of the matrix.
-    
-    A *= nu*(dt/(dx**2))                                                    # A updated.
-
     for k in range(t-1):                                                    # For all the time-steps.
         u_ap[1:-1,k+1] = u_ap[1:-1,k] + \
                          (A@u_ap[:,k])                                      # The new approximation is performed.
     
-    return x, T, u_ap                                                       # Return the meshes and the approximated solution.
+    return u_ap                                                             # Return the meshes and the approximated solution.
