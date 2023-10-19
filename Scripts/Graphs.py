@@ -105,8 +105,9 @@ def Graph_2D_Transient(x, y, u_ap, u_ex):
     max  = u_ex.max()
     T    = np.linspace(0,1,t)
     
+    fig, (ax1, ax2) = plt.subplots(1, 2, subplot_kw = {"projection": "3d"}, figsize=(8, 4))
+
     for k in np.arange(0,t,step):
-        fig, (ax1, ax2) = plt.subplots(1, 2, subplot_kw = {"projection": "3d"}, figsize=(8, 4))
         tin = float(T[k])
         plt.suptitle('Solution at t = %1.3f s.' %tin)
         
@@ -119,9 +120,10 @@ def Graph_2D_Transient(x, y, u_ap, u_ex):
         ax2.set_title('Theoretical Solution')
 
         plt.pause(0.01)
-        plt.close()
+        ax1.clear()
+        ax2.clear()
+        plt.cla()
     
-    fig, (ax1, ax2) = plt.subplots(1, 2, subplot_kw = {"projection": "3d"}, figsize=(8, 4))
     tin = float(T[t-1])
     plt.suptitle('Solution at t = %1.3f s.' %tin)
     
