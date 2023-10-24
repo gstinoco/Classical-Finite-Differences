@@ -66,7 +66,7 @@ def Diffusion_1D_0(m, t, u, nu):
         u_new = u_ap[:, k] + A@u_ap[:, k]                                   # The new approximation is computed.
         u_ap[1:-1, k+1] = u_new[1:-1]                                       # Tha approximation is saved.
 
-    return x, T, u_ap                                                       # Return the meshes and the approximated solution.
+    return u_ap                                                             # Return the approximated solution.
 
 def Diffusion_1D_1(m, t, u, nu):
     x    = np.linspace(0,1,m)                                               # Mesh generation.
@@ -90,7 +90,7 @@ def Diffusion_1D_1(m, t, u, nu):
             u_ap[i,k+1] = u_ap[i,k] + r* \
                             (u_ap[i-1,k] - 2*u_ap[i,k] + u_ap[i+1,k])       # The new approximation is performed.
             
-    return x, T, u_ap                                                       # Return the meshes and the approximated solution.
+    return u_ap                                                             # Return the approximated solution.
 
 def Diffusion_1D_CN_0(m, t, u, nu):
     x    = np.linspace(0,1,m)                                               # Mesh generation.
@@ -128,7 +128,7 @@ def Diffusion_1D_CN_0(m, t, u, nu):
         u_new = B@(u_ap[:,k] + A@u_ap[:,k])                                 # The new approximation is computed.
         u_ap[1:m-1, k+1] = u_new[1:m-1]                                     # Tha approximation is saved.
 
-    return x, T, u_ap                                                       # Return the meshes and the approximated solution.
+    return u_ap                                                             # Return the approximated solution.
 
 def Diffusion_1D_CN_1(m, t, u, nu):
     x    = np.linspace(0,1,m)                                               # Mesh generation.
@@ -162,7 +162,7 @@ def Diffusion_1D_CN_1(m, t, u, nu):
                 err = max(err, abs(u_new - u_ap[i,k+1]))                    # New difference is computed.
                 u_ap[i,k+1] = u_new                                         # The approximation is saved.
 
-    return x, T, u_ap                                                       # Return the meshes and the approximated solution.
+    return u_ap                                                             # Return the approximated solution.
 
 def Diffusion_1D_MOL_RK(m, t, u, nu):
     x    = np.linspace(0,1,m)                                               # Mesh generation.
@@ -181,9 +181,9 @@ def Diffusion_1D_MOL_RK(m, t, u, nu):
         u_ap[-1,k] = u(x[-1],T[k],nu)                                       # Boundary condition at x = 1.
     
     # Runge-Kutta
-    u_ap[1:-1,:] = RungeKutta3_1D(x, T, nu, u, u_ap)                           # Runge-Kutta method to obtain the new approximation.
+    u_ap[1:-1,:] = RungeKutta3_1D(x, T, nu, u, u_ap)                        # Runge-Kutta method to obtain the new approximation.
 
-    return x, T, u_ap                                                       # Return the meshes and the approximated solution.
+    return u_ap                                                             # Return the approximated solution.
 
 def Diffusion_2D_1(m, n, t, u, nu):
     x    = np.linspace(0,1,m)                                               # Mesh generation for x.
@@ -265,7 +265,7 @@ def Diffusion_2D_CN_1(m, n, t, u, nu):
                     err = max(err, abs(u_new - u_ap[i,j,k+1]))              # New difference is computed.
                     u_ap[i,j,k+1] = u_new                                   # The approximation is saved.
 
-    return u_ap                                                             # Return the meshes and the approximated solution.
+    return u_ap                                                             # Return the approximated solution.
 
 def Diffusion_2D_MOL_RK(m, n, t, u, nu):
     x    = np.linspace(0,1,m)                                               # Mesh generation for x.
@@ -294,4 +294,4 @@ def Diffusion_2D_MOL_RK(m, n, t, u, nu):
     # Runge-Kutta
     u_ap[1:-1,1:-1,:] = RungeKutta2_2D(x, y, T, nu, u, u_ap)                # Runge-Kutta method to obtain the new approximation.
 
-    return u_ap                                                             # Return the meshes and the approximated solution.
+    return u_ap                                                             # Return the approximated solution.

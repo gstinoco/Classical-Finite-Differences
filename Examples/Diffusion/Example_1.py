@@ -49,7 +49,7 @@ for k in range(t):
     for i in range(m):
         u_ex[i,k] = u(x[i], T[k], nu)
 
-x, T, u_ap = Diffusion_1D_0(m, t, u, nu)
+u_ap = Diffusion_1D_CN_0(m, t, u, nu)
 err = l2_err_t(u_ap, u_ex)
 print(max(err))
 Graph_1D_Transient(x, t, u_ap, u_ex)
