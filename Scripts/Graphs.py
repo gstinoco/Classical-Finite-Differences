@@ -53,19 +53,21 @@ def Graph_1D_Transient(x, t, u_ap, u_ex):
     max  = u_ex.max()
     p = int(np.ceil(t/100))
 
-    for i in range(0,t,p):
-        ax1.plot(x, u_ap[:,i])
+    for k in range(0,t,p):
+        ax1.plot(x, u_ap[:,k])
         ax1.set_ylim([min,max])
         ax1.set_title('Computed Solution')
+        ax1.grid(True)
     
-        ax2.plot(x, u_ex[:,i])
+        ax2.plot(x, u_ex[:,k])
         ax2.set_ylim([min,max])
         ax2.set_title('Theoretical Solution')
+        ax2.grid(True)
     
         plt.pause(0.01)
         ax1.clear()
         ax2.clear()
-    plt.show()
+    plt.pause(0.1)
 
 def Graph_2D_Static(x, y, u_ap, u_ex):
     min  = u_ex.min()
