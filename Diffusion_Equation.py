@@ -126,7 +126,7 @@ def Diffusion_1D_CN_0(m, t, u, nu):
     # Finite Differences Approximation
     for k in range(t-1):                                                    # For all the time-steps.
         u_new = B@(u_ap[:,k] + A@u_ap[:,k])                                 # The new approximation is computed.
-        u_ap[1:m-1, k+1] = u_new[1:m-1]                                     # Tha approximation is saved.
+        u_ap[1:-1, k+1] = u_new[1:-1]                                       # Tha approximation is saved.
 
     return u_ap                                                             # Return the approximated solution.
 
