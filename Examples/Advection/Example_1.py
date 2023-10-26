@@ -35,7 +35,7 @@ from Scripts.Graphs import Graph_1D_Transient
 # Problem Parameters
 m    = 11
 t    = 200
-u    = lambda x,t,a: x-a*t
+u    = lambda x,t,a: np.sin(x-a*t)
 a   = 0.3
 x    = np.linspace(0, 1, m)
 T    = np.linspace(0, 1, t)

@@ -35,5 +35,5 @@ def Advection_1D_FTCS(m, t, u, a):
     dt   = T[1] - T[0]                                                      # dt is defined as the time step-length.
     u_ap = np.zeros([m,t])                                                  # u_ap is initialized with zeros.
     
-    return u_ap                                                             # Return the approximated solution.
 
+    return u_ap                                                             # Return the approximated solution.
