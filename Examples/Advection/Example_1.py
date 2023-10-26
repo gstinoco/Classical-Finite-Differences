@@ -11,7 +11,7 @@ With the funding of:
     Coordination of Scientific Research, CIC-UMSNH (Coordinación de la Investigación Científica de la Universidad Michoacana de San Nicolás de Hidalgo, CIC-UMSNH). México
     Aula CIMNE-Morelia. México
  
-Date:
+Date: 
     October, 2022.
 
 Last Modification:
@@ -30,14 +30,15 @@ sys.path.insert(1, root_dir)
 import numpy as np
 from Advection_Equation import Advection_1D_FTCS
 from Scripts.Graphs import Graph_1D_Transient
+from Scripts.Error_norms import l2_err_t
 
 
 # Problem Parameters
-m    = 11
+m    = 10
 t    = 200
 u    = lambda x,t,a: np.sin(x-a*t)
-a   = 0.3
-x    = np.linspace(0, 1, m)
+a    = 0.5
+x    = np.linspace(0, 2*np.pi, m)
 T    = np.linspace(0, 1, t)
 u_ex = np.zeros([m,t])
 
@@ -47,3 +48,5 @@ for k in range(t):
 
 u_ap = Advection_1D_FTCS(m, t, u, a)
 Graph_1D_Transient(x, t, u_ap, u_ex)
+er = l2_err_t(u_ap, u_ex)
+print(er)
