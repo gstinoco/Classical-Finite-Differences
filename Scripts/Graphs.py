@@ -139,6 +139,50 @@ def Graph_2D_Transient(x, y, u_ap, u_ex):
 
     plt.pause(0.1)
 
+def Graph_1D_Transient_1(x, t, u_ap, u_ex):
+    fig, (ax1, ax2) = plt.subplots(1, 2)
+    plt.rcParams["figure.figsize"] = (10,5)
+    plt.suptitle('Solution Comparison')
+    min  = u_ex.min()
+    max  = u_ex.max()
+    p = int(np.ceil(t/100))
+
+    k = 0
+    ax1.plot(x, u_ap[:,k])
+    ax1.set_ylim([min,max])
+    ax1.set_title('Computed Solution')
+    ax1.grid(True)
+    ax2.plot(x, u_ex[:,k])
+    ax2.set_ylim([min,max])
+    ax2.set_title('Theoretical Solution')
+    ax2.grid(True)
+    plt.show()
+    ax1.clear()
+    ax2.clear()
+
+    k = np.ceil(t/2)
+    ax1.plot(x, u_ap[:,k])
+    ax1.set_ylim([min,max])
+    ax1.set_title('Computed Solution')
+    ax1.grid(True)
+    ax2.plot(x, u_ex[:,k])
+    ax2.set_ylim([min,max])
+    ax2.set_title('Theoretical Solution')
+    ax2.grid(True)
+    plt.show()
+    ax1.clear()
+    ax2.clear()
+
+    ax1.plot(x, u_ap[:,-1])
+    ax1.set_ylim([min,max])
+    ax1.set_title('Computed Solution')
+    ax1.grid(True)
+    ax2.plot(x, u_ex[:,-1])
+    ax2.set_ylim([min,max])
+    ax2.set_title('Theoretical Solution')
+    ax2.grid(True)
+    plt.show()
+
 def Graph_2D_Transient_1(x, y, u_ap, u_ex):
     """
     Graph_2D_Transient_1
