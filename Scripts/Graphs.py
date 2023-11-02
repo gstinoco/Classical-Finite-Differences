@@ -145,7 +145,6 @@ def Graph_1D_Transient_1(x, t, u_ap, u_ex):
     plt.suptitle('Solution Comparison')
     min  = u_ex.min()
     max  = u_ex.max()
-    p = int(np.ceil(t/100))
 
     k = 0
     ax1.plot(x, u_ap[:,k])
@@ -157,9 +156,9 @@ def Graph_1D_Transient_1(x, t, u_ap, u_ex):
     ax2.set_title('Theoretical Solution')
     ax2.grid(True)
     plt.show()
-    ax1.clear()
-    ax2.clear()
+    plt.close()
 
+    fig, (ax1, ax2) = plt.subplots(1, 2)
     k = np.ceil(t/2)
     ax1.plot(x, u_ap[:,k])
     ax1.set_ylim([min,max])
@@ -170,9 +169,9 @@ def Graph_1D_Transient_1(x, t, u_ap, u_ex):
     ax2.set_title('Theoretical Solution')
     ax2.grid(True)
     plt.show()
-    ax1.clear()
-    ax2.clear()
+    plt.close()
 
+    fig, (ax1, ax2) = plt.subplots(1, 2)
     ax1.plot(x, u_ap[:,-1])
     ax1.set_ylim([min,max])
     ax1.set_title('Computed Solution')
@@ -182,6 +181,7 @@ def Graph_1D_Transient_1(x, t, u_ap, u_ex):
     ax2.set_title('Theoretical Solution')
     ax2.grid(True)
     plt.show()
+    plt.close()
 
 def Graph_2D_Transient_1(x, y, u_ap, u_ex):
     """
@@ -204,9 +204,7 @@ def Graph_2D_Transient_1(x, y, u_ap, u_ex):
     max  = u_ex.max()
     T    = np.linspace(0,1,t)
     
-    
     fig, (ax1, ax2) = plt.subplots(1, 2, subplot_kw = {"projection": "3d"}, figsize=(8, 4))
-
     k = np.ceil(0)
     tin = float(T[k])
     plt.suptitle('Solution at t = %1.3f s.' %tin)
@@ -217,11 +215,9 @@ def Graph_2D_Transient_1(x, y, u_ap, u_ex):
     ax2.set_zlim([min, max])
     ax2.set_title('Theoretical Solution')
     plt.show()
+    plt.close()
 
-    ax1.clear()
-    ax2.clear()
-    plt.cla()
-
+    fig, (ax1, ax2) = plt.subplots(1, 2, subplot_kw = {"projection": "3d"}, figsize=(8, 4))
     k = np.ceil(t/2)
     tin = float(T[k])
     plt.suptitle('Solution at t = %1.3f s.' %tin)
@@ -232,11 +228,9 @@ def Graph_2D_Transient_1(x, y, u_ap, u_ex):
     ax2.set_zlim([min, max])
     ax2.set_title('Theoretical Solution')
     plt.show()
-
-    ax1.clear()
-    ax2.clear()
-    plt.cla()
+    plt.close()
     
+    fig, (ax1, ax2) = plt.subplots(1, 2, subplot_kw = {"projection": "3d"}, figsize=(8, 4))
     tin = float(T[-1])
     plt.suptitle('Solution at t = %1.3f s.' %tin)
     ax1.plot_surface(x, y, u_ap[:,:,-1])
@@ -246,3 +240,4 @@ def Graph_2D_Transient_1(x, y, u_ap, u_ex):
     ax2.set_zlim([min, max])
     ax2.set_title('Theoretical Solution')
     plt.show()
+    plt.close()
