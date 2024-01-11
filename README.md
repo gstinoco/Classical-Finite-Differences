@@ -10,9 +10,9 @@ This repository contains a variety of Classical Finite Differences Schemes to so
 1. Poisson Equation.
 2. Advection Equation.
 3. Diffusion Equation.
-4. Advection-Diffusion Equation.
+<!-- 4. Advection-Diffusion Equation.
 5. Wave Equation.
-6. Shallow Water Equations.
+6. Shallow Water Equations.-->
 
 <!--
 Havana Cloud of Points With Holes                             | Havana Cloud of Points
