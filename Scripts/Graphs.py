@@ -21,6 +21,7 @@ Last Modification:
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits import mplot3d
+from matplotlib import cm
 
 def Graph_1D_Stationary(x, u_ap, u_ex):
     fig, (ax1, ax2) = plt.subplots(1, 2)
@@ -241,3 +242,63 @@ def Graph_2D_Transient_1(x, y, u_ap, u_ex):
     ax2.set_title('Theoretical Solution')
     plt.show()
     plt.close()
+
+def Cloud_Static(p, tt, u_ap, u_ex):
+    if tt.min() == 1:
+        tt -= 1
+    
+    min  = u_ex.min()
+    max  = u_ex.max()
+
+    fig, (ax1, ax2) = plt.subplots(1, 2, subplot_kw = {"projection": "3d"}, figsize=(8, 4))
+    
+    ax1.plot_trisurf(p[:,0], p[:,1], u_ap[:], triangles=tt, cmap=cm.coolwarm)
+    ax1.set_zlim([min, max])
+    ax1.set_title('Approximation')
+    
+    ax2.plot_trisurf(p[:,0], p[:,1], u_ex[:], triangles=tt, cmap=cm.coolwarm)
+    ax2.set_zlim([min, max])
+    ax2.set_title('Theoretical Solution')
+
+    plt.show()
+
+def Cloud_Transient(p, tt, u_ap, u_ex):
+    if tt.min() == 1:
+        tt -= 1
+    t    = len(u_ex[0,:])
+    step = int(np.ceil(t/50))
+    min  = u_ex.min()
+    max  = u_ex.max()
+    T    = np.linspace(0,1,t)
+
+    fig, (ax1, ax2) = plt.subplots(1, 2, subplot_kw = {"projection": "3d"}, figsize=(8, 4))
+
+    for k in np.arange(0,t,step):
+        
+        tin = float(T[k])
+        plt.suptitle('Solution at t = %1.3f s.' %tin)
+
+        ax1.plot_trisurf(p[:,0], p[:,1], u_ap[:,k], triangles=tt, cmap=cm.coolwarm, linewidth=0, antialiased=False)
+        ax1.set_zlim([min, max])
+        ax1.set_title('Approximation')
+        
+        ax2.plot_trisurf(p[:,0], p[:,1], u_ex[:,k], triangles=tt, cmap=cm.coolwarm, linewidth=0, antialiased=False)
+        ax2.set_zlim([min, max])
+        ax2.set_title('Theoretical Solution')
+
+        plt.pause(0.01)
+        ax1.clear()
+        ax2.clear()
+
+    tin = float(T[-1])
+    plt.suptitle('Solution at t = %1.3f s.' %tin)
+
+    ax1.plot_trisurf(p[:,0], p[:,1], u_ap[:,-1], triangles=tt, cmap=cm.coolwarm, linewidth=0, antialiased=False)
+    ax1.set_zlim([min, max])
+    ax1.set_title('Approximation')
+    
+    ax2.plot_trisurf(p[:,0], p[:,1], u_ex[:,-1], triangles=tt, cmap=cm.coolwarm, linewidth=0, antialiased=False)
+    ax2.set_zlim([min, max])
+    ax2.set_title('Theoretical Solution')
+
+    plt.pause(0.1)

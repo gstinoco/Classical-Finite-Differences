@@ -27,6 +27,8 @@ Last Modification:
 
 # Library Importation
 import numpy as np
+import Scripts.Gammas as Gammas
+import Scripts.Neighbors as Neighbors
 from Scripts.Runge_Kutta import RungeKutta2_1D
 from Scripts.Runge_Kutta import RungeKutta3_1D
 from Scripts.Runge_Kutta import RungeKutta2_2D
@@ -295,3 +297,45 @@ def Diffusion_2D_MOL_RK(m, n, t, u, nu):
     u_ap[1:-1,1:-1,:] = RungeKutta2_2D(x, y, T, nu, u, u_ap)                # Runge-Kutta method to obtain the new approximation.
 
     return u_ap                                                             # Return the approximated solution.
+
+def Cloud(p, u, v, t):
+    # Variable initialization
+    m    = len(p[:,0])                                                              # The total number of nodes is calculated.
+    nvec = 8                                                                        # Maximum number of neighbors for each node.
+    T    = np.linspace(0,1,t)                                                       # Time discretization.
+    dt   = T[1] - T[0]                                                              # dt computation.
+    u_ap = np.zeros([m,t])                                                          # u_ap initialization with zeros.
+    u_ex = np.zeros([m,t])                                                          # u_ex initialization with zeros.
+    
+    # Boundary conditions
+    for k in np.arange(t):                                                          # For all time steps.
+        for i in np.arange(m) :                                                     # For all the nodes.
+            if p[i,2] == 1:                                                         # If the node is in the boundary.
+                u_ap[i, k] = u(p[i, 0], p[i, 1], T[k], v)                           # The boundary condition is assigned.
+  
+    # Initial condition
+    for i in np.arange(m):                                                          # For each of the nodes.
+        u_ap[i, 0] = u(p[i, 0], p[i, 1], T[0], v)                                   # The initial condition is assigned.
+    
+    # Neighbor search for all the nodes.
+    vec = Neighbors.Cloud(p, nvec)                                                  # Neighbor search with the proper routine.
+
+    # Computation of Gamma values
+    L = np.vstack([[0], [0], [2*v*dt], [0], [2*v*dt]])                              # The values of the differential operator are assigned.
+    K = Gammas.Cloud_t(p, vec, L)                           # K computation with the required Gammas.
+    
+    # Generalized Finite Differences Method
+    K2 = np.identity(m) + K                                                         # Explicit formulation of K.
+
+    for k in np.arange(1,t):                                                        # For each of the time steps.
+        un = K2@u_ap[:,k-1]                                                         # The new time-level is computed.
+        for i in np.arange(m):                                                      # For all the nodes.
+            if p[i,2] == 0:                                                         # If the node is an inner node.
+                u_ap[i,k] = un[i]                                                   # Save the computed solution.
+        
+    # Theoretical Solution
+    for k in np.arange(t):                                                          # For all the time steps.
+        for i in np.arange(m):                                                      # For each of the nodes.
+            u_ex[i,k] = u(p[i,0], p[i,1], T[k], v)                                  # The theoretical solution is computed.
+
+    return u_ap, u_ex, vec

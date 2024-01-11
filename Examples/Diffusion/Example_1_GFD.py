@@ -10,7 +10,7 @@ import numpy as np
 from scipy.io import loadmat
 from scipy.io import savemat
 import Scripts.Graphs as Graphs
-import Poisson_GFD
+import Diffusion_Equation
 
 mat  = loadmat('Data/CUA_1_hole.mat')
 p   = mat['p']
@@ -19,13 +19,10 @@ if tt.min() == 1:
     tt -= 1
 
 # Boundary and problem conditions
-#   u = 2e^{2x+y}
-#
-#   f = 10e^{2x+y}
+u       = lambda x,y,t,nu: np.exp(-2*np.pi**2*nu*t)*np.cos(np.pi*x)*np.cos(np.pi*y)
+nu      = 0.2
+t       = 1000
 
-f    = lambda x,y: 10*np.exp(2*x+y)
-u    = lambda x,y: 2*np.exp(2*x+y)
+u_ap, u_ex, vec = Diffusion_Equation.Cloud(p, u, nu, t)
 
-u_ap, u_ex, vec = Poisson_GFD.Cloud(p, tt, u, f)
-
-Graphs.Cloud_Static(p, tt, u_ap, u_ex)
+Graphs.Cloud_Transient(p, tt, u_ap, u_ex)
