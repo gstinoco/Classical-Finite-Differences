@@ -1,12 +1,6 @@
 """
 Classical Finite Difference Schemes to solve Poisson Equation.
 
-The problem to solve is:
-    u(x,y)_{xx} + u(x,y)_{yy} = -f(x,y)
-
-Subject to conditions:
-    u(x,y)_Omega = g(x,y)
-
 All the codes were developed by:
     Dr. Gerardo Tinoco Guerrero
     Universidad Michoacana de San Nicolás de Hidalgo
@@ -21,7 +15,7 @@ Date:
     October, 2022.
 
 Last Modification:
-    September, 2023.
+    January, 2024.
 """
 
 # Library Importation
@@ -32,14 +26,14 @@ def Poisson1D_Matrix(m, f, u):
         Poisson1D_Matrix
 
         This code solves the 1D Poisson problem on a regular grid with Dirichlet boundary conditions
-        using a Matrix formulation of the Finite Difference centered scheme.
+        using a Matrix formulation of the Classical Finite Difference centered scheme.
 
-        Input:
+        Arguments:
             m                       Integer         Number of nodes in the grid.
             f                       Function        Function with the sources and sinks.
             u                       Function        Function for the boundary conditions.
         
-        Output:
+        Returns:
             x           m x 1       Array           Array with the grid generated for the problem.
             u_ap        m x 1       Array           Array with the computed solution of the method.
     '''
@@ -84,13 +78,13 @@ def Poisson1D_Matrix_Neumann_1(m, f, sig, beta):
 
         The Neumann boundary condition is applied with a two-point-backward finite difference scheme.
 
-        Input:
+        Arguments:
             m                       Integer         Number of nodes in the grid.
             f                       Function        Function with the sources and sinks.
             sig                     Real            Value of the derivative on the Neumann boundary condition.
             beta                    Real            Value of the function on the Dirichlet boundary condition.
         
-        Output:
+        Returns:
             x           m x 1       Array           Array with the grid generated for the problem.
             u           m x 1       Array           Array with the computed solution of the method.
     '''
@@ -131,13 +125,13 @@ def Poisson1D_Matrix_Neumann_2(m, f, sig, beta):
 
         The Neumann boundary condition is applied with a two-point-centered finite difference scheme.
 
-        Input:
+        Arguments:
             m                       Integer         Number of nodes in the grid.
             f                       Function        Function with the sources and sinks.
             sig                     Real            Value of the derivative on the Neumann boundary condition.
             beta                    Real            Value of the function on the Dirichlet boundary condition.
         
-        Output:
+        Returns:
             x           m x 1       Array           Array with the grid generated for the problem.
             u           m x 1       Array           Array with the computed solution of the method.
     '''
@@ -178,13 +172,13 @@ def Poisson1D_Matrix_Neumann_3(m, f, sig, beta):
 
         The Neumann boundary condition is applied with a three-point-forward finite difference scheme.
 
-        Input:
+        Arguments:
             m                       Integer         Number of nodes in the grid.
             f                       Function        Function with the sources and sinks.
             sig                     Real            Value of the derivative on the Neumann boundary condition.
             beta                    Real            Value of the function on the Dirichlet boundary condition.
         
-        Output:
+        Returns:
             x           m x 1       Array           Array with the grid generated for the problem.
             u           m x 1       Array           Array with the computed solution of the method.
     '''
@@ -224,12 +218,12 @@ def Poisson1D_Iter(m, f, u):
         This code solves the 1D Poisson problem on a regular grid with Dirichlet boundary conditions
         using an Iterative formulation of the Finite Difference centered scheme.
 
-        Input:
+        Arguments:
             m                       Integer         Number of nodes in the grid.
             f                       Function        Function with the sources and sinks.
             u                       Function        Function for the boundary conditions.
         
-        Output:
+        Returns:
             x           m x 1       Array           Array with the grid generated for the problem.
             u_ap        m x 1       Array           Array with the computed solution of the method.
     '''
@@ -258,7 +252,6 @@ def Poisson1D_Iter(m, f, u):
     print(itera, ' iterations were performed.')                             # Print the total number of iterations.
     return x, u_ap                                                          # Return the mesh and the computed solution.
 
-
 def Poisson2D_Matrix(m, f, u):
     '''
         Poisson2D_Matrix
@@ -266,12 +259,12 @@ def Poisson2D_Matrix(m, f, u):
         This code solves the 2D Poisson problem on a regular grid with Dirichlet boundary conditions
         using a Matrix formulation of the Finite Difference centered scheme.
 
-        Input:
+        Arguments:
             m                       Integer         Number of nodes in each direction of the grid.
             f                       Function        Function with the sources and sinks.
             u                       Function        Function for the boundary conditions.
         
-        Output:
+        Returns:
             x           m x m       Array           Array with the x values of the nodes of the generated grid.
             y           m x m       Array           Array with the y values of the nodes of the generated grid.
             u_ap        m x m       Array           Array with the computed solution of the method.
@@ -339,12 +332,12 @@ def Poisson2D_Matrix_2(m, f, u):
         using a Matrix formulation of the Finite Difference centered scheme. In this code, the Right Hand
         Size is formulated as a matrix and the flatten to be a vector.
 
-        Input:
+        Arguments:
             m                       Integer         Number of nodes in each direction of the grid.
             f                       Function        Function with the sources and sinks.
             u                       Function        Function for the boundary conditions.
         
-        Output:
+        Returns:
             x           m x m       Array           Array with the x values of the nodes of the generated grid.
             y           m x m       Array           Array with the y values of the nodes of the generated grid.
             u_ap        m x m       Array           Array with the computed solution of the method.
@@ -401,17 +394,17 @@ def Poisson2D_Matrix_2(m, f, u):
 
 def Poisson2D_Iter(m, f, u):
     '''
-        Poisson2D_Matrix
+        Poisson2D_Iter
 
         This code solves the 2D Poisson problem on a regular grid with Dirichlet boundary conditions
-        using a Matrix formulation of the Finite Difference centered scheme.
+        using an Iterative formulation of the Finite Difference centered scheme.
 
-        Input:
+        Arguments:
             m                       Integer         Number of nodes in each direction of the grid.
             f                       Function        Function with the sources and sinks.
             u                       Function        Function for the boundary conditions.
         
-        Output:
+        Returns:
             x           m x m       Array           Array with the x values of the nodes of the generated grid.
             y           m x m       Array           Array with the y values of the nodes of the generated grid.
             u_ap        m x m       Array           Array with the computed solution of the method.

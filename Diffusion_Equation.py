@@ -1,13 +1,6 @@
 """
 Classical Finite Difference Schemes to solve Diffusion Equation.
 
-The problem to solve is:
-    u(x,y,t)_{t} = nu(u(x,y,t)_{xx} + u(x,y,t)_{yy}
-
-Subject to conditions:
-    u(x,y,0) = g(x,y)
-    u(x,y,t)_{Boundary} = h(t)
-    
 All the codes were developed by:
     Dr. Gerardo Tinoco Guerrero
     Universidad Michoacana de San Nicolás de Hidalgo
@@ -22,19 +15,33 @@ Date:
     October, 2022.
 
 Last Modification:
-    September, 2023.
+    January, 2024.
 """
 
 # Library Importation
 import numpy as np
-import Scripts.Gammas as Gammas
-import Scripts.Neighbors as Neighbors
 from Scripts.Runge_Kutta import RungeKutta2_1D
 from Scripts.Runge_Kutta import RungeKutta3_1D
 from Scripts.Runge_Kutta import RungeKutta2_2D
 from Scripts.Runge_Kutta import RungeKutta3_2D
 
-def Diffusion_1D_0(m, t, u, nu):
+def Diffusion_1D_Matrix(m, t, u, nu):
+    '''
+        Diffusion_1D_Matrix
+
+        This function solves a 1D Diffusion problem on a regular grid with Dirichlet boundary conditions
+        using a Matrix formulation of the Classical Finite Difference Centered Scheme.
+
+        Arguments:
+            m                       Integer         Number of nodes in the grid.
+            t                       Integer         Number od time steps.
+            u                       Function        Function for the boundary conditions.
+            nu                      Float           Diffusion coefficient for the problem.
+        
+        Returns:
+            x           m x 1       Array           Array with the grid generated for the problem.
+            u_ap        m x 1       Array           Array with the computed solution of the method.
+    '''
     x    = np.linspace(0,1,m)                                               # Mesh generation.
     T    = np.linspace(0, 1, t)                                             # Mesh generation in time.
     dx   = x[1] - x[0]                                                      # dx is defined as the space step-length.
@@ -60,7 +67,6 @@ def Diffusion_1D_0(m, t, u, nu):
     # Boundary Conditions in the Matrix
     A[0,:] = A[-1,:] = 0                                                    # Make 0 the first and last rows of the matrix.
     A[0,0] = A[-1,-1] = 1                                                   # Ones at the first and last elements to consider boundary conditions.
-
     A     *= r                                                              # A updated.
 
     # Finite Differences Approximation
@@ -68,9 +74,25 @@ def Diffusion_1D_0(m, t, u, nu):
         u_new = u_ap[:, k] + A@u_ap[:, k]                                   # The new approximation is computed.
         u_ap[1:-1, k+1] = u_new[1:-1]                                       # Tha approximation is saved.
 
-    return u_ap                                                             # Return the approximated solution.
+    return x, u_ap                                                          # Return the mesh and the computed solution.
 
-def Diffusion_1D_1(m, t, u, nu):
+def Diffusion_1D_iter(m, t, u, nu):
+    '''
+        Diffusion_1D_0
+
+        This function solves a 1D Diffusion problem on a regular grid with Dirichlet boundary conditions
+        using an Iterative formulation of the Classical Finite Difference Centered Scheme.
+
+        Arguments:
+            m                       Integer         Number of nodes in the grid.
+            t                       Integer         Number od time steps.
+            u                       Function        Function for the boundary conditions.
+            nu                      Float           Diffusion coefficient for the problem.
+        
+        Returns:
+            x           m x 1       Array           Array with the grid generated for the problem.
+            u_ap        m x 1       Array           Array with the computed solution of the method.
+    '''
     x    = np.linspace(0,1,m)                                               # Mesh generation.
     T    = np.linspace(0, 1, t)                                             # Mesh generation in time.
     dx   = x[1] - x[0]                                                      # dx is defined as the space step-length.
@@ -92,9 +114,25 @@ def Diffusion_1D_1(m, t, u, nu):
             u_ap[i,k+1] = u_ap[i,k] + r* \
                             (u_ap[i-1,k] - 2*u_ap[i,k] + u_ap[i+1,k])       # The new approximation is performed.
             
-    return u_ap                                                             # Return the approximated solution.
+    return x, u_ap                                                          # Return the mesh and the computed solution.
 
-def Diffusion_1D_CN_0(m, t, u, nu):
+def Diffusion_1D_CN_Matrix(m, t, u, nu):
+    '''
+        Diffusion_1D_CN_Matrix
+
+        This function solves a 1D Diffusion problem on a regular grid with Dirichlet boundary conditions
+        using a Matrix formulation of the Classical Finite Difference Crank-Nicolson Scheme.
+
+        Arguments:
+            m                       Integer         Number of nodes in the grid.
+            t                       Integer         Number od time steps.
+            u                       Function        Function for the boundary conditions.
+            nu                      Float           Diffusion coefficient for the problem.
+        
+        Returns:
+            x           m x 1       Array           Array with the grid generated for the problem.
+            u_ap        m x 1       Array           Array with the computed solution of the method.
+    '''
     x    = np.linspace(0,1,m)                                               # Mesh generation.
     T    = np.linspace(0, 1, t)                                             # Mesh generation in time.
     dx   = x[1] - x[0]                                                      # dx is defined as the space step-length.
@@ -130,9 +168,25 @@ def Diffusion_1D_CN_0(m, t, u, nu):
         u_new = B@(u_ap[:,k] + A@u_ap[:,k])                                 # The new approximation is computed.
         u_ap[1:-1, k+1] = u_new[1:-1]                                       # Tha approximation is saved.
 
-    return u_ap                                                             # Return the approximated solution.
+    return x, u_ap                                                          # Return the mesh and the computed solution.
 
-def Diffusion_1D_CN_1(m, t, u, nu):
+def Diffusion_1D_CN_Iter(m, t, u, nu):
+    '''
+        Diffusion_1D_CN_0
+
+        This function solves a 1D Diffusion problem on a regular grid with Dirichlet boundary conditions
+        using an Iterative formulation of the Classical Finite Difference Crank-Nicolson Scheme.
+
+        Arguments:
+            m                       Integer         Number of nodes in the grid.
+            t                       Integer         Number od time steps.
+            u                       Function        Function for the boundary conditions.
+            nu                      Float           Diffusion coefficient for the problem.
+        
+        Returns:
+            x           m x 1       Array           Array with the grid generated for the problem.
+            u_ap        m x 1       Array           Array with the computed solution of the method.
+    '''
     x    = np.linspace(0,1,m)                                               # Mesh generation.
     T    = np.linspace(0, 1, t)                                             # Mesh generation in time.
     dx   = x[1] - x[0]                                                      # dx is defined as the space step-length.
@@ -164,9 +218,26 @@ def Diffusion_1D_CN_1(m, t, u, nu):
                 err = max(err, abs(u_new - u_ap[i,k+1]))                    # New difference is computed.
                 u_ap[i,k+1] = u_new                                         # The approximation is saved.
 
-    return u_ap                                                             # Return the approximated solution.
+    return x, u_ap                                                          # Return the mesh and the computed solution.
 
-def Diffusion_1D_MOL_RK(m, t, u, nu):
+def Diffusion_1D_MOL(m, t, u, nu, RK):
+    '''
+        Diffusion_1D_MOL
+
+        This function solves a 1D Diffusion problem on a regular grid with Dirichlet boundary conditions
+        using a Method of Lines for Classical Finite Differences.
+
+        Arguments:
+            m                       Integer         Number of nodes in the grid.
+            t                       Integer         Number od time steps.
+            u                       Function        Function for the boundary conditions.
+            nu                      Float           Diffusion coefficient for the problem.
+            RK                      Integer         Runge-Kutta Order (2, 3)
+        
+        Returns:
+            x           m x 1       Array           Array with the grid generated for the problem.
+            u_ap        m x 1       Array           Array with the computed solution of the method.
+    '''
     x    = np.linspace(0,1,m)                                               # Mesh generation.
     T    = np.linspace(0, 1, t)                                             # Mesh generation in time.
     dx   = x[1] - x[0]                                                      # dx is defined as the space step-length.
@@ -183,11 +254,32 @@ def Diffusion_1D_MOL_RK(m, t, u, nu):
         u_ap[-1,k] = u(x[-1],T[k],nu)                                       # Boundary condition at x = 1.
     
     # Runge-Kutta
-    u_ap[1:-1,:] = RungeKutta3_1D(x, T, nu, u, u_ap)                        # Runge-Kutta method to obtain the new approximation.
+    if RK == 2:
+        u_ap[1:-1,:] = RungeKutta2_1D(x, T, nu, u, u_ap)                    # Runge-Kutta method to obtain the new approximation.
+    elif RK == 3:
+        u_ap[1:-1,:] = RungeKutta3_1D(x, T, nu, u, u_ap)                    # Runge-Kutta method to obtain the new approximation.
 
-    return u_ap                                                             # Return the approximated solution.
+    return x, u_ap                                                          # Return the mesh and the computed solution.
 
-def Diffusion_2D_1(m, n, t, u, nu):
+def Diffusion_2D(m, n, t, u, nu):
+    '''
+        Diffusion_2D
+
+        This function solves a 2D Diffusion problem on a regular grid with Dirichlet boundary conditions
+        using an Iterative formulation of the Classical Finite Difference centered scheme.
+
+        Arguments:
+            m                       Integer         Number of nodes in x for the grid.
+            n                       Integer         Number of nodes in y for the grid.
+            t                       Integer         Number od time steps.
+            u                       Function        Function for the boundary conditions.
+            nu                      Float           Diffusion coefficient for the problem.
+        
+        Returns:
+            x           m x n       Array           Array with the x values of the nodes of the generated grid.
+            y           m x n       Array           Array with the y values of the nodes of the generated grid.
+            u_ap        m x m       Array           Array with the computed solution of the method.
+    '''
     x    = np.linspace(0,1,m)                                               # Mesh generation for x.
     y    = np.linspace(0,1,n)                                               # Mesh generation for y.
     dx   = x[1] - x[0]                                                      # dx is defined as the space step-length in x.
@@ -218,11 +310,29 @@ def Diffusion_2D_1(m, n, t, u, nu):
             for j in range(1,m-1):                                          # For all the inner nodes in x.
                 u_ap[i,j,k+1] = u_ap[i,j,k] + \
                     r_x*(u_ap[i-1,j,k] - 2*u_ap[i,j,k] + u_ap[i+1,j,k]) + \
-                    r_y*(u_ap[i,j-1,k] - 2*u_ap[i,j,k] + u_ap[i,j+1,k])       # The new approximation is performed.
+                    r_y*(u_ap[i,j-1,k] - 2*u_ap[i,j,k] + u_ap[i,j+1,k])     # The new approximation is performed.
             
-    return u_ap                                                             # Return the approximated solution.
+    return x, y, u_ap                                                       # Return the mesh and the computed solution.
 
-def Diffusion_2D_CN_1(m, n, t, u, nu):
+def Diffusion_2D_CN(m, n, t, u, nu):
+    '''
+        Diffusion_2D_CN
+
+        This function solves a 2D Diffusion problem on a regular grid with Dirichlet boundary conditions
+        using an Iterative formulation of the Classical Finite Difference Crank-Nicolson scheme.
+
+        Arguments:
+            m                       Integer         Number of nodes in x for the grid.
+            n                       Integer         Number of nodes in y for the grid.
+            t                       Integer         Number od time steps.
+            u                       Function        Function for the boundary conditions.
+            nu                      Float           Diffusion coefficient for the problem.
+        
+        Returns:
+            x           m x n       Array           Array with the x values of the nodes of the generated grid.
+            y           m x n       Array           Array with the y values of the nodes of the generated grid.
+            u_ap        m x m       Array           Array with the computed solution of the method.
+    '''
     x    = np.linspace(0,1,m)                                               # Mesh generation for x.
     y    = np.linspace(0,1,n)                                               # Mesh generation for y.
     dx   = x[1] - x[0]                                                      # dx is defined as the space step-length in x.
@@ -267,9 +377,28 @@ def Diffusion_2D_CN_1(m, n, t, u, nu):
                     err = max(err, abs(u_new - u_ap[i,j,k+1]))              # New difference is computed.
                     u_ap[i,j,k+1] = u_new                                   # The approximation is saved.
 
-    return u_ap                                                             # Return the approximated solution.
+    return x, y, u_ap                                                       # Return the mesh and the computed solution.
 
-def Diffusion_2D_MOL_RK(m, n, t, u, nu):
+def Diffusion_2D_MOL(m, n, t, u, nu, RK):
+    '''
+        Diffusion_2D_MOL
+
+        This function solves a 2D Diffusion problem on a regular grid with Dirichlet boundary conditions
+        using a Method of Lines formulation of the Classical Finite Difference centered scheme.
+
+        Arguments:
+            m                       Integer         Number of nodes in x for the grid.
+            n                       Integer         Number of nodes in y for the grid.
+            t                       Integer         Number od time steps.
+            u                       Function        Function for the boundary conditions.
+            nu                      Float           Diffusion coefficient for the problem.
+            RK                      Integer         Runge-Kutta Order (2, 3)
+        
+        Returns:
+            x           m x n       Array           Array with the x values of the nodes of the generated grid.
+            y           m x n       Array           Array with the y values of the nodes of the generated grid.
+            u_ap        m x m       Array           Array with the computed solution of the method.
+    '''
     x    = np.linspace(0,1,m)                                               # Mesh generation for x.
     y    = np.linspace(0,1,n)                                               # Mesh generation for y.
     dx   = x[1] - x[0]                                                      # dx is defined as the space step-length in x.
@@ -294,48 +423,9 @@ def Diffusion_2D_MOL_RK(m, n, t, u, nu):
             u_ap[-1,j,k] = u(x[-1,j], y[-1,j],T[k],nu)                      # Boundary condition at x = 1.
     
     # Runge-Kutta
-    u_ap[1:-1,1:-1,:] = RungeKutta2_2D(x, y, T, nu, u, u_ap)                # Runge-Kutta method to obtain the new approximation.
+    if RK == 2:
+        u_ap[1:-1,1:-1,:] = RungeKutta2_2D(x, y, T, nu, u, u_ap)            # Runge-Kutta method to obtain the new approximation.
+    elif RK == 3:
+        u_ap[1:-1,1:-1,:] = RungeKutta3_2D(x, y, T, nu, u, u_ap)            # Runge-Kutta method to obtain the new approximation.
 
-    return u_ap                                                             # Return the approximated solution.
-
-def Cloud(p, u, v, t):
-    # Variable initialization
-    m    = len(p[:,0])                                                              # The total number of nodes is calculated.
-    nvec = 8                                                                        # Maximum number of neighbors for each node.
-    T    = np.linspace(0,1,t)                                                       # Time discretization.
-    dt   = T[1] - T[0]                                                              # dt computation.
-    u_ap = np.zeros([m,t])                                                          # u_ap initialization with zeros.
-    u_ex = np.zeros([m,t])                                                          # u_ex initialization with zeros.
-    
-    # Boundary conditions
-    for k in np.arange(t):                                                          # For all time steps.
-        for i in np.arange(m) :                                                     # For all the nodes.
-            if p[i,2] == 1:                                                         # If the node is in the boundary.
-                u_ap[i, k] = u(p[i, 0], p[i, 1], T[k], v)                           # The boundary condition is assigned.
-  
-    # Initial condition
-    for i in np.arange(m):                                                          # For each of the nodes.
-        u_ap[i, 0] = u(p[i, 0], p[i, 1], T[0], v)                                   # The initial condition is assigned.
-    
-    # Neighbor search for all the nodes.
-    vec = Neighbors.Cloud(p, nvec)                                                  # Neighbor search with the proper routine.
-
-    # Computation of Gamma values
-    L = np.vstack([[0], [0], [2*v*dt], [0], [2*v*dt]])                              # The values of the differential operator are assigned.
-    K = Gammas.Cloud_t(p, vec, L)                           # K computation with the required Gammas.
-    
-    # Generalized Finite Differences Method
-    K2 = np.identity(m) + K                                                         # Explicit formulation of K.
-
-    for k in np.arange(1,t):                                                        # For each of the time steps.
-        un = K2@u_ap[:,k-1]                                                         # The new time-level is computed.
-        for i in np.arange(m):                                                      # For all the nodes.
-            if p[i,2] == 0:                                                         # If the node is an inner node.
-                u_ap[i,k] = un[i]                                                   # Save the computed solution.
-        
-    # Theoretical Solution
-    for k in np.arange(t):                                                          # For all the time steps.
-        for i in np.arange(m):                                                      # For each of the nodes.
-            u_ex[i,k] = u(p[i,0], p[i,1], T[k], v)                                  # The theoretical solution is computed.
-
-    return u_ap, u_ex, vec
+    return x, y, u_ap                                                       # Return the mesh and the computed solution.

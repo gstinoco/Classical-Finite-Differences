@@ -2,10 +2,11 @@
 Example 1 for Classical Finite Difference Schemes to solve Poisson Equation.
 
 The problem to solve is:
-    u(x)_{xx} = -(2Sin(x) + xCos(x))
+    u(x)_{xx} = exp(x)
 
 Subject to conditions:
-    u(x)_\Omega = xCos(x)
+    u'(x_0) = a
+    u(x_m)  = b
 
 All the codes were developed by:
     Dr. Gerardo Tinoco Guerrero
@@ -21,7 +22,7 @@ Date:
     October, 2022.
 
 Last Modification:
-    August, 2023.
+    January, 2024.
 """
 
 # Path Importation
@@ -41,13 +42,13 @@ from Scripts.Graphs import Graph_1D_Stationary_1
 
 # Problem Parameters
 a       = 0
-b       = 1
+b       = 10
 m       = 20
 f       = lambda x: np.exp(x)
 
-x, u_ap = Poisson1D_Matrix_Neumann_1(m, f, 0, 3)
-#Graph_1D_Stationary_1(x, u_ap)
-x, u_ap = Poisson1D_Matrix_Neumann_2(m, f, 0, 3)
-#Graph_1D_Stationary_1(x, u_ap)
-x, u_ap = Poisson1D_Matrix_Neumann_3(m, f, 0, 3)
+x, u_ap = Poisson1D_Matrix_Neumann_1(m, f, a, b)
+Graph_1D_Stationary_1(x, u_ap)
+x, u_ap = Poisson1D_Matrix_Neumann_2(m, f, a, b)
+Graph_1D_Stationary_1(x, u_ap)
+x, u_ap = Poisson1D_Matrix_Neumann_3(m, f, a, b)
 Graph_1D_Stationary_1(x, u_ap)

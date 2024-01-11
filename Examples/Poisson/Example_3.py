@@ -21,7 +21,7 @@ Date:
     October, 2022.
 
 Last Modification:
-    August, 2023.
+    January, 2024.
 """
 
 # Path Importation
@@ -40,9 +40,7 @@ from Poisson_Equation import Poisson2D_Iter
 from Scripts.Graphs import Graph_2D_Static
 
 # Problem Parameters
-a       = 0
-b       = 1
-m       = 20
+m       = 21
 f       = lambda x,y: 10*np.exp(2*x+y)
 u       = lambda x,y: 2*np.exp(2*x+y)
 

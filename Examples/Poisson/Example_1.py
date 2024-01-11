@@ -21,7 +21,7 @@ Date:
     October, 2022.
 
 Last Modification:
-    August, 2023.
+    January, 2024.
 """
 
 # Path Importation
@@ -37,9 +37,6 @@ import numpy as np
 from Poisson_Equation import Poisson1D_Matrix
 from Poisson_Equation import Poisson1D_Iter
 from Scripts.Graphs import Graph_1D_Stationary
-from Scripts.Error_norms import E_inf
-from Scripts.Error_norms import E_uno
-from Scripts.Error_norms import E_dos
 
 # Problem Parameters
 a       = 0
@@ -48,16 +45,17 @@ m       = 21
 f       = lambda x: 2*np.sin(x) + x*np.cos(x)
 u       = lambda x: x*np.cos(x)
 
+# Problem solving
 x, u_ap = Poisson1D_Iter(m, f, u)
+
+# Exact Solution
 u_ex    = u(x)
 
+# Plot the solutions
 Graph_1D_Stationary(x, u_ap, u_ex)
 
-E_in = E_inf(u_ap, u_ex)
-print('La norma infinito es:', E_in)
+# Problem solving
+x, u_ap = Poisson1D_Matrix(m, f, u)
 
-E_un = E_uno(u_ap, u_ex)
-print('La norma uno es:', E_un)
-
-E_do = E_dos(u_ap, u_ex)
-print('La norma dos es:', E_do)
+# Plot the solutions
+Graph_1D_Stationary(x, u_ap, u_ex)

@@ -14,14 +14,6 @@ This repository contains a variety of Classical Finite Differences Schemes to so
 5. Wave Equation.
 6. Shallow Water Equations.-->
 
-<!--
-Havana Cloud of Points With Holes                             | Havana Cloud of Points
-:------------------------------------------------------------:|:------------------------------------------------------------:
-![Havana Bay Cloud of Points](/Data/Holes/HAB_3.png)          | ![Havana Bay Cloud of Points](/Data/Clouds/HAB_3_n.png)
--->
-
-It is possible to find all test data in the "Data" folder and some sample results in the "Results" folder.
-
 ## Researchers :scientist:
 All the codes presented were developed by:
     
