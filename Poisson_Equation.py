@@ -21,7 +21,7 @@ Last Modification:
 # Library Importation
 import numpy as np
 
-def Poisson1D_Matrix(m, f, u):
+def Poisson1D_Matrix(x, f, u):
     '''
         Poisson1D_Matrix
 
@@ -29,16 +29,15 @@ def Poisson1D_Matrix(m, f, u):
         using a Matrix formulation of the Classical Finite Difference centered scheme.
 
         Arguments:
-            m                       Integer         Number of nodes in the grid.
+            x                       Array           Mesh of the region.
             f                       Function        Function with the sources and sinks.
             u                       Function        Function for the boundary conditions.
         
         Returns:
-            x           m x 1       Array           Array with the grid generated for the problem.
             u_ap        m x 1       Array           Array with the computed solution of the method.
     '''
     # Variable Initialization
-    x           = np.linspace(0,1,m)                                        # Mesh generation.
+    m           = len(x)                                                    # Size of the mesh.
     h           = x[1] - x[0]                                               # h definition as dx.
     u_ap        = np.zeros([m])                                             # u_ap initialization.
 
@@ -67,9 +66,49 @@ def Poisson1D_Matrix(m, f, u):
     u_ap[0]     = alpha                                                     # Add the boundary condition at x = a.
     u_ap[-1]    = beta                                                      # Add the boundary condition at x = b.
 
-    return x, u_ap                                                          # Return the mesh and the computed solution.
+    return u_ap                                                             # Return the mesh and the computed solution.
 
-def Poisson1D_Matrix_Neumann_1(m, f, sig, beta):
+def Poisson1D_Iter(x, f, u):
+    '''
+        Poisson1D_Iter
+
+        This code solves the 1D Poisson problem on a regular grid with Dirichlet boundary conditions
+        using an Iterative formulation of the Finite Difference centered scheme.
+
+        Arguments:
+            x                       Array           Mesh of the region.
+            f                       Function        Function with the sources and sinks.
+            u                       Function        Function for the boundary conditions.
+        
+        Returns:
+            u_ap        m x 1       Array           Array with the computed solution of the method.
+    '''
+
+    # Variable Initialization
+    m        = len(x)                                                       # Size of the mesh.
+    h        = x[2] - x[1]                                                  # h definition as dx.
+    u_ap     = np.zeros([m])                                                # u_ap initialization with zeros.
+    err      = 1                                                            # err initialization with 1 to guarantee at least one iteration.
+    tol      = np.sqrt(np.finfo(float).eps)                                 # Tolerance of the method.
+    itera    = 0                                                            # Number of iterations performed.
+
+    # Boundary Conditions
+    u_ap[0]  = u(x[0])                                                      # Boundary condition at x = a
+    u_ap[-1] = u(x[-1])                                                     # Boundary condition at x = b.
+
+    # Finite Difference Solution
+    while err >= tol:                                                       # While the error is greater than the tolerance.
+        itera += 1                                                          # A new iteration is performed.
+        err = 0                                                             # The error of this iteration is 0.
+        for i in range(1,m-1):                                              # For all the grid nodes.
+            t   = (1/2)*(u_ap[i-1] + u_ap[i+1] + h**2*f(x[i]))              # Finite Differences Approximation.
+            err = max(err, abs(t - u_ap[i]))                                # New error is computed.
+            u_ap[i] = t                                                     # The approximation is saved.
+    
+    print(itera, ' iterations were performed.')                             # Print the total number of iterations.
+    return u_ap                                                             # Return the mesh and the computed solution.
+
+def Poisson1D_Matrix_Neumann_1(x, f, sig, beta):
     '''
         Poisson1D_Matrix_Neumann_1
 
@@ -79,17 +118,16 @@ def Poisson1D_Matrix_Neumann_1(m, f, sig, beta):
         The Neumann boundary condition is applied with a two-point-backward finite difference scheme.
 
         Arguments:
-            m                       Integer         Number of nodes in the grid.
+            x                       Array           Mesh of the region.
             f                       Function        Function with the sources and sinks.
             sig                     Real            Value of the derivative on the Neumann boundary condition.
             beta                    Real            Value of the function on the Dirichlet boundary condition.
         
         Returns:
-            x           m x 1       Array           Array with the grid generated for the problem.
             u           m x 1       Array           Array with the computed solution of the method.
     '''
     # Variable Initialization
-    x           = np.linspace(0,1,m)                                        # Mesh generation.
+    m           = len(x)                                                    # Size of the mesh.
     h           = x[1] - x[0]                                               # h definition as dx.
 
     # Finite Differences Matrix
@@ -114,9 +152,9 @@ def Poisson1D_Matrix_Neumann_1(m, f, sig, beta):
     A           = np.linalg.inv(A)                                          # Solving the algebraic problem.
     u_ap        = A@F                                                       # Problem solution.
 
-    return x, u_ap                                                          # Return the mesh and the computed solution.
+    return u_ap                                                             # Return the mesh and the computed solution.
 
-def Poisson1D_Matrix_Neumann_2(m, f, sig, beta):
+def Poisson1D_Matrix_Neumann_2(x, f, sig, beta):
     '''
         Poisson1D_Matrix_Neumann_2
 
@@ -126,17 +164,16 @@ def Poisson1D_Matrix_Neumann_2(m, f, sig, beta):
         The Neumann boundary condition is applied with a two-point-centered finite difference scheme.
 
         Arguments:
-            m                       Integer         Number of nodes in the grid.
+            x                       Array           Mesh of the region.
             f                       Function        Function with the sources and sinks.
             sig                     Real            Value of the derivative on the Neumann boundary condition.
             beta                    Real            Value of the function on the Dirichlet boundary condition.
         
         Returns:
-            x           m x 1       Array           Array with the grid generated for the problem.
             u           m x 1       Array           Array with the computed solution of the method.
     '''
     # Variable Initialization
-    x           = np.linspace(0,1,m)                                        # Mesh generation.
+    m           = len(x)                                                    # Size of the mesh.
     h           = x[1] - x[0]                                               # h definition as dx.
 
     # Finite Differences Matrix
@@ -161,9 +198,9 @@ def Poisson1D_Matrix_Neumann_2(m, f, sig, beta):
     A           = np.linalg.inv(A)                                          # Solving the algebraic problem.
     u_ap        = A@F                                                       # Problem solution.
 
-    return x, u_ap                                                          # Return the mesh and the computed solution.
+    return u_ap                                                             # Return the mesh and the computed solution.
 
-def Poisson1D_Matrix_Neumann_3(m, f, sig, beta):
+def Poisson1D_Matrix_Neumann_3(x, f, sig, beta):
     '''
         Poisson1D_Matrix_Neumann_3
 
@@ -173,17 +210,16 @@ def Poisson1D_Matrix_Neumann_3(m, f, sig, beta):
         The Neumann boundary condition is applied with a three-point-forward finite difference scheme.
 
         Arguments:
-            m                       Integer         Number of nodes in the grid.
+            x                       Array           Mesh of the region.
             f                       Function        Function with the sources and sinks.
             sig                     Real            Value of the derivative on the Neumann boundary condition.
             beta                    Real            Value of the function on the Dirichlet boundary condition.
         
         Returns:
-            x           m x 1       Array           Array with the grid generated for the problem.
             u           m x 1       Array           Array with the computed solution of the method.
     '''
     # Variable Initialization
-    x           = np.linspace(0,1,m)                                        # Mesh generation.
+    m           = len(x)                                                    # Size of the mesh.
     h           = x[1] - x[0]                                               # h definition as dx.
 
     # Finite Differences Matrix
@@ -209,50 +245,9 @@ def Poisson1D_Matrix_Neumann_3(m, f, sig, beta):
     A           = np.linalg.inv(A)                                          # Solving the algebraic problem.
     u_ap        = A@F                                                       # Problem solution.
 
-    return x, u_ap                                                          # Return the mesh and the computed solution.
+    return u_ap                                                             # Return the mesh and the computed solution.
 
-def Poisson1D_Iter(m, f, u):
-    '''
-        Poisson1D_Iter
-
-        This code solves the 1D Poisson problem on a regular grid with Dirichlet boundary conditions
-        using an Iterative formulation of the Finite Difference centered scheme.
-
-        Arguments:
-            m                       Integer         Number of nodes in the grid.
-            f                       Function        Function with the sources and sinks.
-            u                       Function        Function for the boundary conditions.
-        
-        Returns:
-            x           m x 1       Array           Array with the grid generated for the problem.
-            u_ap        m x 1       Array           Array with the computed solution of the method.
-    '''
-
-    # Variable Initialization
-    x       = np.linspace(0,1,m)                                            # Mesh generation.
-    h      = x[2] - x[1]                                                    # h definition as dx.
-    u_ap    = np.zeros([m])                                                 # u_ap initialization with zeros.
-    err     = 1                                                             # err initialization with 1 to guarantee at least one iteration.
-    tol     = np.sqrt(np.finfo(float).eps)                                  # Tolerance of the method.
-    itera   = 0                                                             # Number of iterations performed.
-
-    # Boundary Conditions
-    u_ap[0]  = u(x[0])                                                      # Boundary condition at x = a
-    u_ap[-1] = u(x[-1])                                                     # Boundary condition at x = b.
-
-    # Finite Difference Solution
-    while err >= tol:                                                       # While the error is greater than the tolerance.
-        itera += 1                                                          # A new iteration is performed.
-        err = 0                                                             # The error of this iteration is 0.
-        for i in range(1,m-1):                                              # For all the grid nodes.
-            t   = (1/2)*(u_ap[i-1] + u_ap[i+1] + h**2*f(x[i]))              # Finite Differences Approximation.
-            err = max(err, abs(t - u_ap[i]))                                # New error is computed.
-            u_ap[i] = t                                                     # The approximation is saved.
-    
-    print(itera, ' iterations were performed.')                             # Print the total number of iterations.
-    return x, u_ap                                                          # Return the mesh and the computed solution.
-
-def Poisson2D_Matrix(m, f, u):
+def Poisson2D_Matrix(x, y, f, u):
     '''
         Poisson2D_Matrix
 
@@ -260,20 +255,17 @@ def Poisson2D_Matrix(m, f, u):
         using a Matrix formulation of the Finite Difference centered scheme.
 
         Arguments:
-            m                       Integer         Number of nodes in each direction of the grid.
+            x           m x m       Array           Array with the x values of the nodes of the grid.
+            y           m x m       Array           Array with the y values of the nodes of the grid.
             f                       Function        Function with the sources and sinks.
             u                       Function        Function for the boundary conditions.
         
         Returns:
-            x           m x m       Array           Array with the x values of the nodes of the generated grid.
-            y           m x m       Array           Array with the y values of the nodes of the generated grid.
             u_ap        m x m       Array           Array with the computed solution of the method.
     '''
     # Variable Initialization
-    x      = np.linspace(0,1,m)                                             # x Discretization.
-    y      = np.linspace(0,1,m)                                             # y Discretization.
-    h      = x[2] - x[1]                                                    # h is defined as dx = dy.
-    x, y   = np.meshgrid(x,y)                                               # Mesh generation.
+    m      = x.shape[0]                                                     # Size of the mesh.
+    h      = x[0,1] - x[0,0]                                                # h is defined as dx = dy.
     A      = np.zeros([(m-2)*(m-2),(m-2)*(m-2)])                            # A is initialized as a (m-2)*(m-2)x(m-2)*(m-2) square matrix.
     F      = np.zeros([(m-2)*(m-2),1])                                      # F is initialized as a (m-1)*(m-2)x1 vector.
     u_ap   = np.zeros([m,m])                                                # u_ap is initialized with zeros.
@@ -322,9 +314,9 @@ def Poisson2D_Matrix(m, f, u):
         u_ap[0,i]   = u(x[0,i],y[0,i])                                      # Add the boundary condition to the solution.
         u_ap[m-1,i] = u(x[m-1,i],y[m-1,i])                                  # Add the boundary condition to the solution.
 
-    return x, y, u_ap                                                       # Return the mesh and the computed solution.
+    return u_ap                                                             # Return the mesh and the computed solution.
 
-def Poisson2D_Matrix_2(m, f, u):
+def Poisson2D_Matrix_2(x, y, f, u):
     '''
         Poisson2D_Matrix_2
 
@@ -333,20 +325,17 @@ def Poisson2D_Matrix_2(m, f, u):
         Size is formulated as a matrix and the flatten to be a vector.
 
         Arguments:
-            m                       Integer         Number of nodes in each direction of the grid.
+            x           m x m       Array           Array with the x values of the nodes of the grid.
+            y           m x m       Array           Array with the y values of the nodes of the grid.
             f                       Function        Function with the sources and sinks.
             u                       Function        Function for the boundary conditions.
         
         Returns:
-            x           m x m       Array           Array with the x values of the nodes of the generated grid.
-            y           m x m       Array           Array with the y values of the nodes of the generated grid.
             u_ap        m x m       Array           Array with the computed solution of the method.
     '''
     # Variable Initialization
-    x      = np.linspace(0,1,m)                                             # x Discretization.
-    y      = np.linspace(0,1,m)                                             # y Discretization.
-    h      = x[2] - x[1]                                                    # h is defined as dx = dy.
-    x, y   = np.meshgrid(x,y)                                               # Mesh generation.
+    m      = x.shape[0]                                                     # Size of the mesh.
+    h      = x[0,1] - x[0,0]                                                # h is defined as dx = dy.
     A      = np.zeros([(m-2)*(m-2),(m-2)*(m-2)])                            # A is initialized as a (m-2)*(m-2)x(m-2)*(m-2) square matrix.
     F      = np.zeros([(m-2),(m-2)])                                        # F is initialized as a (m-1)*(m-2)x1 vector.
     u_ap   = np.zeros([m,m])                                                # u_ap is initialized with zeros.
@@ -390,9 +379,9 @@ def Poisson2D_Matrix_2(m, f, u):
         u_ap[0,i]   = u(x[0,i],y[0,i])                                      # Add the boundary condition to the solution.
         u_ap[m-1,i] = u(x[m-1,i],y[m-1,i])                                  # Add the boundary condition to the solution.
 
-    return x, y, u_ap                                                       # Return the mesh and the computed solution.
+    return u_ap                                                             # Return the mesh and the computed solution.
 
-def Poisson2D_Iter(m, f, u):
+def Poisson2D_Iter(x, y, f, u):
     '''
         Poisson2D_Iter
 
@@ -400,20 +389,17 @@ def Poisson2D_Iter(m, f, u):
         using an Iterative formulation of the Finite Difference centered scheme.
 
         Arguments:
-            m                       Integer         Number of nodes in each direction of the grid.
+            x           m x m       Array           Array with the x values of the nodes of the grid.
+            y           m x m       Array           Array with the y values of the nodes of the grid.
             f                       Function        Function with the sources and sinks.
             u                       Function        Function for the boundary conditions.
         
         Returns:
-            x           m x m       Array           Array with the x values of the nodes of the generated grid.
-            y           m x m       Array           Array with the y values of the nodes of the generated grid.
             u_ap        m x m       Array           Array with the computed solution of the method.
     '''
     # Variable Initialization
-    x      = np.linspace(0,1,m)                                             # x Discretization.
-    y      = np.linspace(0,1,m)                                             # y Discretization.
-    h      = x[2] - x[1]                                                    # h is defined as dx = dy.
-    x, y   = np.meshgrid(x,y)                                               # Mesh generation.
+    m      = x.shape[0]                                                     # Size of the mesh.
+    h      = x[0,1] - x[0,0]                                                # h is defined as dx = dy.
     u_ap   = np.zeros([m,m])                                                # u_ap initialization with zeros.
     err     = 1                                                             # err initialization with 1 to guarantee at least one iteration.
     tol     = np.sqrt(np.finfo(float).eps)                                  # Tolerance of the method.
@@ -438,4 +424,4 @@ def Poisson2D_Iter(m, f, u):
                 u_ap[i,j] = t                                               # The approximated solution is stored.
     
     print(itera, ' iterations were performed.')                             # Print the total number of iterations.
-    return x, y, u_ap                                                       # Return the mesh and the computed solution.
+    return u_ap                                                             # Return the mesh and the computed solution.

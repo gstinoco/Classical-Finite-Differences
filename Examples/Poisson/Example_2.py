@@ -38,17 +38,27 @@ import numpy as np
 from Poisson_Equation import Poisson1D_Matrix_Neumann_1
 from Poisson_Equation import Poisson1D_Matrix_Neumann_2
 from Poisson_Equation import Poisson1D_Matrix_Neumann_3
-from Scripts.Graphs import Graph_1D_Stationary_1
+from Scripts.Graphs import Graph_1D
 
 # Problem Parameters
 a       = 0
 b       = 10
 m       = 20
-f       = lambda x: np.exp(x)
 
-x, u_ap = Poisson1D_Matrix_Neumann_1(m, f, a, b)
-Graph_1D_Stationary_1(x, u_ap)
-x, u_ap = Poisson1D_Matrix_Neumann_2(m, f, a, b)
-Graph_1D_Stationary_1(x, u_ap)
-x, u_ap = Poisson1D_Matrix_Neumann_3(m, f, a, b)
-Graph_1D_Stationary_1(x, u_ap)
+f       = lambda x: np.exp(x)
+x       = np.linspace(0,1,m)
+
+# Problem solving
+u_ap = Poisson1D_Matrix_Neumann_1(x, f, a, b)
+# Plot the solution
+Graph_1D('Neumann 1.', x, u_ap)
+
+# Problem solving
+u_ap = Poisson1D_Matrix_Neumann_2(x, f, a, b)
+# Plot the solution
+Graph_1D('Neumann 2.', x, u_ap)
+
+# Problem solving
+u_ap = Poisson1D_Matrix_Neumann_3(x, f, a, b)
+# Plot the solution
+Graph_1D('Neumann 3.', x, u_ap)

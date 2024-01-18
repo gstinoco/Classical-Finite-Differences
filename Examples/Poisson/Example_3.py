@@ -37,15 +37,17 @@ import numpy as np
 from Poisson_Equation import Poisson2D_Matrix_2
 from Poisson_Equation import Poisson2D_Matrix
 from Poisson_Equation import Poisson2D_Iter
-from Scripts.Graphs import Graph_2D_Static
+from Scripts.Graphs import Graph_2D
 
 # Problem Parameters
 m       = 21
 f       = lambda x,y: 10*np.exp(2*x+y)
 u       = lambda x,y: 2*np.exp(2*x+y)
 
-# Problem solving
-x, y, u_ap = Poisson2D_Matrix_2(m, f, u)
+# Mesh generation
+x      = np.linspace(0, 1, m)                                           # x Discretization.
+y      = np.linspace(0, 1, m)                                           # y Discretization.
+x, y   = np.meshgrid(x, y)                                              # Mesh generation.
 
 # Exact Solution
 u_ex = np.zeros([m,m])
@@ -53,5 +55,17 @@ for i in range(m):
     for j in range(m):
         u_ex[i,j] = u(x[i,j], y[i,j])
 
+# Problem solving
+u_ap = Poisson2D_Matrix(x, y, f, u)
 # Plot the solutions
-Graph_2D_Static(x, y, u_ap, u_ex)
+Graph_2D('2D Poisson Equation. Matrix.', x, y, u_ap, u_ex)
+
+# Problem solving
+u_ap = Poisson2D_Matrix_2(x, y, f, u)
+# Plot the solutions
+Graph_2D('2D Poisson Equation. Matrix. Second approach.', x, y, u_ap, u_ex)
+
+# Problem solving
+u_ap = Poisson2D_Iter(x, y, f, u)
+# Plot the solutions
+Graph_2D('2D Poisson Equation. Iterative.', x, y, u_ap, u_ex)

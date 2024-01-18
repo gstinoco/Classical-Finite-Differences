@@ -28,28 +28,50 @@ sys.path.insert(1, root_dir)
 
 # Library Importation
 import numpy as np
-from Diffusion_Equation import Diffusion_2D_1
-from Diffusion_Equation import Diffusion_2D_MOL_RK
-from Diffusion_Equation import Diffusion_2D_CN_1
-from Scripts.Graphs import Graph_2D_Transient
+from Diffusion_Equation import Diffusion_2D
+from Diffusion_Equation import Diffusion_2D_CN
+from Diffusion_Equation import Diffusion_2D_MOL
+from Scripts.Graphs import Graph_2D
 from Scripts.Error_norms import l2_err_t
-
+ 
 # Problem Parameters
 m       = 11
 n       = 11
 t       = 200
 u       = lambda x,y,t,nu: np.exp(-2*np.pi**2*nu*t)*np.cos(np.pi*x)*np.cos(np.pi*y)
 nu      = 0.2
+
+# Variable initialization.
+u_ex = np.zeros([m,n,t])
+
+# Mesh generation
 x    = np.linspace(0, 1, m)
 y    = np.linspace(0, 1, n)
 x, y = np.meshgrid(x,y)
 T    = np.linspace(0, 1, t)
-u_ex = np.zeros([m,n,t])
 
+# Exact Solution
 for k in range(t):
     for i in range(m):
         for j in range(n):
             u_ex[i,j,k] = u(x[i,j], y[i,j], T[k], nu)
 
-u_ap = Diffusion_2D_MOL_RK(m, n, t, u, nu)
-Graph_2D_Transient(x, y, u_ap, u_ex)
+# Problem solving
+u_ap = Diffusion_2D(x,y,T, u, nu)
+# Plot the solution
+Graph_2D('2D Diffusion Equation. Iterative.', x, y, u_ap, u_ex)
+
+# Problem solving
+u_ap = Diffusion_2D_CN(x,y,T, u, nu)
+# Plot the solution
+Graph_2D('2D Diffusion Equation. Crank-Nicolson.', x, y, u_ap, u_ex)
+
+# Problem solving
+u_ap = Diffusion_2D_MOL(x,y,T, u, nu, 2)
+# Plot the solution
+Graph_2D('2D Diffusion Equation. MOL. Runge-Kutta 2.', x, y, u_ap, u_ex)
+
+# Problem solving
+u_ap = Diffusion_2D_MOL(x,y,T, u, nu, 3)
+# Plot the solution
+Graph_2D('2D Diffusion Equation. MOL. Runge-Kutta 3.', x, y, u_ap, u_ex)

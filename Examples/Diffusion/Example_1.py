@@ -1,5 +1,5 @@
 """"
-Example 1 for Classical Finite Difference Schemes to solve Diffusion Equation.
+Example or Classical Finite Difference Schemes to solve 1D Diffusion Equation.
 
 All the codes were developed by:
     Dr. Gerardo Tinoco Guerrero
@@ -28,28 +28,57 @@ sys.path.insert(1, root_dir)
 
 # Library Importation
 import numpy as np
-from Diffusion_Equation import Diffusion_1D_0
-from Diffusion_Equation import Diffusion_1D_1
-from Diffusion_Equation import Diffusion_1D_CN_0
-from Diffusion_Equation import Diffusion_1D_CN_1
-from Diffusion_Equation import Diffusion_1D_MOL_RK
-from Scripts.Graphs import Graph_1D_Transient
-from Scripts.Error_norms import l2_err_t
+from Diffusion_Equation import Diffusion_1D_Matrix
+from Diffusion_Equation import Diffusion_1D_Iter
+from Diffusion_Equation import Diffusion_1D_CN_Matrix
+from Diffusion_Equation import Diffusion_1D_CN_Iter
+from Diffusion_Equation import Diffusion_1D_MOL
+from Scripts.Graphs import Graph_1D
 
 # Problem Parameters
 m    = 11
 t    = 200
 u    = lambda x,t,nu: np.exp(-nu*t)*np.sin(x)
 nu   = 0.2
-x    = np.linspace(0, 1, m)
-T    = np.linspace(0, 1, t)
+
+# Variable initialization.
 u_ex = np.zeros([m,t])
 
+# Mesh generation
+x    = np.linspace(0, 1, m)
+T    = np.linspace(0, 1, t)
+
+# Exact Solution
 for k in range(t):
     for i in range(m):
         u_ex[i,k] = u(x[i], T[k], nu)
 
-u_ap = Diffusion_1D_CN_0(m, t, u, nu)
-err = l2_err_t(u_ap, u_ex)
-print(max(err))
-Graph_1D_Transient(x, t, u_ap, u_ex)
+# Problem solving
+u_ap = Diffusion_1D_Matrix(x, T, u, nu)
+# Plot the solution
+Graph_1D('1D Diffusion Equation. Matrix.', x, u_ap, u_ex)
+
+# Problem solving
+u_ap = Diffusion_1D_Iter(x, T, u, nu)
+# Plot the solution
+Graph_1D('1D Diffusion Equation. Iterative.', x, u_ap, u_ex)
+
+# Problem solving
+u_ap = Diffusion_1D_CN_Matrix(x, T, u, nu)
+# Plot the solution
+Graph_1D('1D Diffusion Equation. Crank-Nicolson. Matrix.', x, u_ap, u_ex)
+
+# Problem solving
+u_ap = Diffusion_1D_CN_Iter(x, T, u, nu)
+# Plot the solution
+Graph_1D('1D Diffusion Equation. Crank-Nicolson. Iterative.', x, u_ap, u_ex)
+
+# Problem solving
+u_ap = Diffusion_1D_MOL(x, T, u, nu, 2)
+# Plot the solution
+Graph_1D('1D Diffusion Equation. MOL. RK2.', x, u_ap, u_ex)
+
+# Problem solving
+u_ap = Diffusion_1D_MOL(x, T, u, nu, 3)
+# Plot the solution
+Graph_1D('1D Diffusion Equation. MOL. RK3.', x, u_ap, u_ex)

@@ -1,4 +1,4 @@
-""""
+'''
 Example 1 for Classical Finite Difference Schemes to solve Poisson Equation.
 
 The problem to solve is:
@@ -22,7 +22,7 @@ Date:
 
 Last Modification:
     January, 2024.
-"""
+'''
 
 # Path Importation
 import sys
@@ -36,7 +36,7 @@ sys.path.insert(1, root_dir)
 import numpy as np
 from Poisson_Equation import Poisson1D_Matrix
 from Poisson_Equation import Poisson1D_Iter
-from Scripts.Graphs import Graph_1D_Stationary
+from Scripts.Graphs import Graph_1D
 
 # Problem Parameters
 a       = 0
@@ -45,17 +45,18 @@ m       = 21
 f       = lambda x: 2*np.sin(x) + x*np.cos(x)
 u       = lambda x: x*np.cos(x)
 
-# Problem solving
-x, u_ap = Poisson1D_Iter(m, f, u)
+# Mesh generation
+x       = np.linspace(0,1,m)
 
 # Exact Solution
 u_ex    = u(x)
 
+# Problem solving
+u_ap = Poisson1D_Matrix(x, f, u)
 # Plot the solutions
-Graph_1D_Stationary(x, u_ap, u_ex)
+Graph_1D('1D Poisson Equation. Matrix.', x, u_ap, u_ex)
 
 # Problem solving
-x, u_ap = Poisson1D_Matrix(m, f, u)
-
+u_ap = Poisson1D_Iter(x, f, u)
 # Plot the solutions
-Graph_1D_Stationary(x, u_ap, u_ex)
+Graph_1D('1D Poisson Equation. Iterative.', x, u_ap, u_ex)
