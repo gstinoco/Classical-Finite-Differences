@@ -8,8 +8,8 @@ All the codes are distributed under MIT License on [GitHub](https://github.com/g
 ## Description :memo:
 This repository contains a variety of Classical Finite Differences Schemes to solve:<br>
 1. Poisson Equation.
-2. Advection Equation.
-3. Diffusion Equation.
+2. Diffusion Equation.
+3. Advection Equation.
 <!-- 4. Advection-Diffusion Equation.
 5. Wave Equation.
 6. Shallow Water Equations.-->
