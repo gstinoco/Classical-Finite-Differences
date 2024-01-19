@@ -41,6 +41,7 @@ def Diffusion_1D_Matrix(x, T, u, nu):
         Returns:
             u_ap        m x 1       Array           Array with the computed solution of the method.
     '''
+    
     m    = len(x)                                                           # Size of the mesh in space.
     t    = len(T)                                                           # Size of the mesh in time.
     dx   = x[1] - x[0]                                                      # dx is defined as the space step-length.
@@ -91,6 +92,7 @@ def Diffusion_1D_Iter(x, T, u, nu):
         Returns:
             u_ap        m x 1       Array           Array with the computed solution of the method.
     '''
+
     m    = len(x)                                                           # Size of the mesh in space.
     t    = len(T)                                                           # Size of the mesh in time.
     dx   = x[1] - x[0]                                                      # dx is defined as the space step-length.
@@ -130,6 +132,7 @@ def Diffusion_1D_CN_Matrix(x, T, u, nu):
         Returns:
             u_ap        m x 1       Array           Array with the computed solution of the method.
     '''
+    
     m    = len(x)                                                           # Size of the mesh in space.
     t    = len(T)                                                           # Size of the mesh in time.
     dx   = x[1] - x[0]                                                      # dx is defined as the space step-length.
@@ -183,6 +186,7 @@ def Diffusion_1D_CN_Iter(x, T, u, nu):
         Returns:
             u_ap        m x 1       Array           Array with the computed solution of the method.
     '''
+
     m    = len(x)                                                           # Size of the mesh in space.
     t    = len(T)                                                           # Size of the mesh in time.
     dx   = x[1] - x[0]                                                      # dx is defined as the space step-length.
@@ -233,6 +237,7 @@ def Diffusion_1D_MOL(x, T, u, nu, RK):
         Returns:
             u_ap        m x 1       Array           Array with the computed solution of the method.
     '''
+
     m    = len(x)                                                           # Size of the mesh in space.
     t    = len(T)                                                           # Size of the mesh in time.
     #dx   = x[1] - x[0]                                                     # dx is defined as the space step-length.
@@ -273,6 +278,7 @@ def Diffusion_2D(x, y, T, u, nu):
         Returns:
             u_ap        m x m       Array           Array with the computed solution of the method.
     '''
+
     m, n = x.shape                                                          # Size of the mesh.
     t    = len(T)                                                           # Size of the mesh in time.
     dx   = x[0,1] - x[0,0]                                                  # dx is defined as the space step-length in x.
@@ -322,6 +328,7 @@ def Diffusion_2D_CN(x, y, T, u, nu):
         Returns:
             u_ap        m x m       Array           Array with the computed solution of the method.
     '''
+
     m, n = x.shape                                                          # Size of the mesh.
     t    = len(T)                                                           # Size of the mesh in time.
     dx   = x[0,1] - x[0,0]                                                  # dx is defined as the space step-length in x.
@@ -384,6 +391,7 @@ def Diffusion_2D_MOL(x, y, T, u, nu, RK):
         Returns:
             u_ap        m x m       Array           Array with the computed solution of the method.
     '''
+
     m, n = x.shape                                                          # Size of the mesh.
     t    = len(T)                                                           # Size of the mesh in time.
     u_ap = np.zeros([m,n,t])                                                # u_ap is initialized with zeros.

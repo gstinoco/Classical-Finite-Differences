@@ -351,3 +351,54 @@ def Advection_1D_Bean_Warming(x, T, u, a):
 
 
     return u_ap                                                             # Return the computed solution.
+
+def Advection_2D_FTCS(x, y, T, u, a, b):
+    '''
+        Advection_2D_FTCS
+
+        This function solves a 2D Advection problem on a regular grid with Dirichlet boundary conditions
+        using an Iterative formulation of the Classical Finite Difference Centered Scheme.
+
+        Arguments:
+            x           m x n       Array           Array with the x values of the nodes of the generated grid.
+            y           m x n       Array           Array with the y values of the nodes of the generated grid.
+            T           t x 1       Array           Array with the time grid with t partitions.
+            u                       Function        Function for the boundary conditions.
+            a                       Float           Advective velocity on x-axis for the problem.
+            b                       Float           Advective velocity on y-axis for the problem.
+        
+        Returns:
+            u_ap        m x m       Array           Array with the computed solution of the method.
+    '''
+
+    m, n = x.shape                                                          # Size of the mesh.
+    t    = len(T)                                                           # Size of the mesh in time.
+    dx   = x[0,1] - x[0,0]                                                  # dx is defined as the space step-length in x.
+    dy   = y[1,0] - y[0,0]                                                  # dy is defined as the space step-length in y.
+    dt   = T[1] - T[0]                                                      # dt is defined as the time step-length.
+    u_ap = np.zeros([m,n,t])                                                # u_ap is initialized with zeros.
+    r_x  = a*dt/(2*dx)                                                      # r is defined as the CFL coefficient.
+    r_y  = b*dt/(2*dy)                                                      # r is defined as the CFL coefficient.
+
+    # Initial condition
+    for i in range(m):                                                      # For all the grid nodes in x.
+        for j in range(n):                                                  # For all the grid nodes in y.
+            u_ap[i,j,0] = u(x[i,j],y[i,j],T[0],a, b)                        # The initial condition is assigned.
+    
+    # Boundary conditions
+    for k in range(t):                                                      # For all the time steps.
+        for i in range(m):
+            u_ap[i, 0, k]  = u(x[i, 0],  y[i, 0],  T[k], a, b)              # Boundary condition at y = 0.
+            u_ap[i, -1, k] = u(x[i, -1], y[i, -1], T[k], a, b)              # Boundary condition at y = 1.
+        for j in range(n):
+            u_ap[0, j, k]  = u(x[0,j],  y[0, j],  T[k], a, b)               # Boundary condition at x = 0.
+            u_ap[-1, j, k] = u(x[-1,j], y[-1, j], T[k], a, b)               # Boundary condition at x = 1.
+    
+    for k in range(t-1):                                                    # For all the time-steps.
+        for i in range(1,m-1):                                              # For all the inner nodes in y.
+            for j in range(1,n-1):                                          # For all the inner nodes in x.
+                u_ap[i,j,k+1] = u_ap[i,j,k] - \
+                    r_x*(u_ap[i+1,j,k] - u_ap[i-1,j,k]) - \
+                    r_y*(u_ap[i,j+1,k] - u_ap[i,j-1,k])                     # The new approximation is performed.
+            
+    return u_ap                                                             # Return the computed solution.

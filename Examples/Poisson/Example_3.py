@@ -1,5 +1,5 @@
-""""
-Example 3 for Classical Finite Difference Schemes to solve Poisson Equation.
+'''
+Example 3 for Classical Finite Difference Schemes to solve the 2D Poisson Equation.
 
 The problem to solve is:
     u(x,y)_{xx} + u(x,y)_yy = -f(x,y)
@@ -22,7 +22,7 @@ Date:
 
 Last Modification:
     January, 2024.
-"""
+'''
 
 # Path Importation
 import sys

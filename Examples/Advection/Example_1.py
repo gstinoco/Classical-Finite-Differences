@@ -1,5 +1,5 @@
-""""
-Example 1 for Classical Finite Difference Schemes to solve Advection Equation.
+'''
+Example 1 for Classical Finite Difference Schemes to solve the 1D Advection Equation.
 
 All the codes were developed by:
     Dr. Gerardo Tinoco Guerrero
@@ -11,12 +11,12 @@ With the funding of:
     Coordination of Scientific Research, CIC-UMSNH (Coordinación de la Investigación Científica de la Universidad Michoacana de San Nicolás de Hidalgo, CIC-UMSNH). México
     Aula CIMNE-Morelia. México
  
-Date: 
+Date:
     October, 2022.
 
 Last Modification:
-    October, 2023.
-"""
+    January, 2024.
+'''
 
 # Path Importation
 import sys

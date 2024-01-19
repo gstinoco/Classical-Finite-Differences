@@ -36,6 +36,7 @@ def Poisson1D_Matrix(x, f, u):
         Returns:
             u_ap        m x 1       Array           Array with the computed solution of the method.
     '''
+
     # Variable Initialization
     m           = len(x)                                                    # Size of the mesh.
     h           = x[1] - x[0]                                               # h definition as dx.
@@ -126,6 +127,7 @@ def Poisson1D_Matrix_Neumann_1(x, f, sig, beta):
         Returns:
             u           m x 1       Array           Array with the computed solution of the method.
     '''
+
     # Variable Initialization
     m           = len(x)                                                    # Size of the mesh.
     h           = x[1] - x[0]                                               # h definition as dx.
@@ -172,6 +174,7 @@ def Poisson1D_Matrix_Neumann_2(x, f, sig, beta):
         Returns:
             u           m x 1       Array           Array with the computed solution of the method.
     '''
+
     # Variable Initialization
     m           = len(x)                                                    # Size of the mesh.
     h           = x[1] - x[0]                                               # h definition as dx.
@@ -218,6 +221,7 @@ def Poisson1D_Matrix_Neumann_3(x, f, sig, beta):
         Returns:
             u           m x 1       Array           Array with the computed solution of the method.
     '''
+
     # Variable Initialization
     m           = len(x)                                                    # Size of the mesh.
     h           = x[1] - x[0]                                               # h definition as dx.
@@ -263,6 +267,7 @@ def Poisson2D_Matrix(x, y, f, u):
         Returns:
             u_ap        m x m       Array           Array with the computed solution of the method.
     '''
+
     # Variable Initialization
     m      = x.shape[0]                                                     # Size of the mesh.
     h      = x[0,1] - x[0,0]                                                # h is defined as dx = dy.
@@ -333,6 +338,7 @@ def Poisson2D_Matrix_2(x, y, f, u):
         Returns:
             u_ap        m x m       Array           Array with the computed solution of the method.
     '''
+
     # Variable Initialization
     m      = x.shape[0]                                                     # Size of the mesh.
     h      = x[0,1] - x[0,0]                                                # h is defined as dx = dy.
@@ -397,6 +403,7 @@ def Poisson2D_Iter(x, y, f, u):
         Returns:
             u_ap        m x m       Array           Array with the computed solution of the method.
     '''
+    
     # Variable Initialization
     m      = x.shape[0]                                                     # Size of the mesh.
     h      = x[0,1] - x[0,0]                                                # h is defined as dx = dy.

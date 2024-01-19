@@ -1,5 +1,5 @@
-""""
-Example 1 for Classical Finite Difference Schemes to solve Poisson Equation.
+'''
+Example 2 for Classical Finite Difference Schemes to solve the 1D Poisson Equation.
 
 The problem to solve is:
     u(x)_{xx} = exp(x)
@@ -23,7 +23,7 @@ Date:
 
 Last Modification:
     January, 2024.
-"""
+'''
 
 # Path Importation
 import sys

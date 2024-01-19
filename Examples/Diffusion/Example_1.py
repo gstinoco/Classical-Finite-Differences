@@ -1,5 +1,5 @@
-""""
-Example or Classical Finite Difference Schemes to solve 1D Diffusion Equation.
+'''
+Example 1 for Classical Finite Difference Schemes to solve the 1D Diffusion Equation.
 
 All the codes were developed by:
     Dr. Gerardo Tinoco Guerrero
@@ -15,8 +15,8 @@ Date:
     October, 2022.
 
 Last Modification:
-    October, 2023.
-"""
+    January, 2024.
+'''
 
 # Path Importation
 import sys

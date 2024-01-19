@@ -1,11 +1,5 @@
 '''
-Example 1 for Classical Finite Difference Schemes to solve the 1D Poisson Equation.
-
-The problem to solve is:
-    u(x)_{xx} = -(2Sin(x) + xCos(x))
-
-Subject to conditions:
-    u(x)_\Omega = xCos(x)
+Example 2 for Classical Finite Difference Schemes to solve the 2D Advection Equation.
 
 All the codes were developed by:
     Dr. Gerardo Tinoco Guerrero
@@ -34,29 +28,34 @@ sys.path.insert(1, root_dir)
 
 # Library Importation
 import numpy as np
-from Poisson_Equation import Poisson1D_Matrix
-from Poisson_Equation import Poisson1D_Iter
-from Scripts.Graphs import Graph_1D
+from Advection_Equation import Advection_2D_FTCS
+from Scripts.Graphs import Graph_2D
 
+ 
 # Problem Parameters
-a       = 0
-b       = 2*np.pi
-m       = 21
-f       = lambda x: 2*np.sin(x) + x*np.cos(x)
-u       = lambda x: x*np.cos(x)
+m    = 21
+n    = 21
+t    = 800
+u    = lambda x,y,t,a,b: 0.2*np.exp((-(x-.5-a*t)**2-(y-.5-b*t)**2)/.01)
+a    = 0.3
+b    = 0.3
+
+# Variable initialization.
+u_ex = np.zeros([m, n, t])
 
 # Mesh generation
-x       = np.linspace(0,1,m)
+x    = np.linspace(0, 1, m)
+y    = np.linspace(0, 1, n)
+x, y = np.meshgrid(x, y)
+T    = np.linspace(0, 1, t)
 
 # Exact Solution
-u_ex    = u(x)
+for k in range(t):
+    for i in range(m):
+        for j in range(n):
+            u_ex[i,j,k] = u(x[i,j], y[i,j], T[k], a, b)
 
 # Problem solving
-u_ap = Poisson1D_Matrix(x, f, u)
-# Plot the solutions
-Graph_1D('1D Poisson Equation. Matrix.', x, u_ap, u_ex)
-
-# Problem solving
-u_ap = Poisson1D_Iter(x, f, u)
-# Plot the solutions
-Graph_1D('1D Poisson Equation. Iterative.', x, u_ap, u_ex)
+u_ap = Advection_2D_FTCS(x, y, T, u, a, b)
+# Plot the solution
+Graph_2D('2D Advection Equation. FTCS.', x, y, u_ap, u_ex)

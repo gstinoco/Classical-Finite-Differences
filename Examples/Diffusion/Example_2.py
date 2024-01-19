@@ -1,5 +1,5 @@
-""""
-Example 2 for Classical Finite Difference Schemes to solve Diffusion Equation.
+'''
+Example 2 for Classical Finite Difference Schemes to solve the 2D Diffusion Equation.
 
 All the codes were developed by:
     Dr. Gerardo Tinoco Guerrero
@@ -15,8 +15,8 @@ Date:
     October, 2022.
 
 Last Modification:
-    September, 2023.
-"""
+    January, 2024.
+'''
 
 # Path Importation
 import sys
