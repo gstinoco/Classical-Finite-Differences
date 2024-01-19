@@ -1,4 +1,4 @@
-"""
+'''
 Classical Finite Difference Schemes to solve Diffusion Equation.
 
 All the codes were developed by:
@@ -16,7 +16,7 @@ Date:
 
 Last Modification:
     January, 2024.
-"""
+'''
 
 # Library Importation
 import numpy as np

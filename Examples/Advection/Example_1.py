@@ -28,25 +28,106 @@ sys.path.insert(1, root_dir)
 
 # Library Importation
 import numpy as np
+from Advection_Equation import Advection_1D_FTBS
 from Advection_Equation import Advection_1D_FTCS
-from Scripts.Graphs import Graph_1D_Transient
-from Scripts.Error_norms import l2_err_t
+from Advection_Equation import Advection_1D_FTFS
+from Advection_Equation import Advection_1D_Lax_Friedrichs_v1
+from Advection_Equation import Advection_1D_Leapfrog
+from Advection_Equation import Advection_1D_Lax_Friedrichs_v2
+from Advection_Equation import Advection_1D_Lax_Wendroff
+from Advection_Equation import Advection_1D_Bean_Warming
+from Scripts.Graphs import Graph_1D
 
-
+ 
 # Problem Parameters
-m    = 10
-t    = 200
+m    = 161
+t    = 1600
 u    = lambda x,t,a: np.sin(x-a*t)
 a    = 0.5
-x    = np.linspace(0, 2*np.pi, m)
-T    = np.linspace(0, 1, t)
+
+# Variable initialization.
 u_ex = np.zeros([m,t])
 
+# Mesh generation
+x    = np.linspace(0, 2*np.pi, m)
+T    = np.linspace(0, 1, t)
+
+# Exact Solution
 for k in range(t):
     for i in range(m):
         u_ex[i,k] = u(x[i], T[k], a)
 
-u_ap = Advection_1D_FTCS(m, t, u, a)
-Graph_1D_Transient(x, t, u_ap, u_ex)
-er = l2_err_t(u_ap, u_ex)
-print(er)
+# Problem solving
+#u_ap = Advection_1D_FTBS(x, T, u, a)
+# Plot the solution
+#Graph_1D('1D Advection Equation. FTBS.', x, u_ap, u_ex)
+
+# Problem solving
+#u_ap = Advection_1D_FTCS(x, T, u, a)
+# Plot the solution
+#Graph_1D('1D Advection Equation. FTCS.', x, u_ap, u_ex)
+
+# Problem solving
+#u_ap = Advection_1D_Lax_Friedrichs_v1(x, T, u, a)
+# Plot the solution
+#Graph_1D('1D Advection Equation. Lax-Friedrichs v1.', x, u_ap, u_ex)
+        
+# Problem solving
+#u_ap = Advection_1D_Leapfrog(x, T, u, a)
+# Plot the solution
+#Graph_1D('1D Advection Equation. Leapfrog.', x, u_ap, u_ex)
+
+# Problem solving
+#u_ap = Advection_1D_Lax_Friedrichs_v2(x, T, u, a)
+# Plot the solution
+#Graph_1D('1D Advection Equation. Lax-Friedrichs v2.', x, u_ap, u_ex)
+
+# Problem solving
+#u_ap = Advection_1D_Lax_Wendroff(x, T, u, a)
+# Plot the solution
+#Graph_1D('1D Advection Equation. Lax-Wendroff.', x, u_ap, u_ex)
+
+# Problem solving
+u_ap = Advection_1D_Bean_Warming(x, T, u, a)
+# Plot the solution
+Graph_1D('1D Advection Equation. Beam-Warming.', x, u_ap, u_ex)
+
+# Exact Solution
+for k in range(t):
+    for i in range(m):
+        u_ex[i,k] = u(x[i], T[k], -a)
+
+# Problem solving
+#u_ap = Advection_1D_FTFS(x, T, u, -a)
+# Plot the solution
+#Graph_1D('1D Advection Equation. FTFS.', x, u_ap, u_ex)
+
+# Problem solving
+#u_ap = Advection_1D_FTCS(x, T, u, -a)
+# Plot the solution
+#Graph_1D('1D Advection Equation. FTCS.', x, u_ap, u_ex)
+
+# Problem solving
+#u_ap = Advection_1D_Lax_Friedrichs_v1(x, T, u, -a)
+# Plot the solution
+#Graph_1D('1D Advection Equation. Lax-Friedrichs v1.', x, u_ap, u_ex)
+        
+# Problem solving
+#u_ap = Advection_1D_Leapfrog(x, T, u, -a)
+# Plot the solution
+#Graph_1D('1D Advection Equation. Leapfrog', x, u_ap, u_ex)
+
+# Problem solving
+#u_ap = Advection_1D_Lax_Friedrichs_v2(x, T, u, -a)
+# Plot the solution
+#Graph_1D('1D Advection Equation. Lax-Friedrichs v2.', x, u_ap, u_ex)
+
+# Problem solving
+#u_ap = Advection_1D_Lax_Wendroff(x, T, u, -a)
+# Plot the solution
+#Graph_1D('1D Advection Equation. Lax-Wendroff.', x, u_ap, u_ex)
+
+# Problem solving
+u_ap = Advection_1D_Bean_Warming(x, T, u, -a)
+# Plot the solution
+Graph_1D('1D Advection Equation. Beam-Warming.', x, u_ap, u_ex)
