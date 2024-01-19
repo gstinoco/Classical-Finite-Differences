@@ -22,8 +22,8 @@ Last Modification:
 import sys
 import os
 current_dir = os.path.dirname(os.path.abspath(__file__))
-parent_dir = os.path.dirname(current_dir)
-root_dir = os.path.dirname(parent_dir)
+parent_dir  = os.path.dirname(current_dir)
+root_dir    = os.path.dirname(parent_dir)
 sys.path.insert(1, root_dir)
 
 # Library Importation
