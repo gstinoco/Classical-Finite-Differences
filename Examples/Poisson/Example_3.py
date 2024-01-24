@@ -34,10 +34,10 @@ sys.path.insert(1, root_dir)
 
 # Library Importation
 import numpy as np
-from Poisson_Equation import Poisson2D_Matrix_2
-from Poisson_Equation import Poisson2D_Matrix
-from Poisson_Equation import Poisson2D_Iter
+from Poisson_Equation_Matrix import Poisson2D as PM
+from Poisson_Equation_Iterative import Poisson2D as PI
 from Scripts.Graphs import Graph_2D
+from Scripts.Error_norms import Error_norms_2D
 
 # Problem Parameters
 m       = 21
@@ -49,23 +49,24 @@ x      = np.linspace(0, 1, m)                                           # x Disc
 y      = np.linspace(0, 1, m)                                           # y Discretization.
 x, y   = np.meshgrid(x, y)                                              # Mesh generation.
 
-# Exact Solution
+# Theoretical Solution
 u_ex = np.zeros([m,m])
 for i in range(m):
     for j in range(m):
         u_ex[i,j] = u(x[i,j], y[i,j])
 
 # Problem solving
-u_ap = Poisson2D_Matrix(x, y, f, u)
+u_ap = PM(x, y, f, u)
 # Plot the solutions
 Graph_2D('2D Poisson Equation. Matrix.', x, y, u_ap, u_ex)
+# Error computation
+print('\n2D Poisson Equation. Matrix.')
+Error_norms_2D(u_ap, u_ex)
 
 # Problem solving
-u_ap = Poisson2D_Matrix_2(x, y, f, u)
-# Plot the solutions
-Graph_2D('2D Poisson Equation. Matrix. Second approach.', x, y, u_ap, u_ex)
-
-# Problem solving
-u_ap = Poisson2D_Iter(x, y, f, u)
+u_ap = PI(x, y, f, u)
 # Plot the solutions
 Graph_2D('2D Poisson Equation. Iterative.', x, y, u_ap, u_ex)
+# Error computation
+print('\n2D Poisson Equation. Iterative.')
+Error_norms_2D(u_ap, u_ex)

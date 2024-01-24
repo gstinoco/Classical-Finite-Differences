@@ -34,29 +34,36 @@ sys.path.insert(1, root_dir)
 
 # Library Importation
 import numpy as np
-from Poisson_Equation import Poisson1D_Matrix
-from Poisson_Equation import Poisson1D_Iter
+from Poisson_Equation_Matrix import Poisson1D as PM
+from Poisson_Equation_Iterative import Poisson1D as PI
 from Scripts.Graphs import Graph_1D
+from Scripts.Error_norms import Error_norms_1D
 
 # Problem Parameters
 a       = 0
 b       = 2*np.pi
-m       = 21
-f       = lambda x: 2*np.sin(x) + x*np.cos(x)
+m       = 10
+f       = lambda x: -2*np.sin(x) - x*np.cos(x)
 u       = lambda x: x*np.cos(x)
 
 # Mesh generation
-x       = np.linspace(0,1,m)
+x       = np.linspace(a,b,m)
 
-# Exact Solution
+# Theoretical Solution
 u_ex    = u(x)
 
 # Problem solving
-u_ap = Poisson1D_Matrix(x, f, u)
+u_ap = PM(x, f, u)
 # Plot the solutions
 Graph_1D('1D Poisson Equation. Matrix.', x, u_ap, u_ex)
+# Error computation
+print('\n1D Poisson Equation. Matrix.')
+Error_norms_1D(u_ap, u_ex)
 
 # Problem solving
-u_ap = Poisson1D_Iter(x, f, u)
+u_ap = PI(x, f, u)
 # Plot the solutions
 Graph_1D('1D Poisson Equation. Iterative.', x, u_ap, u_ex)
+# Error computation
+print('\n1D Poisson Equation. Iterative.')
+Error_norms_1D(u_ap, u_ex)

@@ -35,9 +35,12 @@ sys.path.insert(1, root_dir)
 
 # Library Importation
 import numpy as np
-from Poisson_Equation import Poisson1D_Matrix_Neumann_1
-from Poisson_Equation import Poisson1D_Matrix_Neumann_2
-from Poisson_Equation import Poisson1D_Matrix_Neumann_3
+from Poisson_Equation_Matrix import Poisson1D_Neumann_1 as NM_1
+from Poisson_Equation_Matrix import Poisson1D_Neumann_2 as NM_2
+from Poisson_Equation_Matrix import Poisson1D_Neumann_3 as NM_3
+from Poisson_Equation_Iterative import Poisson1D_Neumann_1 as NI_1
+from Poisson_Equation_Iterative import Poisson1D_Neumann_2 as NI_2
+from Poisson_Equation_Iterative import Poisson1D_Neumann_3 as NI_3
 from Scripts.Graphs import Graph_1D
 
 # Problem Parameters
@@ -49,16 +52,31 @@ f       = lambda x: np.exp(x)
 x       = np.linspace(0,1,m)
 
 # Problem solving
-u_ap = Poisson1D_Matrix_Neumann_1(x, f, a, b)
+u_ap = NM_1(x, f, a, b)
 # Plot the solution
-Graph_1D('Neumann 1.', x, u_ap)
+Graph_1D('Neumann 1. Matrix Formulation.', x, u_ap)
 
 # Problem solving
-u_ap = Poisson1D_Matrix_Neumann_2(x, f, a, b)
+u_ap = NI_1(x, f, a, b)
 # Plot the solution
-Graph_1D('Neumann 2.', x, u_ap)
+Graph_1D('Neumann 1. Iterative Formulation.', x, u_ap)
 
 # Problem solving
-u_ap = Poisson1D_Matrix_Neumann_3(x, f, a, b)
+u_ap = NM_2(x, f, a, b)
 # Plot the solution
-Graph_1D('Neumann 3.', x, u_ap)
+Graph_1D('Neumann 2. Matrix Formulation.', x, u_ap)
+
+# Problem solving
+u_ap = NI_2(x, f, a, b)
+# Plot the solution
+Graph_1D('Neumann 2. Iterative Formulation.', x, u_ap)
+
+# Problem solving
+u_ap = NM_3(x, f, a, b)
+# Plot the solution
+Graph_1D('Neumann 3. Matrix Formulation.', x, u_ap)
+
+# Problem solving
+u_ap = NI_3(x, f, a, b)
+# Plot the solution
+Graph_1D('Neumann 3. Iterative Formulation.', x, u_ap)
