@@ -1,12 +1,6 @@
 '''
 Example 3 for Classical Finite Difference Schemes to solve the 2D Poisson Equation.
 
-The problem to solve is:
-    u(x,y)_{xx} + u(x,y)_yy = -f(x,y)
-
-Subject to conditions:
-    u(x,y)_\Omega = g(x,y)
-
 All the codes were developed by:
     Dr. Gerardo Tinoco Guerrero
     Universidad Michoacana de San Nicolás de Hidalgo
@@ -40,22 +34,22 @@ from Scripts.Graphs import Graph_2D
 from Scripts.Error_norms import Error_norms_2D
 
 # Problem Parameters
-m       = 21
-f       = lambda x,y: 10*np.exp(2*x+y)
-u       = lambda x,y: 2*np.exp(2*x+y)
+m    = 21
+f    = lambda x, y: 10*np.exp(2*x + y)
+u    = lambda x, y: 2*np.exp(2*x + y)
 
 # Mesh generation
-x      = np.linspace(0, 1, m)                                           # x Discretization.
-y      = np.linspace(0, 1, m)                                           # y Discretization.
-x, y   = np.meshgrid(x, y)                                              # Mesh generation.
+x    = np.linspace(0, 1, m)
+y    = np.linspace(0, 1, m)
+x, y = np.meshgrid(x, y)
 
 # Theoretical Solution
-u_ex = np.zeros([m,m])
+u_ex = np.zeros([m, m])
 for i in range(m):
     for j in range(m):
-        u_ex[i,j] = u(x[i,j], y[i,j])
+        u_ex[i, j] = u(x[i, j], y[i, j])
 
-# Problem solving
+# Problem-solving
 u_ap = PM(x, y, f, u)
 # Plot the solutions
 Graph_2D('2D Poisson Equation. Matrix.', x, y, u_ap, u_ex)
@@ -63,7 +57,7 @@ Graph_2D('2D Poisson Equation. Matrix.', x, y, u_ap, u_ex)
 print('\n2D Poisson Equation. Matrix.')
 Error_norms_2D(u_ap, u_ex)
 
-# Problem solving
+# Problem-solving
 u_ap = PI(x, y, f, u)
 # Plot the solutions
 Graph_2D('2D Poisson Equation. Iterative.', x, y, u_ap, u_ex)

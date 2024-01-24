@@ -40,19 +40,19 @@ from Scripts.Graphs import Graph_1D
 from Scripts.Error_norms import Error_norms_1D
 
 # Problem Parameters
-a       = 0
-b       = 2*np.pi
-m       = 10
-f       = lambda x: -2*np.sin(x) - x*np.cos(x)
-u       = lambda x: x*np.cos(x)
+a    = 0
+b    = 2*np.pi
+m    = 21
+f    = lambda x: -2*np.sin(x) - x*np.cos(x)
+u    = lambda x: x*np.cos(x)
 
 # Mesh generation
-x       = np.linspace(a,b,m)
+x    = np.linspace(a, b, m)
 
 # Theoretical Solution
-u_ex    = u(x)
+u_ex = u(x)
 
-# Problem solving
+# Problem-solving
 u_ap = PM(x, f, u)
 # Plot the solutions
 Graph_1D('1D Poisson Equation. Matrix.', x, u_ap, u_ex)
@@ -60,7 +60,7 @@ Graph_1D('1D Poisson Equation. Matrix.', x, u_ap, u_ex)
 print('\n1D Poisson Equation. Matrix.')
 Error_norms_1D(u_ap, u_ex)
 
-# Problem solving
+# Problem-solving
 u_ap = PI(x, f, u)
 # Plot the solutions
 Graph_1D('1D Poisson Equation. Iterative.', x, u_ap, u_ex)

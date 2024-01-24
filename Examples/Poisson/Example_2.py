@@ -44,39 +44,40 @@ from Poisson_Equation_Iterative import Poisson1D_Neumann_3 as NI_3
 from Scripts.Graphs import Graph_1D
 
 # Problem Parameters
-a       = 0
-b       = 10
-m       = 20
+a = 0
+b = 10
+m = 20
+f = lambda x: np.exp(x)
 
-f       = lambda x: np.exp(x)
-x       = np.linspace(0,1,m)
+# Mesh generation
+x = np.linspace(0, 1, m)
 
-# Problem solving
+# Problem-solving
 u_ap = NM_1(x, f, a, b)
 # Plot the solution
 Graph_1D('Neumann 1. Matrix Formulation.', x, u_ap)
 
-# Problem solving
+# Problem-solving
 u_ap = NI_1(x, f, a, b)
 # Plot the solution
 Graph_1D('Neumann 1. Iterative Formulation.', x, u_ap)
 
-# Problem solving
+# Problem-solving
 u_ap = NM_2(x, f, a, b)
 # Plot the solution
 Graph_1D('Neumann 2. Matrix Formulation.', x, u_ap)
 
-# Problem solving
+# Problem-solving
 u_ap = NI_2(x, f, a, b)
 # Plot the solution
 Graph_1D('Neumann 2. Iterative Formulation.', x, u_ap)
 
-# Problem solving
+# Problem-solving
 u_ap = NM_3(x, f, a, b)
 # Plot the solution
 Graph_1D('Neumann 3. Matrix Formulation.', x, u_ap)
 
-# Problem solving
+# Problem-solving
 u_ap = NI_3(x, f, a, b)
 # Plot the solution
 Graph_1D('Neumann 3. Iterative Formulation.', x, u_ap)

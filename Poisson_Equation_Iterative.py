@@ -41,28 +41,25 @@ def Poisson1D(x, f, u):
     # Variable Initialization
     m        = len(x)                                                       # Size of the mesh.
     h        = x[2] - x[1]                                                  # h definition as dx.
-    u_ap     = np.zeros([m])                                                # u_ap initialization with zeros.
+    u_ap     = np.zeros(m)                                                  # u_ap initialization with zeros.
     err      = 1                                                            # err initialization with 1 to guarantee at least one iteration.
     tol      = np.sqrt(np.finfo(float).eps)                                 # Tolerance of the method.
-    itera    = 0                                                            # Number of iterations performed.
-
+    
     # Boundary Conditions
     u_ap[0]  = u(x[0])                                                      # Boundary condition at x = a
     u_ap[-1] = u(x[-1])                                                     # Boundary condition at x = b.
 
     # Finite Difference Solution
     while err >= tol:                                                       # While the error is greater than the tolerance.
-        itera += 1                                                          # A new iteration is performed.
         err = 0                                                             # The error of this iteration is 0.
-        for i in range(1,m-1):                                              # For all the grid nodes.
+        for i in range(1, m-1):                                             # For all the grid nodes.
             t   = (1/2)*(u_ap[i-1] + u_ap[i+1] - h**2*f(x[i]))              # Finite Differences Approximation.
             err = max(err, abs(t - u_ap[i]))                                # New error is computed.
             u_ap[i] = t                                                     # The approximation is saved.
     
-    print(itera, ' iterations were performed.')                             # Print the total number of iterations.
     return u_ap                                                             # Return the mesh and the computed solution.
 
-def Poisson1D_Neumann_1(x, f, sig, beta): ##################### Missing
+def Poisson1D_Neumann_1(x, f, sig, beta):
     '''
         Poisson1D_Neumann_1
 
@@ -84,30 +81,26 @@ def Poisson1D_Neumann_1(x, f, sig, beta): ##################### Missing
     # Variable Initialization
     m        = len(x)                                                       # Size of the mesh.
     h        = x[2] - x[1]                                                  # h definition as dx.
-    u_ap     = np.zeros([m])                                                # u_ap initialization with zeros.
+    u_ap     = np.zeros(m)                                                  # u_ap initialization with zeros.
     err      = 1                                                            # err initialization with 1 to guarantee at least one iteration.
     tol      = np.sqrt(np.finfo(float).eps)                                 # Tolerance of the method.
-    itera    = 0                                                            # Number of iterations performed.
-
+    
     # Boundary Conditions
     u_ap[-1] = beta                                                         # Boundary condition at x = b.
 
     # Finite Difference Solution
     while err >= tol:                                                       # While the error is greater than the tolerance.
-        itera  += 1                                                         # A new iteration is performed.
         err     = 0                                                         # The error of this iteration is 0.
-        for i in range(1,m-1):                                              # For all the grid nodes.
+        for i in range(1, m-1):                                             # For all the grid nodes.
             t       = (1/2)*(u_ap[i-1] + u_ap[i+1] - h**2*f(x[i]))          # Finite Differences Approximation.
             err     = max(err, abs(t - u_ap[i]))                            # New error is computed.
             u_ap[i] = t                                                     # The approximation is saved.
 
         u_ap[0] = u_ap[1] - h*sig
     
-    print(itera, ' iterations were performed.')                             # Print the total number of iterations.
-
     return u_ap                                                             # Return the mesh and the computed solution.
 
-def Poisson1D_Neumann_2(x, f, sig, beta): ##################### Missing
+def Poisson1D_Neumann_2(x, f, sig, beta):
     '''
         Poisson1D_Neumann_2
 
@@ -129,7 +122,7 @@ def Poisson1D_Neumann_2(x, f, sig, beta): ##################### Missing
     # Variable Initialization
     m        = len(x)                                                       # Size of the mesh.
     h        = x[2] - x[1]                                                  # h definition as dx.
-    u_ap     = np.zeros([m])                                                # u_ap initialization with zeros.
+    u_ap     = np.zeros(m)                                                  # u_ap initialization with zeros.
     err      = 1                                                            # err initialization with 1 to guarantee at least one iteration.
     tol      = np.sqrt(np.finfo(float).eps)                                 # Tolerance of the method.
     
@@ -139,7 +132,7 @@ def Poisson1D_Neumann_2(x, f, sig, beta): ##################### Missing
     # Finite Difference Solution
     while err >= tol:                                                       # While the error is greater than the tolerance.
         err     = 0                                                         # The error of this iteration is 0.
-        for i in range(1,m-1):                                              # For all the grid nodes.
+        for i in range(1, m-1):                                             # For all the grid nodes.
             t       = (1/2)*(u_ap[i-1] + u_ap[i+1] - h**2*f(x[i]))          # Finite Differences Approximation.
             err     = max(err, abs(t - u_ap[i]))                            # New error is computed.
             u_ap[i] = t                                                     # The approximation is saved.
@@ -148,7 +141,7 @@ def Poisson1D_Neumann_2(x, f, sig, beta): ##################### Missing
 
     return u_ap                                                             # Return the mesh and the computed solution.
 
-def Poisson1D_Neumann_3(x, f, sig, beta): ##################### Missing
+def Poisson1D_Neumann_3(x, f, sig, beta):
     '''
         Poisson1D_Neumann_3
 
@@ -170,7 +163,7 @@ def Poisson1D_Neumann_3(x, f, sig, beta): ##################### Missing
     # Variable Initialization
     m        = len(x)                                                       # Size of the mesh.
     h        = x[2] - x[1]                                                  # h definition as dx.
-    u_ap     = np.zeros([m])                                                # u_ap initialization with zeros.
+    u_ap     = np.zeros(m)                                                  # u_ap initialization with zeros.
     err      = 1                                                            # err initialization with 1 to guarantee at least one iteration.
     tol      = np.sqrt(np.finfo(float).eps)                                 # Tolerance of the method.
     
@@ -180,7 +173,7 @@ def Poisson1D_Neumann_3(x, f, sig, beta): ##################### Missing
     # Finite Difference Solution
     while err >= tol:                                                       # While the error is greater than the tolerance.
         err     = 0                                                         # The error of this iteration is 0.
-        for i in range(1,m-1):                                              # For all the grid nodes.
+        for i in range(1, m-1):                                             # For all the grid nodes.
             t       = (1/2)*(u_ap[i-1] + u_ap[i+1] - h**2*f(x[i]))          # Finite Differences Approximation.
             err     = max(err, abs(t - u_ap[i]))                            # New error is computed.
             u_ap[i] = t                                                     # The approximation is saved.
@@ -207,27 +200,27 @@ def Poisson2D(x, y, f, u):
     '''
     
     # Variable Initialization
-    m      = x.shape[0]                                                     # Size of the mesh.
-    h      = x[0,1] - x[0,0]                                                # h is defined as dx = dy.
-    u_ap   = np.zeros([m,m])                                                # u_ap initialization with zeros.
-    err     = 1                                                             # err initialization with 1 to guarantee at least one iteration.
-    tol     = np.sqrt(np.finfo(float).eps)                                  # Tolerance of the method.
+    m    = x.shape[0]                                                       # Size of the mesh.
+    h    = x[0, 1] - x[0, 0]                                                # h is defined as dx = dy.
+    u_ap = np.zeros([m, m])                                                 # u_ap initialization with zeros.
+    err  = 1                                                                # err initialization with 1 to guarantee at least one iteration.
+    tol  = np.sqrt(np.finfo(float).eps)                                     # Tolerance of the method.
     
     # Boundary Condition
     for i in range(m):                                                      # For all the boundary nodes.
-        u_ap[i,0]  = u(x[i,0], y[i,0])                                      # The boundary on the bottom is added.
-        u_ap[i,-1] = u(x[i,-1], y[i,-1])                                    # The boundary on the top is added.
-        u_ap[0,i]  = u(x[0,i], y[0,i])                                      # The boundary on the right is added.
-        u_ap[-1,i] = u(x[-1,i], y[-1,i])                                    # The boundary on the left is added.
+        u_ap[i,  0] = u(x[i,  0], y[i,  0])                                 # The boundary on the bottom is added.
+        u_ap[i, -1] = u(x[i, -1], y[i, -1])                                 # The boundary on the top is added.
+        u_ap[0,  i] = u(x[0,  i], y[0,  i])                                 # The boundary on the right is added.
+        u_ap[-1, i] = u(x[-1, i], y[-1, i])                                 # The boundary on the left is added.
     
     while err >= tol:                                                       # While the error is greater than the tolerance.
         err = 0                                                             # The error of this iteration is 0.
-        for i in range(1,m-1):                                              # For all the grid nodes in x.
-            for j in range(1,m-1):                                          # For all the grin nodes in y.
-                t = (1/4)*(u_ap[i-1,j] + u_ap[i+1,j] + \
-                    u_ap[i,j-1] + u_ap[i,j+1] - \
-                    (h**2)*f(x[i,j],y[i,j]))                                # The new approximated solution is computed.
-                err = max(err, abs(t - u_ap[i,j]))                          # The new error is computed.
-                u_ap[i,j] = t                                               # The approximated solution is stored.
+        for i in range(1, m-1):                                             # For all the grid nodes in x.
+            for j in range(1, m-1):                                         # For all the grin nodes in y.
+                t = (1/4)*(u_ap[i-1, j]   + u_ap[i+1, j] + \
+                           u_ap[i,   j-1] + u_ap[i,   j+1] - \
+                    (h**2)*f(x[i, j], y[i, j]))                             # The new approximated solution is computed.
+                err = max(err, abs(t - u_ap[i, j]))                         # The new error is computed.
+                u_ap[i, j] = t                                              # The approximated solution is stored.
     
     return u_ap                                                             # Return the mesh and the computed solution.

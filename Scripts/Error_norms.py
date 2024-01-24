@@ -27,7 +27,10 @@ def Error_norms_1D(u_ap, u_ex):
         print('Infinity norm: \t\t', Infinity_norm(u_ap, u_ex))
         print('Quadratic Mean Error: \t', QME(u_ap, u_ex))
     else:
-        print('Transient Case')
+        print('Mean of the L1 norm: \t\t\t', np.mean(L1_norm(u_ap, u_ex)))
+        print('Mean of the L2 norm: \t\t\t', np.mean(L2_norm(u_ap, u_ex)))
+        print('Mean of the Infinity norm: \t\t', np.mean(Infinity_norm(u_ap, u_ex)))
+        print('Mean of the Quadratic Mean Error: \t', np.mean(QME(u_ap, u_ex)))
 
 def Error_norms_2D(u_ap, u_ex):
     if np.size(u_ap.shape) == 2:                                            # Check for Transient or Stationary problem.
@@ -36,7 +39,10 @@ def Error_norms_2D(u_ap, u_ex):
         print('Infinity norm: \t\t', Infinity_norm(u_ap, u_ex))
         print('Quadratic Mean Error: \t', QME(u_ap, u_ex))
     else:
-        print('Transient Case')
+        print('Mean of the L1 norm: \t\t\t', np.mean(L1_norm(u_ap, u_ex)))
+        print('Mean of the L2 norm: \t\t\t', np.mean(L2_norm(u_ap, u_ex)))
+        print('Mean of the Infinity norm: \t\t', np.mean(Infinity_norm(u_ap, u_ex)))
+        print('Mean of the Quadratic Mean Error: \t', np.mean(QME(u_ap, u_ex)))
 
 def L1_norm(u_ap, u_ex):
     E = np.abs(u_ap - u_ex)

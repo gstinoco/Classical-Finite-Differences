@@ -28,57 +28,59 @@ sys.path.insert(1, root_dir)
 
 # Library Importation
 import numpy as np
-from Diffusion_Equation import Diffusion_1D_Matrix
-from Diffusion_Equation import Diffusion_1D_Iter
-from Diffusion_Equation import Diffusion_1D_CN_Matrix
-from Diffusion_Equation import Diffusion_1D_CN_Iter
-from Diffusion_Equation import Diffusion_1D_MOL
+from Diffusion_Equation_Matrix import Diffusion1D as DEM
+from Diffusion_Equation_Iterative import Diffusion1D as DEI
+from Diffusion_Equation_Matrix import Diffusion1D_CN as DEM_CN
+from Diffusion_Equation_Iterative import Diffusion1D_CN as DEI_CN
 from Scripts.Graphs import Graph_1D
+from Scripts.Error_norms import Error_norms_1D
 
 # Problem Parameters
 m    = 11
 t    = 200
-u    = lambda x,t,nu: np.exp(-nu*t)*np.sin(x)
+u    = lambda x, t, nu: np.exp(-nu*t)*np.sin(x)
 nu   = 0.2
 
 # Variable initialization.
-u_ex = np.zeros([m,t])
+u_ex = np.zeros([m, t])
 
 # Mesh generation
 x    = np.linspace(0, 1, m)
 T    = np.linspace(0, 1, t)
 
-# Exact Solution
+# Theoretical Solution
 for k in range(t):
     for i in range(m):
-        u_ex[i,k] = u(x[i], T[k], nu)
+        u_ex[i, k] = u(x[i], T[k], nu)
 
-# Problem solving
-u_ap = Diffusion_1D_Matrix(x, T, u, nu)
+# Problem-solving
+u_ap = DEM(x, T, u, nu)
 # Plot the solution
 Graph_1D('1D Diffusion Equation. Matrix.', x, u_ap, u_ex)
+# Error computation
+print('\n1D Poisson Equation. Matrix.')
+Error_norms_1D(u_ap, u_ex)
 
-# Problem solving
-u_ap = Diffusion_1D_Iter(x, T, u, nu)
+# Problem-solving
+u_ap = DEI(x, T, u, nu)
 # Plot the solution
 Graph_1D('1D Diffusion Equation. Iterative.', x, u_ap, u_ex)
+# Error computation
+print('\n1D Poisson Equation. Iterative.')
+Error_norms_1D(u_ap, u_ex)
 
-# Problem solving
-u_ap = Diffusion_1D_CN_Matrix(x, T, u, nu)
+# Problem-solving
+u_ap = DEM_CN(x, T, u, nu)
 # Plot the solution
 Graph_1D('1D Diffusion Equation. Crank-Nicolson. Matrix.', x, u_ap, u_ex)
+# Error computation
+print('\n1D Poisson Equation. Matrix.')
+Error_norms_1D(u_ap, u_ex)
 
-# Problem solving
-u_ap = Diffusion_1D_CN_Iter(x, T, u, nu)
+# Problem-solving
+u_ap = DEI_CN(x, T, u, nu)
 # Plot the solution
 Graph_1D('1D Diffusion Equation. Crank-Nicolson. Iterative.', x, u_ap, u_ex)
-
-# Problem solving
-u_ap = Diffusion_1D_MOL(x, T, u, nu, 2)
-# Plot the solution
-Graph_1D('1D Diffusion Equation. MOL. RK2.', x, u_ap, u_ex)
-
-# Problem solving
-u_ap = Diffusion_1D_MOL(x, T, u, nu, 3)
-# Plot the solution
-Graph_1D('1D Diffusion Equation. MOL. RK3.', x, u_ap, u_ex)
+# Error computation
+print('\n1D Poisson Equation. Matrix.')
+Error_norms_1D(u_ap, u_ex)
