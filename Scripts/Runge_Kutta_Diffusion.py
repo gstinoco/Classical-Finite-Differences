@@ -1,5 +1,5 @@
 '''
-Runge-Kutta Methods for MOL
+Runge-Kutta Methods for MOL in Diffusion problems.
 
 All the codes were developed by:
     Dr. Gerardo Tinoco Guerrero

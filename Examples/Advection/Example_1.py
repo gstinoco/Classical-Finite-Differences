@@ -47,7 +47,6 @@ from Advection_Equation_Iterative import Advection1D_Bean_Warming as A1BWI
 from Scripts.Graphs import Graph_1D
 from Scripts.Error_norms import Error_norms_1D
 
- 
 # Problem Parameters
 m    = 21
 t    = 400

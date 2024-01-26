@@ -42,15 +42,18 @@ def Diffusion1D(x, T, u, nu):
             nu                      Float           Diffusion coefficient for the problem.
         
         Returns:
-            u_ap        m x 1       Array           Array with the computed solution of the method.
+            u_ap        m x t       Array           Array with the computed solution of the method.
     '''
 
+    # Variable initialization
     m    = len(x)                                                           # Size of the mesh in space.
     t    = len(T)                                                           # Size of the mesh in time.
     dx   = x[1] - x[0]                                                      # dx is defined as the space step-length.
     dt   = T[1] - T[0]                                                      # dt is defined as the time step-length.
-    u_ap = np.zeros([m, t])                                                 # u_ap is initialized with zeros.
     r    = nu*dt/(dx**2)                                                    # r has all the coefficients of the method.
+
+    # Solution initialization.
+    u_ap = np.zeros([m, t])                                                 # u_ap is initialized with zeros.
 
     # Initial condition
     for i in range(m):                                                      # For all the grid nodes.
@@ -61,6 +64,7 @@ def Diffusion1D(x, T, u, nu):
         u_ap[0,  k] = u(x[0],  T[k], nu)                                    # Boundary condition at x = 0.
         u_ap[-1, k] = u(x[-1], T[k], nu)                                    # Boundary condition at x = 1.
     
+    # Finite Differences Method
     for k in range(t-1):                                                    # For all the time-steps.
         for i in range(1, m-1):                                             # For all the inner nodes.
             u_ap[i, k+1] = u_ap[i, k] + r* \
@@ -82,17 +86,20 @@ def Diffusion1D_CN(x, T, u, nu):
             nu                      Float           Diffusion coefficient for the problem.
         
         Returns:
-            u_ap        m x 1       Array           Array with the computed solution of the method.
+            u_ap        m x t       Array           Array with the computed solution of the method.
     '''
 
+    # Variable initialization
     m    = len(x)                                                           # Size of the mesh in space.
     t    = len(T)                                                           # Size of the mesh in time.
     dx   = x[1] - x[0]                                                      # dx is defined as the space step-length.
     dt   = T[1] - T[0]                                                      # dt is defined as the time step-length.
-    u_ap = np.zeros([m, T])                                                 # u_ap is initialized with zeros.
     r    = nu*dt/(2*dx**2)                                                  # r has all the coefficients of the method.
     iter = np.zeros([t])                                                    # To save the number of iterations for each time.
     tol  = np.sqrt(np.finfo(float).eps)                                     # Tolerance of the method.
+
+    # Solution initialization.
+    u_ap = np.zeros([m, t])                                                 # u_ap is initialized with zeros.
 
     # Initial condition
     for i in range(m):                                                      # For all the grid nodes.
@@ -103,7 +110,7 @@ def Diffusion1D_CN(x, T, u, nu):
         u_ap[0,  k] = u(x[0],  T[k], nu)                                    # Boundary condition at x = 0.
         u_ap[-1, k] = u(x[-1], T[k], nu)                                    # Boundary condition at x = 1.
 
-    # Predictor-Corrector Method for Finite Differences
+    # Finite Differences Method
     for k in range(t-1):                                                    # For all the time-steps.
         err = 1                                                             # The difference is one to do at least one iteration.
         while err >= tol:                                                   # While the error is greater than the tolerance.
@@ -133,18 +140,21 @@ def Diffusion2D(x, y, T, u, nu):
             nu                      Float           Diffusion coefficient for the problem.
         
         Returns:
-            u_ap        m x m       Array           Array with the computed solution of the method.
+            u_ap        m x n x t   Array           Array with the computed solution of the method.
     '''
 
+    # Variable initialization
     m, n = x.shape                                                          # Size of the mesh.
     t    = len(T)                                                           # Size of the mesh in time.
     dx   = x[0, 1] - x[0, 0]                                                # dx is defined as the space step-length in x.
     dy   = y[1, 0] - y[0, 0]                                                # dy is defined as the space step-length in y.
     dt   = T[1] - T[0]                                                      # dt is defined as the time step-length.
-    u_ap = np.zeros([m, n, T])                                              # u_ap is initialized with zeros.
     r_x  = nu*dt/(dx**2)                                                    # r has all the coefficients of the method.
     r_y  = nu*dt/(dy**2)                                                    # r has all the coefficients of the method.
 
+    # Solution initialization.
+    u_ap = np.zeros([m, n, t])                                              # u_ap is initialized with zeros.
+    
     # Initial condition
     for i in range(m):                                                      # For all the grid nodes in x.
         for j in range(n):                                                  # For all the grid nodes in y.
@@ -159,6 +169,7 @@ def Diffusion2D(x, y, T, u, nu):
             u_ap[0, j,  k] = u(x[0, j],  y[0,  j], T[k], nu)                # Boundary condition at x = 0.
             u_ap[-1, j, k] = u(x[-1, j], y[-1, j], T[k], nu)                # Boundary condition at x = 1.
     
+    # Finite Differences Method
     for k in range(t-1):                                                    # For all the time-steps.
         for i in range(1, m-1):                                             # For all the inner nodes in y.
             for j in range(1, m-1):                                         # For all the inner nodes in x.
@@ -184,19 +195,22 @@ def Diffusion2D_CN(x, y, T, u, nu):
             nu                      Float           Diffusion coefficient for the problem.
         
         Returns:
-            u_ap        m x m       Array           Array with the computed solution of the method.
+            u_ap        m x n x t   Array           Array with the computed solution of the method.
     '''
 
+    # Variable initialization
     m, n = x.shape                                                          # Size of the mesh.
     t    = len(T)                                                           # Size of the mesh in time.
     dx   = x[0, 1] - x[0, 0]                                                # dx is defined as the space step-length in x.
     dy   = y[1, 0] - y[0, 0]                                                # dy is defined as the space step-length in y.
     dt   = T[1] - T[0]                                                      # dt is defined as the time step-length.
-    u_ap = np.zeros([m, n, T])                                              # u_ap is initialized with zeros.
     r_x  = nu*dt/(2*dx**2)                                                  # r has all the coefficients of the method.
     r_y  = nu*dt/(2*dy**2)                                                  # r has all the coefficients of the method.
     iter = np.zeros([t])                                                    # To save the number of iterations for each time.
     tol  = np.sqrt(np.finfo(float).eps)                                     # Tolerance of the method.
+
+    # Solution initialization.
+    u_ap = np.zeros([m, n, t])                                              # u_ap is initialized with zeros.
 
     # Initial condition
     for i in range(m):                                                      # For all the grid nodes in x.
@@ -212,7 +226,7 @@ def Diffusion2D_CN(x, y, T, u, nu):
             u_ap[0, j,  k] = u(x[0, j],  y[0, j],  T[k], nu)                # Boundary condition at x = 0.
             u_ap[-1, j, k] = u(x[-1, j], y[-1, j], T[k], nu)                # Boundary condition at x = 1.
 
-    # Predictor-Corrector Method for Finite Differences
+    # Finite Differences Method
     for k in range(t-1):                                                    # For all the time-steps.
         err = 1                                                             # The difference is one to do at least one iteration.
         while err >= tol:                                                   # While the error is greater than the tolerance.
@@ -246,13 +260,14 @@ def Diffusion1D_MOL(x, T, u, nu, RK):
             RK                      Integer         Runge-Kutta Order (2, 3)
         
         Returns:
-            u_ap        m x 1       Array           Array with the computed solution of the method.
+            u_ap        m x t       Array           Array with the computed solution of the method.
     '''
 
+    # Variable initialization
     m    = len(x)                                                           # Size of the mesh in space.
     t    = len(T)                                                           # Size of the mesh in time.
-    #dx   = x[1] - x[0]                                                     # dx is defined as the space step-length.
-    #dt   = T[1] - T[0]                                                     # dt is defined as the time step-length.
+    
+    # Solution initialization.
     u_ap = np.zeros([m, t])                                                 # u_ap is initialized with zeros.
 
     # Initial condition
@@ -290,11 +305,14 @@ def Diffusion2D_MOL(x, y, T, u, nu, RK):
             RK                      Integer         Runge-Kutta Order (2, 3)
         
         Returns:
-            u_ap        m x m       Array           Array with the computed solution of the method.
+            u_ap        m x n x t   Array           Array with the computed solution of the method.
     '''
 
+    # Variable initialization
     m, n = x.shape                                                          # Size of the mesh.
     t    = len(T)                                                           # Size of the mesh in time.
+    
+    # Solution initialization.
     u_ap = np.zeros([m, n, t])                                              # u_ap is initialized with zeros.
 
     # Initial condition

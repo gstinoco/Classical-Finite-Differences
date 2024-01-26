@@ -60,7 +60,7 @@ def Poisson1D(x, f, u):
     F[0]          = u(x[0])                                                 # Boundary condition on th RHS.
     F[-1]         = u(x[-1])                                                # Boundary condition on the RHS.
 
-    # Problem Solving
+    # Problem-solving
     u_ap          = np.linalg.solve(A, F)                                   # Solve the algebraic problem.
 
     return u_ap                                                             # Return the computed solution.
@@ -107,7 +107,7 @@ def Poisson1D_Neumann_1(x, f, sig, beta):
     F[0]          = sig                                                     # Boundary condition on the RHS.
     F[-1]         = beta                                                    # Boundary condition on the RHS.
     
-    # Problem Solving
+    # Problem-solving
     u_ap          = np.linalg.solve(A, F)                                   # Solve the algebraic problem.
 
     return u_ap                                                             # Return the computed solution.
@@ -155,7 +155,7 @@ def Poisson1D_Neumann_2(x, f, sig, beta):
     F[0]         = sig+((h/2)*f(x[0]))                                      # Boundary condition on the RHS.
     F[-1]        = beta                                                     # Boundary condition on the RHS.
     
-    # Problem Solving
+    # Problem-solving
     u_ap         = np.linalg.solve(A, F)                                    # Solve the algebraic problem.
 
     return u_ap                                                             # Return the computed solution.
@@ -204,6 +204,7 @@ def Poisson1D_Neumann_3(x, f, sig, beta):
     F[0]          = sig                                                     # Boundary condition on the RHS.
     F[-1]         = beta                                                    # Boundary condition on the RHS.
     
+    # Problem-solving
     u_ap          = np.linalg.solve(A, F)                                   # Solve the algebraic problem.
 
     return u_ap                                                             # Return the computed solution.
@@ -247,6 +248,7 @@ def Poisson2D(x, y, f, u):
                 A[k, k+m] = 1/h**2                                          # A matrix value for upper node.
                 F[k] = f(x[i, j], y[i, j])                                  # RHS with the values of f.
 
+    # Problem-solving
     u_ap = np.linalg.solve(A, F).reshape((m, m))                            # Solve the linear problem.
 
     return u_ap                                                             # Return the computed solution.

@@ -1,5 +1,5 @@
 '''
-Example 1 for Classical Finite Difference Schemes to solve the 1D Advection Equation.
+Example 3 for Classical Finite Difference Schemes to solve the Advection Equation with a MOL approach.
 
 All the codes were developed by:
     Dr. Gerardo Tinoco Guerrero
@@ -28,17 +28,16 @@ sys.path.insert(1, root_dir)
 
 # Library Importation
 import numpy as np
-from Advection_Equation_Matrix import Advection_1D_Lax_Friedrichs as A1LFM
-from Advection_Equation_Iterative import Advection_1D_Lax_Friedrichs as A1LFI
-from Advection_Equation_Matrix import Advection_1D_Lax_Friedrichs_v2 as A1LFM2
-from Advection_Equation_Iterative import Advection_1D_Lax_Friedrichs_v2 as A1LFI2
+from Advection_Equation_Iterative import Advection1D_MOL
+from Advection_Equation_Iterative import Advection2D_MOL
 from Scripts.Graphs import Graph_1D
+from Scripts.Graphs import Graph_2D
 from Scripts.Error_norms import Error_norms_1D
+from Scripts.Error_norms import Error_norms_2D
 
- 
 # Problem Parameters
-m    = 401
-t    = 8000
+m    = 21
+t    = 400
 u    = lambda x, t, a: np.sin(x - a*t)
 a    = 0.5
 
@@ -55,70 +54,72 @@ for k in range(t):
         u_ex[i, k] = u(x[i], T[k], a)
 
 # Problem-solving
-u_ap = A1LFM(x, T, u, a)
+u_ap = Advection1D_MOL(x, T, u, a, 2)
 # Plot the solution
-Graph_1D('1D Advection Equation. Lax-Friedrichs. Matrix.', x, u_ap, u_ex)
+Graph_1D('1D Advection Equation. MOL. Runge-Kutta 2.', x, u_ap, u_ex)
 # Error computation
-print('\n1D Advection Equation. Lax-Friedrichs. Matrix.')
+print('\n1D Advection Equation. MOL. Runge-Kutta 2.')
 Error_norms_1D(u_ap, u_ex)
 
 # Problem-solving
-u_ap = A1LFI(x, T, u, a)
+u_ap = Advection1D_MOL(x, T, u, a, 3)
 # Plot the solution
-Graph_1D('1D Advection Equation. Lax-Friedrichs. Iterative.', x, u_ap, u_ex)
+Graph_1D('1D Advection Equation. MOL. Runge-Kutta 3.', x, u_ap, u_ex)
 # Error computation
-print('\n1D Advection Equation. Lax-Friedrichs. Iterative.')
+print('\n1D Advection Equation. MOL. Runge-Kutta 3.')
 Error_norms_1D(u_ap, u_ex)
 
 # Problem-solving
-u_ap = A1LFM2(x, T, u, a)
+u_ap = Advection1D_MOL(x, T, u, a, 4)
 # Plot the solution
-Graph_1D('1D Advection Equation. Lax-Friedrichs v2. Matrix.', x, u_ap, u_ex)
+Graph_1D('1D Advection Equation. MOL. Runge-Kutta 4.', x, u_ap, u_ex)
 # Error computation
-print('\n1D Advection Equation. Lax-Friedrichs v2. Matrix.')
+print('\n1D Advection Equation. MOL. Runge-Kutta 4.')
 Error_norms_1D(u_ap, u_ex)
 
-# Problem-solving
-u_ap = A1LFI2(x, T, u, a)
-# Plot the solution
-Graph_1D('1D Advection Equation. Lax-Friedrichs v2. Iterative.', x, u_ap, u_ex)
-# Error computation
-print('\n1D Advection Equation. Lax-Friedrichs v2. Iterative.')
-Error_norms_1D(u_ap, u_ex)
+# Problem Parameters
+m    = 41
+n    = 41
+t    = 800
+u    = lambda x,y,t,a,b: 0.2*np.exp((-(x-.5-a*t)**2-(y-.5-b*t)**2)/.01)
+a    = 0.4
+b    = 0.4
+
+# Variable initialization.
+u_ex = np.zeros([m, n, t])
+
+# Mesh generation
+x    = np.linspace(0, 1, m)
+y    = np.linspace(0, 1, n)
+x, y = np.meshgrid(x, y)
+T    = np.linspace(0, 1, t)
 
 # Theoretical Solution
 for k in range(t):
     for i in range(m):
-        u_ex[i, k] = u(x[i], T[k], -a)
-        
-# Problem-solving
-u_ap = A1LFM(x, T, u, -a)
-# Plot the solution
-Graph_1D('1D Advection Equation. Lax-Friedrichs. Matrix.', x, u_ap, u_ex)
-# Error computation
-print('\n1D Advection Equation. Lax-Friedrichs. Matrix.')
-Error_norms_1D(u_ap, u_ex)
+        for j in range(n):
+            u_ex[i,j,k] = u(x[i,j], y[i,j], T[k], a, b)
 
 # Problem-solving
-u_ap = A1LFI(x, T, u, -a)
+u_ap = Advection2D_MOL(x, y, T, u, a, b, 2)
 # Plot the solution
-Graph_1D('1D Advection Equation. Lax-Friedrichs. Iterative.', x, u_ap, u_ex)
+Graph_2D('2D Advection Equation. MOL. Runge-Kutta 2.', x, y, u_ap, u_ex)
 # Error computation
-print('\n1D Advection Equation. Lax-Friedrichs. Iterative.')
-Error_norms_1D(u_ap, u_ex)
+print('\n2D Advection Equation. MOL. Runge-Kutta 2.')
+Error_norms_2D(u_ap, u_ex)
 
 # Problem-solving
-u_ap = A1LFM2(x, T, u, -a)
+u_ap = Advection2D_MOL(x, y, T, u, a, b, 3)
 # Plot the solution
-Graph_1D('1D Advection Equation. Lax-Friedrichs v2. Matrix.', x, u_ap, u_ex)
+Graph_2D('2D Advection Equation. MOL. Runge-Kutta 3.', x, y, u_ap, u_ex)
 # Error computation
-print('\n1D Advection Equation. Lax-Friedrichs v2. Matrix.')
-Error_norms_1D(u_ap, u_ex)
+print('\n2D Advection Equation. MOL. Runge-Kutta 3.')
+Error_norms_2D(u_ap, u_ex)
 
 # Problem-solving
-u_ap = A1LFI2(x, T, u, -a)
+u_ap = Advection2D_MOL(x, y, T, u, a, b, 4)
 # Plot the solution
-Graph_1D('1D Advection Equation. Lax-Friedrichs v2. Iterative.', x, u_ap, u_ex)
+Graph_2D('2D Advection Equation. MOL. Runge-Kutta 4.', x, y, u_ap, u_ex)
 # Error computation
-print('\n1D Advection Equation. Lax-Friedrichs v2. Iterative.')
-Error_norms_1D(u_ap, u_ex)
+print('\n2D Advection Equation. MOL. Runge-Kutta 4.')
+Error_norms_2D(u_ap, u_ex)

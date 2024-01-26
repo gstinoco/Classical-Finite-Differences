@@ -36,9 +36,10 @@ def Diffusion1D(x, T, u, nu):
             nu                      Float           Diffusion coefficient for the problem.
         
         Returns:
-            u_ap        m x 1       Array           Array with the computed solution of the method.
+            u_ap        m x t       Array           Array with the computed solution of the method.
     '''
     
+    # Variable initialization
     m    = len(x)                                                           # Size of the mesh in space.
     t    = len(T)                                                           # Size of the mesh in time.
     dx   = x[1] - x[0]                                                      # dx is defined as the space step-length.
@@ -86,17 +87,20 @@ def Diffusion1D_CN(x, T, u, nu):
             nu                      Float           Diffusion coefficient for the problem.
         
         Returns:
-            u_ap        m x 1       Array           Array with the computed solution of the method.
+            u_ap        m x t       Array           Array with the computed solution of the method.
     '''
     
+    # Variable initialization
     m    = len(x)                                                           # Size of the mesh in space.
     t    = len(T)                                                           # Size of the mesh in time.
     dx   = x[1] - x[0]                                                      # dx is defined as the space step-length.
     dt   = T[1] - T[0]                                                      # dt is defined as the time step-length.
-    u_ap = np.zeros([m, t])                                                 # u_ap is initialized with zeros.
     A    = np.zeros([m, m])                                                 # Initialization of Matrix A.
     B    = np.zeros([m, m])                                                 # Initialization of Matrix B.
     r    = nu*dt/(2*dx**2)                                                  # r has all the coefficients of the method.
+
+    # Solution initialization.
+    u_ap = np.zeros([m, t])                                                 # u_ap is initialized with zeros.
 
     # Initial condition
     for i in range(m):                                                      # For all the grid nodes.
@@ -120,7 +124,7 @@ def Diffusion1D_CN(x, T, u, nu):
         B[i, i+1] = r                                                       # Inferior diagonal.
     B[0, 0] = B[-1, -1] = 1                                                 # Boundary Conditions.
     
-    # Time-stepping with Crank-Nicolson
+    # Finite Differences Approximation
     for k in range(t-1):                                                    # For all the time-steps.
         u_new = np.linalg.solve(A, B@u_ap[:, k])                            # The new approximation is computed.
         u_ap[1:-1, k+1] = u_new[1:-1]                                       # Tha approximation is saved.
@@ -145,6 +149,7 @@ def Diffusion2D(x, y, T, u, nu):
             u_ap        m x n x t   Array           Array with the computed solution of the method.
     '''
 
+    # Variable initialization
     m, n = x.shape                                                          # Size of the mesh.
     t    = len(T)                                                           # Size of the mesh in time.
     dx   = x[0, 1] - x[0, 0]                                                # dx is defined as the space step-length in x.
@@ -210,17 +215,20 @@ def Diffusion2D_CN(x, y, T, u, nu):
             u_ap        m x n x t   Array           Array with the computed solution of the method.
     '''
 
+    # Variable initialization
     m, n = x.shape                                                          # Size of the mesh.
     t    = len(T)                                                           # Size of the mesh in time.
     dx   = x[0, 1] - x[0, 0]                                                # dx is defined as the space step-length in x.
     dy   = y[1, 0] - y[0, 0]                                                # dy is defined as the space step-length in y.
     dt   = T[1] - T[0]                                                      # dt is defined as the time step-length.
-    u_ap = np.zeros([m, n , t])                                             # u_ap is initialized with zeros.
     A    = np.zeros([m*n, m*n])                                             # Matrix A initialized.
     B    = np.zeros([m*n, m*n])                                             # Matrix B initialized.
     r_x  = nu*dt/(dx**2)                                                    # r has all the coefficients of the method.
     r_y  = nu*dt/(dy**2)                                                    # r has all the coefficients of the method.
     
+    # Solution initialization.
+    u_ap = np.zeros([m, n, t])                                              # u_ap is initialized with zeros.
+
     # Initial condition
     for i in range(m):                                                      # For all the grid nodes in x.
         for j in range(n):                                                  # For all the grid nodes in y.

@@ -41,15 +41,17 @@ def Poisson1D(x, f, u):
     # Variable Initialization
     m        = len(x)                                                       # Size of the mesh.
     h        = x[2] - x[1]                                                  # h definition as dx.
-    u_ap     = np.zeros(m)                                                  # u_ap initialization with zeros.
     err      = 1                                                            # err initialization with 1 to guarantee at least one iteration.
     tol      = np.sqrt(np.finfo(float).eps)                                 # Tolerance of the method.
     
+    # Solution initialization.
+    u_ap = np.zeros(m)                                                      # u_ap is initialized with zeros.
+
     # Boundary Conditions
     u_ap[0]  = u(x[0])                                                      # Boundary condition at x = a
     u_ap[-1] = u(x[-1])                                                     # Boundary condition at x = b.
 
-    # Finite Difference Solution
+    # Finite Differences Solution
     while err >= tol:                                                       # While the error is greater than the tolerance.
         err = 0                                                             # The error of this iteration is 0.
         for i in range(1, m-1):                                             # For all the grid nodes.
@@ -81,14 +83,16 @@ def Poisson1D_Neumann_1(x, f, sig, beta):
     # Variable Initialization
     m        = len(x)                                                       # Size of the mesh.
     h        = x[2] - x[1]                                                  # h definition as dx.
-    u_ap     = np.zeros(m)                                                  # u_ap initialization with zeros.
     err      = 1                                                            # err initialization with 1 to guarantee at least one iteration.
     tol      = np.sqrt(np.finfo(float).eps)                                 # Tolerance of the method.
     
+    # Solution initialization.
+    u_ap = np.zeros(m)                                                      # u_ap is initialized with zeros.
+
     # Boundary Conditions
     u_ap[-1] = beta                                                         # Boundary condition at x = b.
 
-    # Finite Difference Solution
+    # Finite Differences Solution
     while err >= tol:                                                       # While the error is greater than the tolerance.
         err     = 0                                                         # The error of this iteration is 0.
         for i in range(1, m-1):                                             # For all the grid nodes.
@@ -122,14 +126,16 @@ def Poisson1D_Neumann_2(x, f, sig, beta):
     # Variable Initialization
     m        = len(x)                                                       # Size of the mesh.
     h        = x[2] - x[1]                                                  # h definition as dx.
-    u_ap     = np.zeros(m)                                                  # u_ap initialization with zeros.
     err      = 1                                                            # err initialization with 1 to guarantee at least one iteration.
     tol      = np.sqrt(np.finfo(float).eps)                                 # Tolerance of the method.
     
+    # Solution initialization.
+    u_ap = np.zeros(m)                                                      # u_ap is initialized with zeros.
+
     # Boundary Conditions
     u_ap[-1] = beta                                                         # Boundary condition at x = b.
 
-    # Finite Difference Solution
+    # Finite Differences Solution
     while err >= tol:                                                       # While the error is greater than the tolerance.
         err     = 0                                                         # The error of this iteration is 0.
         for i in range(1, m-1):                                             # For all the grid nodes.
@@ -163,14 +169,16 @@ def Poisson1D_Neumann_3(x, f, sig, beta):
     # Variable Initialization
     m        = len(x)                                                       # Size of the mesh.
     h        = x[2] - x[1]                                                  # h definition as dx.
-    u_ap     = np.zeros(m)                                                  # u_ap initialization with zeros.
     err      = 1                                                            # err initialization with 1 to guarantee at least one iteration.
     tol      = np.sqrt(np.finfo(float).eps)                                 # Tolerance of the method.
     
+    # Solution initialization.
+    u_ap = np.zeros(m)                                                      # u_ap is initialized with zeros.
+
     # Boundary Conditions
     u_ap[-1] = beta                                                         # Boundary condition at x = b.
 
-    # Finite Difference Solution
+    # Finite Differences Solution
     while err >= tol:                                                       # While the error is greater than the tolerance.
         err     = 0                                                         # The error of this iteration is 0.
         for i in range(1, m-1):                                             # For all the grid nodes.
@@ -202,10 +210,12 @@ def Poisson2D(x, y, f, u):
     # Variable Initialization
     m    = x.shape[0]                                                       # Size of the mesh.
     h    = x[0, 1] - x[0, 0]                                                # h is defined as dx = dy.
-    u_ap = np.zeros([m, m])                                                 # u_ap initialization with zeros.
     err  = 1                                                                # err initialization with 1 to guarantee at least one iteration.
     tol  = np.sqrt(np.finfo(float).eps)                                     # Tolerance of the method.
     
+    # Solution initialization.
+    u_ap = np.zeros([m, m])                                                 # u_ap is initialized with zeros.
+
     # Boundary Condition
     for i in range(m):                                                      # For all the boundary nodes.
         u_ap[i,  0] = u(x[i,  0], y[i,  0])                                 # The boundary on the bottom is added.
@@ -213,6 +223,7 @@ def Poisson2D(x, y, f, u):
         u_ap[0,  i] = u(x[0,  i], y[0,  i])                                 # The boundary on the right is added.
         u_ap[-1, i] = u(x[-1, i], y[-1, i])                                 # The boundary on the left is added.
     
+    # Finite Differences Solution
     while err >= tol:                                                       # While the error is greater than the tolerance.
         err = 0                                                             # The error of this iteration is 0.
         for i in range(1, m-1):                                             # For all the grid nodes in x.
