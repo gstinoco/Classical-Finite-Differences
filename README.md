@@ -20,6 +20,7 @@ This repository contains a variety of Classical Finite Differences Schemes to so
         3. 1D problem with Neumann and Dirichlet conditions with a two-point-backward approach for Neumann condition.
         4. 1D problem with Neumann and Dirichlet conditions with a two-point-centered approach for Neumann condition.
         5. 1D problem with Neumann and Dirichlet conditions with a three-point-forward approach for Neumann condition.
+
 2. Diffusion Equation.
     1. Iterative approach.
         1. Classical 1D problem with Dirichlet conditions.
@@ -33,6 +34,7 @@ This repository contains a variety of Classical Finite Differences Schemes to so
         2. Classical 1D problem with Dirichlet conditions with a Crank-Nicolson approach.
         3. Classical 2D problem with Dirichlet conditions.
         4. Classical 2D problem with Dirichlet conditions with a Crank-Nicolson approach.
+
 3. Advection Equation.
     1. Iterative approach.
         1. Classical 1D problem with Dirichlet conditions using a FTCS stencil.
