@@ -8,62 +8,62 @@ All the codes are distributed under MIT License on [GitHub](https://github.com/g
 ## Description :memo:
 This repository contains a variety of Classical Finite Differences Schemes to solve:<br>
 1. Poisson Equation.
-  1. Iterative approach.
-    1. Classical 1D problem with Dirichlet conditions.
-    2. Classical 2D problem with Dirichlet conditions.
-    3. 1D problem with Neumann and Dirichlet conditions with a two-point-backward approach for Neumann condition.
-    4. 1D problem with Neumann and Dirichlet conditions with a two-point-centered approach for Neumann condition.
-    5. 1D problem with Neumann and Dirichlet conditions with a three-point-forward approach for Neumann condition.
-  2. Matrix approach.
-    1. Classical 1D problem with Dirichlet conditions.
-    2. Classical 2D problem with Dirichlet conditions.
-    3. 1D problem with Neumann and Dirichlet conditions with a two-point-backward approach for Neumann condition.
-    4. 1D problem with Neumann and Dirichlet conditions with a two-point-centered approach for Neumann condition.
-    5. 1D problem with Neumann and Dirichlet conditions with a three-point-forward approach for Neumann condition.
+    1. Iterative approach.
+        1. Classical 1D problem with Dirichlet conditions.
+        2. Classical 2D problem with Dirichlet conditions.
+        3. 1D problem with Neumann and Dirichlet conditions with a two-point-backward approach for Neumann condition.
+        4. 1D problem with Neumann and Dirichlet conditions with a two-point-centered approach for Neumann condition.
+        5. 1D problem with Neumann and Dirichlet conditions with a three-point-forward approach for Neumann condition.
+    2. Matrix approach.
+        1. Classical 1D problem with Dirichlet conditions.
+        2. Classical 2D problem with Dirichlet conditions.
+        3. 1D problem with Neumann and Dirichlet conditions with a two-point-backward approach for Neumann condition.
+        4. 1D problem with Neumann and Dirichlet conditions with a two-point-centered approach for Neumann condition.
+        5. 1D problem with Neumann and Dirichlet conditions with a three-point-forward approach for Neumann condition.
 2. Diffusion Equation.
-  1. Iterative approach.
-    1. Classical 1D problem with Dirichlet conditions.
-    2. Classical 1D problem with Dirichlet conditions with a Crank-Nicolson approach.
-    3. Classical 2D problem with Dirichlet conditions.
-    4. Classical 2D problem with Dirichlet conditions with a Crank-Nicolson approach.
-    5. 1D problem with Dirichlet conditions using a MOL approach.
-    6. 2D problem with Dirichlet conditions using a MOL approach.
-  2. Matrix approach.
-    1. Classical 1D problem with Dirichlet conditions.
-    2. Classical 1D problem with Dirichlet conditions with a Crank-Nicolson approach.
-    3. Classical 2D problem with Dirichlet conditions.
-    4. Classical 2D problem with Dirichlet conditions with a Crank-Nicolson approach.
+    1. Iterative approach.
+        1. Classical 1D problem with Dirichlet conditions.
+        2. Classical 1D problem with Dirichlet conditions with a Crank-Nicolson approach.
+        3. Classical 2D problem with Dirichlet conditions.
+        4. Classical 2D problem with Dirichlet conditions with a Crank-Nicolson approach.
+        5. 1D problem with Dirichlet conditions using a MOL approach.
+        6. 2D problem with Dirichlet conditions using a MOL approach.
+    2. Matrix approach.
+        1. Classical 1D problem with Dirichlet conditions.
+        2. Classical 1D problem with Dirichlet conditions with a Crank-Nicolson approach.
+        3. Classical 2D problem with Dirichlet conditions.
+        4. Classical 2D problem with Dirichlet conditions with a Crank-Nicolson approach.
 3. Advection Equation.
-  1. Iterative approach.
-    1. Classical 1D problem with Dirichlet conditions using a FTCS stencil.
-    2. Classical 1D problem with Dirichlet conditions using a FTBS stencil.
-    3. Classical 1D problem with Dirichlet conditions using a FTFS stencil.
-    4. Classical 1D problem with Dirichlet conditions using a Leapfrog approach.
-    5. Classical 1D problem with Dirichlet conditions using a Lax-Friedrichs approach.
-    6. Classical 1D problem with Dirichlet conditions using an optimized Lax-Friedrichs approach.
-    7. Classical 1D problem with Dirichlet conditions using a Lax-Wendroff approach.
-    8. Classical 1D problem with Dirichlet conditions using a Beam Warming approach.
-    9. Classical 2D problem with Dirichlet conditions using a FTCS stencil.
-    10. Classical 2D problem with Dirichlet conditions using a FTBS stencil.
-    11. Classical 2D problem with Dirichlet conditions using a FTFS stencil.
-    12. Classical 2D problem with Dirichlet conditions using a Lax-Wendroff approach.
-    13. Classical 2D problem with Dirichlet conditions using a Beam Warming approach.
-    14. 1D problem with Dirichlet conditions using a MOL approach.
-    15. 2D problem with Dirichlet conditions using a MOL approach.
-  2. Matrix approach.
-    1. Classical 1D problem with Dirichlet conditions using a FTCS stencil.
-    2. Classical 1D problem with Dirichlet conditions using a FTBS stencil.
-    3. Classical 1D problem with Dirichlet conditions using a FTFS stencil.
-    4. Classical 1D problem with Dirichlet conditions using a Leapfrog approach.
-    5. Classical 1D problem with Dirichlet conditions using a Lax-Friedrichs approach.
-    6. Classical 1D problem with Dirichlet conditions using an optimized Lax-Friedrichs approach.
-    7. Classical 1D problem with Dirichlet conditions using a Lax-Wendroff approach.
-    8. Classical 1D problem with Dirichlet conditions using a Beam Warming approach.
-    9. Classical 2D problem with Dirichlet conditions using a FTCS stencil.
-    10. Classical 2D problem with Dirichlet conditions using a FTBS stencil.
-    11. Classical 2D problem with Dirichlet conditions using a FTFS stencil.
-    12. Classical 2D problem with Dirichlet conditions using a Lax-Wendroff approach.
-    13. Classical 2D problem with Dirichlet conditions using a Beam Warming approach.
+    1. Iterative approach.
+        1. Classical 1D problem with Dirichlet conditions using a FTCS stencil.
+        2. Classical 1D problem with Dirichlet conditions using a FTBS stencil.
+        3. Classical 1D problem with Dirichlet conditions using a FTFS stencil.
+        4. Classical 1D problem with Dirichlet conditions using a Leapfrog approach.
+        5. Classical 1D problem with Dirichlet conditions using a Lax-Friedrichs approach.
+        6. Classical 1D problem with Dirichlet conditions using an optimized Lax-Friedrichs approach.
+        7. Classical 1D problem with Dirichlet conditions using a Lax-Wendroff approach.
+        8. Classical 1D problem with Dirichlet conditions using a Beam Warming approach.
+        9. Classical 2D problem with Dirichlet conditions using a FTCS stencil.
+        10. Classical 2D problem with Dirichlet conditions using a FTBS stencil.
+        11. Classical 2D problem with Dirichlet conditions using a FTFS stencil.
+        12. Classical 2D problem with Dirichlet conditions using a Lax-Wendroff approach.
+        13. Classical 2D problem with Dirichlet conditions using a Beam Warming approach.
+        14. 1D problem with Dirichlet conditions using a MOL approach.
+        15. 2D problem with Dirichlet conditions using a MOL approach.
+    2. Matrix approach.
+        1. Classical 1D problem with Dirichlet conditions using a FTCS stencil.
+        2. Classical 1D problem with Dirichlet conditions using a FTBS stencil.
+        3. Classical 1D problem with Dirichlet conditions using a FTFS stencil.
+        4. Classical 1D problem with Dirichlet conditions using a Leapfrog approach.
+        5. Classical 1D problem with Dirichlet conditions using a Lax-Friedrichs approach.
+        6. Classical 1D problem with Dirichlet conditions using an optimized Lax-Friedrichs approach.
+        7. Classical 1D problem with Dirichlet conditions using a Lax-Wendroff approach.
+        8. Classical 1D problem with Dirichlet conditions using a Beam Warming approach.
+        9. Classical 2D problem with Dirichlet conditions using a FTCS stencil.
+        10. Classical 2D problem with Dirichlet conditions using a FTBS stencil.
+        11. Classical 2D problem with Dirichlet conditions using a FTFS stencil.
+        12. Classical 2D problem with Dirichlet conditions using a Lax-Wendroff approach.
+        13. Classical 2D problem with Dirichlet conditions using a Beam Warming approach.
 <!-- 4. Advection-Diffusion Equation.
 5. Wave Equation.
 6. Shallow Water Equations.-->
