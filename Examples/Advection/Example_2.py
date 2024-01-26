@@ -28,13 +28,18 @@ sys.path.insert(1, root_dir)
 
 # Library Importation
 import numpy as np
-from Advection_Equation import Advection_2D_FTBS
-from Advection_Equation import Advection_2D_FTFS
-from Advection_Equation import Advection_2D_FTCS
-from Advection_Equation import Advection_2D_Lax_Friedrichs
-from Advection_Equation import Advection_2D_Lax_Wendroff
-from Advection_Equation import Advection_2D_Beam_Warming
+from Advection_Equation_Matrix import Advection_2D_FTCS as A2FTCSM
+from Advection_Equation_Matrix import Advection_2D_FTBS as A2FTBSM
+from Advection_Equation_Matrix import Advection_2D_FTFS as A2FTFSM
+from Advection_Equation_Matrix import Advection_2D_Lax_Wendroff as A2LWM
+from Advection_Equation_Matrix import Advection_2D_Beam_Warming as A2BWM
+from Advection_Equation_Iterative import Advection_2D_FTCS as A2FTCSI
+from Advection_Equation_Iterative import Advection_2D_FTBS as A2FTBSI
+from Advection_Equation_Iterative import Advection_2D_FTFS as A2FTFSI
+from Advection_Equation_Iterative import Advection_2D_Lax_Wendroff as A2LWI
+from Advection_Equation_Iterative import Advection_2D_Beam_Warming as A2BWI
 from Scripts.Graphs import Graph_2D
+from Scripts.Error_norms import Error_norms_2D
 
  
 # Problem Parameters
@@ -60,30 +65,69 @@ for k in range(t):
         for j in range(n):
             u_ex[i,j,k] = u(x[i,j], y[i,j], T[k], a, b)
 
-# Problem solving
-u_ap = Advection_2D_FTBS(x, y, T, u, a, b)
+# Problem-solving
+#u_ap = A2FTCSM(x, y, T, u, a, b)
 # Plot the solution
-Graph_2D('2D Advection Equation. FTBS.', x, y, u_ap, u_ex)
+#Graph_2D('2D Advection Equation. FTCS. Matrix.', x, y, u_ap, u_ex)
+# Error computation
+#print('\n2D Advection Equation. FTCS. Matrix.')
+#Error_norms_2D(u_ap, u_ex)
 
-# Problem solving
-u_ap = Advection_2D_FTCS(x, y, T, u, a, b)
+# Problem-solving
+#u_ap = A2FTCSI(x, y, T, u, a, b)
 # Plot the solution
-Graph_2D('2D Advection Equation. FTCS.', x, y, u_ap, u_ex)
+#Graph_2D('2D Advection Equation. FTCS. Iterative.', x, y, u_ap, u_ex)
+# Error computation
+#print('\n2D Advection Equation. FTCS. Iterative.')
+#Error_norms_2D(u_ap, u_ex)
 
-# Problem solving
-u_ap = Advection_2D_Lax_Friedrichs(x, y, T, u, a, b)
+# Problem-solving
+#u_ap = A2FTBSM(x, y, T, u, a, b)
 # Plot the solution
-Graph_2D('2D Advection Equation. Lax-Friedrichs.', x, y, u_ap, u_ex)
+#Graph_2D('2D Advection Equation. FTBS. Matrix.', x, y, u_ap, u_ex)
+# Error computation
+#print('\n2D Advection Equation. FTBS. Matrix.')
+#Error_norms_2D(u_ap, u_ex)
 
-# Problem solving
-u_ap = Advection_2D_Lax_Wendroff(x, y, T, u, a, b)
+# Problem-solving
+#u_ap = A2FTBSI(x, y, T, u, a, b)
 # Plot the solution
-Graph_2D('2D Advection Equation. Lax-Wendroff.', x, y, u_ap, u_ex)
+#Graph_2D('2D Advection Equation. FTBS. Iterative.', x, y, u_ap, u_ex)
+# Error computation
+#print('\n2D Advection Equation. FTBS. Iterative.')
+#Error_norms_2D(u_ap, u_ex)
+            
+# Problem-solving
+#u_ap = A2LWM(x, y, T, u, a, b)
+# Plot the solution
+#Graph_2D('2D Advection Equation. Lax-Wendroff. Matrix.', x, y, u_ap, u_ex)
+# Error computation
+#print('\n2D Advection Equation. Lax-Wendroff. Matrix.')
+#Error_norms_2D(u_ap, u_ex)
 
-# Problem solving
-u_ap = Advection_2D_Beam_Warming(x, y, T, u, a, b)
+# Problem-solving
+#u_ap = A2LWI(x, y, T, u, a, b)
 # Plot the solution
-Graph_2D('2D Advection Equation. Beam-Warming.', x, y, u_ap, u_ex)
+#Graph_2D('2D Advection Equation. Lax-Wendroff. Iterative.', x, y, u_ap, u_ex)
+# Error computation
+#print('\n2D Advection Equation. Lax-Wendroff. Iterative.')
+#Error_norms_2D(u_ap, u_ex)
+
+# Problem-solving
+u_ap = A2BWM(x, y, T, u, a, b)
+# Plot the solution
+Graph_2D('2D Advection Equation. Beam Warming. Matrix.', x, y, u_ap, u_ex)
+# Error computation
+print('\n2D Advection Equation. Beam Warming. Matrix.')
+Error_norms_2D(u_ap, u_ex)
+
+# Problem-solving
+u_ap = A2BWI(x, y, T, u, a, b)
+# Plot the solution
+Graph_2D('2D Advection Equation. Beam Warming. Iterative.', x, y, u_ap, u_ex)
+# Error computation
+print('\n2D Advection Equation. Beam Warming. Iterative.')
+Error_norms_2D(u_ap, u_ex)
 
 # Exact Solution
 for k in range(t):
@@ -91,27 +135,66 @@ for k in range(t):
         for j in range(n):
             u_ex[i,j,k] = u(x[i,j], y[i,j], T[k], -a, -b)
 
-# Problem solving
-u_ap = Advection_2D_FTFS(x, y, T, u, -a, -b)
+# Problem-solving
+#u_ap = A2FTCSM(x, y, T, u, -a, -b)
 # Plot the solution
-Graph_2D('2D Advection Equation. FTFS.', x, y, u_ap, u_ex)
+#Graph_2D('2D Advection Equation. FTCS. Matrix.', x, y, u_ap, u_ex)
+# Error computation
+#print('\n2D Advection Equation. FTCS. Matrix.')
+#Error_norms_2D(u_ap, u_ex)
 
-# Problem solving
-u_ap = Advection_2D_FTCS(x, y, T, u, -a, -b)
+# Problem-solving
+#u_ap = A2FTCSI(x, y, T, u, -a, -b)
 # Plot the solution
-Graph_2D('2D Advection Equation. FTCS.', x, y, u_ap, u_ex)
+#Graph_2D('2D Advection Equation. FTCS. Iterative.', x, y, u_ap, u_ex)
+# Error computation
+#print('\n2D Advection Equation. FTCS. Iterative.')
+#Error_norms_2D(u_ap, u_ex)
+            
+# Problem-solving
+#u_ap = A2FTFSM(x, y, T, u, -a, -b)
+# Plot the solution
+#Graph_2D('2D Advection Equation. FTFS. Matrix.', x, y, u_ap, u_ex)
+# Error computation
+#print('\n2D Advection Equation. FTFS. Matrix.')
+#Error_norms_2D(u_ap, u_ex)
 
-# Problem solving
-u_ap = Advection_2D_Lax_Friedrichs(x, y, T, u, -a, -b)
+# Problem-solving
+#u_ap = A2FTFSI(x, y, T, u, -a, -b)
 # Plot the solution
-Graph_2D('2D Advection Equation. Lax-Friedrichs.', x, y, u_ap, u_ex)
+#Graph_2D('2D Advection Equation. FTFS. Iterative.', x, y, u_ap, u_ex)
+# Error computation
+#print('\n2D Advection Equation. FTFS. Iterative.')
+#Error_norms_2D(u_ap, u_ex)
+            
+# Problem-solving
+#u_ap = A2LWM(x, y, T, u, -a, -b)
+# Plot the solution
+#Graph_2D('2D Advection Equation. Lax-Wendroff. Matrix.', x, y, u_ap, u_ex)
+# Error computation
+#print('\n2D Advection Equation. Lax-Wendroff. Matrix.')
+#Error_norms_2D(u_ap, u_ex)
 
-# Problem solving
-u_ap = Advection_2D_Lax_Wendroff(x, y, T, u, -a, -b)
+# Problem-solving
+#u_ap = A2LWI(x, y, T, u, -a, -b)
 # Plot the solution
-Graph_2D('2D Advection Equation. Lax-Wendroff.', x, y, u_ap, u_ex)
+#Graph_2D('2D Advection Equation. Lax-Wendroff. Iterative.', x, y, u_ap, u_ex)
+# Error computation
+#print('\n2D Advection Equation. Lax-Wendroff. Iterative.')
+#Error_norms_2D(u_ap, u_ex)
+            
+# Problem-solving
+u_ap = A2BWM(x, y, T, u, -a, -b)
+# Plot the solution
+Graph_2D('2D Advection Equation. Beam Warming. Matrix.', x, y, u_ap, u_ex)
+# Error computation
+print('\n2D Advection Equation. Beam Warming. Matrix.')
+Error_norms_2D(u_ap, u_ex)
 
-# Problem solving
-u_ap = Advection_2D_Beam_Warming(x, y, T, u, -a, -b)
+# Problem-solving
+u_ap = A2BWI(x, y, T, u, -a, -b)
 # Plot the solution
-Graph_2D('2D Advection Equation. Beam-Warming.', x, y, u_ap, u_ex)
+Graph_2D('2D Advection Equation. Beam Warming. Iterative.', x, y, u_ap, u_ex)
+# Error computation
+print('\n2D Advection Equation. Beam Warming. Iterative.')
+Error_norms_2D(u_ap, u_ex)

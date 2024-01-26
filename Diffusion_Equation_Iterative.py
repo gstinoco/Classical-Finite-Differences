@@ -1,5 +1,6 @@
 '''
-Classical Finite Difference Schemes to solve Diffusion Equation with an Iterative approach.
+Classical Finite Difference Schemes to solve Diffusion Equation.
+The codes presented in this file correspond to an Iterative Formulation of the problem.
 
 All the codes were developed by:
     Dr. Gerardo Tinoco Guerrero
@@ -20,12 +21,12 @@ Last Modification:
 
 # Library Importation
 import numpy as np
-from Scripts.Runge_Kutta import RungeKutta2_1D
-from Scripts.Runge_Kutta import RungeKutta3_1D
-from Scripts.Runge_Kutta import RungeKutta4_1D
-from Scripts.Runge_Kutta import RungeKutta2_2D
-from Scripts.Runge_Kutta import RungeKutta3_2D
-from Scripts.Runge_Kutta import RungeKutta4_2D
+from Scripts.Runge_Kutta_Diffusion import RungeKutta2_1D
+from Scripts.Runge_Kutta_Diffusion import RungeKutta3_1D
+from Scripts.Runge_Kutta_Diffusion import RungeKutta4_1D
+from Scripts.Runge_Kutta_Diffusion import RungeKutta2_2D
+from Scripts.Runge_Kutta_Diffusion import RungeKutta3_2D
+from Scripts.Runge_Kutta_Diffusion import RungeKutta4_2D
 
 def Diffusion1D(x, T, u, nu):
     '''

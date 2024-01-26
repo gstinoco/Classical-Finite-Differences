@@ -44,7 +44,7 @@ def Poisson1D(x, f, u):
     A = np.zeros([m, m])                                                    # Initialization of Matrix A.
     F = np.zeros(m)                                                         # Initialization of Vector F.
 
-    # Matrix assembly
+    # Finite Differences Matrix
     for i in range(1, m-1):                                                 # Loop through the Matrix.
         A[i, i-1] = 1                                                       # Superior diagonal.
         A[i, i]   = -2                                                      # Main diagonal.
@@ -90,7 +90,7 @@ def Poisson1D_Neumann_1(x, f, sig, beta):
     A = np.zeros([m, m])                                                    # Initialization of Matrix A.
     F = np.zeros(m)                                                         # Initialization of Vector F.
 
-    # Matrix assembly
+    # Finite Differences Matrix
     for i in range(1, m-1):                                                 # Loop through the Matrix.
         A[i, i-1] = 1                                                       # Superior diagonal.
         A[i, i]   = -2                                                      # Main diagonal.
@@ -137,7 +137,7 @@ def Poisson1D_Neumann_2(x, f, sig, beta):
     A = np.zeros([m, m])                                                    # Initialization of Matrix A.
     F = np.zeros(m)                                                         # Initialization of Vector F.
 
-    # Matrix assembly
+    # Finite Differences Matrix
     for i in range(1, m-1):                                                 # Loop through the Matrix.
         A[i, i-1] = 1                                                       # Superior diagonal.
         A[i, i]   = -2                                                      # Main diagonal.
@@ -185,7 +185,7 @@ def Poisson1D_Neumann_3(x, f, sig, beta):
     A = np.zeros([m, m])                                                    # Initialization of Matrix A.
     F = np.zeros(m)                                                         # Initialization of Vector F.
 
-    # Matrix assembly
+    # Finite Differences Matrix
     for i in range(1, m-1):                                                 # Loop through the Matrix.
         A[i, i-1] = 1                                                       # Superior diagonal.
         A[i, i]   = -2                                                      # Main diagonal.
