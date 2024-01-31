@@ -66,8 +66,21 @@ This repository contains a variety of Classical Finite Differences Schemes to so
         11. Classical 2D problem with Dirichlet conditions using a FTFS stencil.
         12. Classical 2D problem with Dirichlet conditions using a Lax-Wendroff approach.
         13. Classical 2D problem with Dirichlet conditions using a Beam Warming approach.
-<!-- 4. Advection-Diffusion Equation.
-5. Wave Equation.
+
+4. Advection-Diffusion Equation.
+    1. Iterative approach.
+        1. Classical 1D problem with Dirichlet conditions.
+        2. Classical 1D problem with Dirichlet conditions with a Crank-Nicolson approach.
+        3. Classical 2D problem with Dirichlet conditions.
+        4. Classical 2D problem with Dirichlet conditions with a Crank-Nicolson approach.
+        5. 1D problem with Dirichlet conditions using a MOL approach.
+        6. 2D problem with Dirichlet conditions using a MOL approach.
+    2. Matrix approach.
+        1. Classical 1D problem with Dirichlet conditions.
+        2. Classical 1D problem with Dirichlet conditions with a Crank-Nicolson approach.
+        3. Classical 2D problem with Dirichlet conditions.
+        4. Classical 2D problem with Dirichlet conditions with a Crank-Nicolson approach.
+<!-- 5. Wave Equation.
 6. Shallow Water Equations.-->
 
 ## Researchers :scientist:
