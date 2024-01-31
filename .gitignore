@@ -10,7 +10,6 @@ Icon
 # Icon must end with two \r
 *Icon*
 
-
 # Thumbnails
 ._*
 __*
@@ -62,4 +61,4 @@ __*
 .vscode
 __pycache__
 
-# On going
+# Not yet ready
