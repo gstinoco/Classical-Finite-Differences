@@ -21,10 +21,13 @@ Last Modification:
 # Library Importation
 import numpy as np
 import matplotlib.pyplot as plt
-from mpl_toolkits import mplot3d
-from matplotlib import cm
+import cv2
+import moviepy.editor as mpy
+from moviepy.video.io.bindings import mplfig_to_npimage
+from Scripts.Error_norms import Error_norms_1D
+from Scripts.Error_norms import Error_norms_2D
 
-def Graph_1D(tit, x, u_ap, u_ex = np.zeros(2)):
+def Graph_1D(tit, x, u_ap, u_ex = np.zeros(2), save = False):
     '''
         Graph_1D
 
@@ -43,17 +46,17 @@ def Graph_1D(tit, x, u_ap, u_ex = np.zeros(2)):
 
     if u_ex.max() == 0 and u_ex.min() == 0:                                 # If there isn't theoretical solution.
         if np.size(u_ap.shape) == 1:                                        # Check for Transient or Stationary problem.
-            Graph_1D_Stationary_1(x, u_ap, tit)                             # Stationary case.
+            Graph_1D_Stationary_1(x, u_ap, tit, save)                       # Stationary case.
         else:
-            Graph_1D_Transient_1(x, u_ap, tit)                              # Transient case.
+            Graph_1D_Transient_1(x, u_ap, tit, save)                        # Transient case.
     else:                                                                   # If there is a theoretical solution.
         if np.size(u_ap.shape) == 1:                                        # Check for Transient or Stationary problem.
-            Graph_1D_Stationary(x, u_ap, u_ex, tit)                         # Stationary case.
+            Graph_1D_Stationary(x, u_ap, u_ex, tit, save)                   # Stationary case.
         else:
-            Graph_1D_Transient(x, u_ap, u_ex, tit)                          # Transient case.
+            Graph_1D_Transient(x, u_ap, u_ex, tit, save)                    # Transient case.
 
 
-def Graph_2D(tit, x, y, u_ap, u_ex = 0):
+def Graph_2D(tit, x, y, u_ap, u_ex = 0, save = False):
     '''
     Graph_2D
 
@@ -72,12 +75,12 @@ def Graph_2D(tit, x, y, u_ap, u_ex = 0):
     '''
 
     if np.size(u_ap.shape) == 2:                                            # Check for Transient or Stationary problem.
-        Graph_2D_Stationary(x, y, u_ap, u_ex, tit)                          # Stationary case.
+        Graph_2D_Stationary(x, y, u_ap, u_ex, tit, save)                    # Stationary case.
     else:
-        Graph_2D_Transient(x, y, u_ap, u_ex, tit)                           # Transient case.
+        Graph_2D_Transient(x, y, u_ap, u_ex, tit, save)                     # Transient case.
 
 
-def Graph_1D_Stationary(x, u_ap, u_ex, tit):
+def Graph_1D_Stationary(x, u_ap, u_ex, tit, save):
     '''
     Graph_1D_Stationary
 
@@ -96,9 +99,10 @@ def Graph_1D_Stationary(x, u_ap, u_ex, tit):
 
     min = u_ex.min()                                                        # Look for the minimum of the exact solution for the axis.
     max = u_ex.max()                                                        # Look for the maximum of the exact solution for the axis.
+    _, _, _, LQ = Error_norms_1D(u_ap, u_ex, verbose = False)               # Compute the norms of the error.
 
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 6))                   # Create a figure with 2 subplots.
-    plt.suptitle(tit)                                                       # Place the title for the figure.
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize = (10, 8))                 # Create a figure with 2 subplots.
+    plt.suptitle(tit + '\n' + 'Quadratic Mean Error = ' + str(LQ))          # Place the title for the figure.
 
     ax1.set_title('Computed Solution')                                      # Title for the first subplot.
     ax1.plot(x, u_ap)                                                       # Plot the computed solution.
@@ -109,11 +113,14 @@ def Graph_1D_Stationary(x, u_ap, u_ex, tit):
     ax2.plot(x, u_ex)                                                       # Plot the theoretical solution.
     ax2.set_ylim([min,max])                                                 # Set the axis limits for subplot 2.
     ax2.grid(True)                                                          # Plot a grid on subplot 2.
-
+    
+    if save:                                                                # If saving results is requested.
+        nom = 'Results/' + tit + '.png'                                     # The name for the file under the 'Results' folder.
+        plt.savefig(nom)                                                    # Save the figure.
     plt.show()                                                              # Show the plot.
 
 
-def Graph_1D_Stationary_1(x, u_ap, tit):
+def Graph_1D_Stationary_1(x, u_ap, tit, save):
     '''
     Graph_1D_Stationary_1
 
@@ -131,16 +138,20 @@ def Graph_1D_Stationary_1(x, u_ap, tit):
     min = u_ap.min()                                                        # Look for the minimum of the computed solution for the axis.
     max = u_ap.max()                                                        # Look for the maximum of the computed solution for the axis.
 
-    fig = plt.figure(figsize=(10, 6))                                       # Create a new figure.
+    fig = plt.figure(figsize = (10, 8))                                       # Create a new figure.
     plt.title('Computed Solution for ' + tit)                               # Place the title for the figure.
 
     plt.plot(x,u_ap)                                                        # Plot the computed solution in a new figure.
     plt.ylim([min,max])                                                     # Set the axis limits.
     plt.grid(True)                                                          # Plot a grid on the figure.
-    plt.show()                                                              # Show the figure.
+    
+    if save:                                                                # If saving results is requested.
+        nom = 'Results/' + tit + '.png'                                     # The name for the file under the 'Results' folder.
+        plt.savefig(nom)                                                    # Save the figure.
+    plt.show()                                                              # Show the plot.
 
 
-def Graph_1D_Transient(x, u_ap, u_ex, tit):
+def Graph_1D_Transient(x, u_ap, u_ex, tit, save):
     '''
     Graph_1D_Transient
 
@@ -162,11 +173,18 @@ def Graph_1D_Transient(x, u_ap, u_ex, tit):
     t    = len(u_ex[0,:])                                                   # Check the number of time steps.
     step = int(np.ceil(t/50))                                               # Fix a step for the plots so only 50 time-steps are plotted.
     T    = np.linspace(0,1,t)                                               # Create a time mesh.
+    _, _, _, LQ = Error_norms_1D(u_ap, u_ex, verbose = False)               # Compute the norms of the error.
+
+    if save:                                                                # If saving results is requested.
+        nom    = 'Results/' + tit + '.mp4'                                  # The name for the file under the 'Results' folder.
+        fourcc = cv2.VideoWriter_fourcc(*'mp4v')                            # Choose the codec for the file.
+        out    = cv2.VideoWriter(nom, fourcc, 5, (1000, 800))               # Create a the file to save the video.
     
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 6))                   # Create a figure with 2 subplots.
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize = (10, 8))                 # Create a figure with 2 subplots.
 
     for k in range(0,t,step):                                               # Iterate over the time.
-        plt.suptitle(tit + '\n' + 'Solution at t = ' + str(T[k]) + 's.')    # Place the title for the figure.
+        plt.suptitle(tit + '\n' + 'Solution at t = ' + str(T[k]) + 's.' +
+                     '\n' + 'Quadratic Mean Error =' + str(LQ[k]))          # Place the title for the figure.
 
         ax1.set_title('Computed Solution')                                  # Title for the first subplot.
         ax1.plot(x, u_ap[:,k])                                              # Plot the computed solution.
@@ -179,11 +197,17 @@ def Graph_1D_Transient(x, u_ap, u_ex, tit):
         ax2.grid(True)                                                      # Plot a grid on subplot 2.
     
         plt.pause(0.01)                                                     # Pause for 0.01 seconds.
+        if save:                                                            # If saving results is requested.
+            fig.canvas.draw()                                               # Draw the canvas of the figure.
+            frame = np.asarray(fig.canvas.buffer_rgba())[:, :, :3]          # Convert the canvas into a np.array.
+            out.write(frame)                                                # Save the current frame.
+            
         ax1.clear()                                                         # Clear the first subplot.
         ax2.clear()                                                         # Clear the second subplot.
         plt.cla()                                                           # Clear the graphic.
     
-    plt.suptitle(tit + '\n' + 'Solution at t = ' + str(T[-1]) + 's.')       # Place the title for the figure.
+    plt.suptitle(tit + '\n' + 'Solution at t = ' + str(T[-1]) + 's.' +
+                     '\n' + 'Quadratic Mean Error =' + str(LQ[-1]))         # Place the title for the figure.
 
     ax1.set_title('Computed Solution')                                      # Title for the first subplot.
     ax1.plot(x, u_ap[:,-1])                                                 # Plot the computed solution.
@@ -194,11 +218,17 @@ def Graph_1D_Transient(x, u_ap, u_ex, tit):
     ax2.plot(x, u_ex[:,-1])                                                 # Plot the theoretical solution.
     ax2.set_ylim([min,max])                                                 # Set the axis limits for subplot 2.
     ax2.grid(True)                                                          # Plot a grid on subplot 2.
-    
-    plt.pause(1)                                                            # Pause for 1 second.
+
+    plt.pause(0.1)                                                          # Pause for 0.1 seconds.
+    if save:                                                                # If saving results is requested.
+        fig.canvas.draw()                                                   # Draw the canvas of the figure.
+        frame = np.asarray(fig.canvas.buffer_rgba())[:, :, :3]              # Convert the canvas into a np.array.
+        out.write(frame)                                                    # Save the current frame.
+        out.release()                                                       # Save the frames into the video.
+    plt.close()
 
 
-def Graph_1D_Transient_1(x, u_ap, tit):
+def Graph_1D_Transient_1(x, u_ap, tit, save):
     '''
     Graph_1D_Transient_1
 
@@ -212,13 +242,19 @@ def Graph_1D_Transient_1(x, u_ap, tit):
     Output:
         None
     '''
+    
     min  = u_ap.min()                                                       # Look for the minimum of the computed solution for the axis.
     max  = u_ap.max()                                                       # Look for the maximum of the computed solution for the axis.
     t    = len(u_ap[0,:])                                                   # Check the number of time steps.
     step = int(np.ceil(t/50))                                               # Fix a step for the plots so only 50 time-steps are plotted.
     T    = np.linspace(0,1,t)                                               # Create a time mesh.
+
+    if save:                                                                # If saving results is requested.
+        nom    = 'Results/' + tit + '.mp4'                                  # The name for the file under the 'Results' folder.
+        fourcc = cv2.VideoWriter_fourcc(*'mp4v')                            # Choose the codec for the file.
+        out    = cv2.VideoWriter(nom, fourcc, 5, (1000, 800))               # Create a the file to save the video.
     
-    plt.figure(figsize=(10, 6))                                             # Create a new figure.
+    fig = plt.figure(figsize = (10, 8))                                     # Create a new figure.
 
     for k in range(0,t,step):                                               # Iterate over the time.
         plt.title(tit + '\n' + 'Solution at t = ' + str(T[k]) + 's.')       # Place the title for the figure.
@@ -228,6 +264,11 @@ def Graph_1D_Transient_1(x, u_ap, tit):
         plt.grid(True)                                                      # Plot a grid on the figure.
 
         plt.pause(0.01)                                                     # Pause for 0.01 seconds.
+        if save:                                                            # If saving results is requested.
+            fig.canvas.draw()                                               # Draw the canvas of the figure.
+            frame = np.asarray(fig.canvas.buffer_rgba())[:, :, :3]          # Convert the canvas into a np.array.
+            out.write(frame)                                                # Save the current frame.
+
         plt.cla()                                                           # Clear the graphic.
 
     plt.title(tit + '\n' + 'Solution at t = ' + str(T[-1]) + 's.')          # Place the title for the figure.
@@ -236,9 +277,16 @@ def Graph_1D_Transient_1(x, u_ap, tit):
     plt.grid(True)                                                          # Plot a grid on the figure.
     plt.ylim([min,max])                                                     # Set the axis limits.
 
-    plt.pause(1)                                                            # Pause for 1 second.
+    plt.pause(0.1)                                                          # Pause for 0.1 seconds.
+    if save:                                                                # If saving results is requested.
+        fig.canvas.draw()                                                   # Draw the canvas of the figure.
+        frame = np.asarray(fig.canvas.buffer_rgba())[:, :, :3]              # Convert the canvas into a np.array.
+        out.write(frame)                                                    # Save the current frame.
+        out.release()                                                       # Save the frames into the video.
+    plt.close()
 
-def Graph_2D_Stationary(x, y, u_ap, u_ex, tit):
+
+def Graph_2D_Stationary(x, y, u_ap, u_ex, tit, save):
     '''
     Graph_2D_Stationary
 
@@ -258,10 +306,12 @@ def Graph_2D_Stationary(x, y, u_ap, u_ex, tit):
 
     min = u_ex.min()                                                        # Look for the minimum of the exact solution for the axis.
     max = u_ex.max()                                                        # Look for the maximum of the exact solution for the axis.
+
+    _, _, _, LQ = Error_norms_2D(u_ap, u_ex, verbose = False)               # Compute the norms of the error.
     
     fig, (ax1, ax2) = plt.subplots(1, 2, subplot_kw={"projection": "3d"}, \
-                                   figsize=(10, 6))                         # Create a figure with 2 subplots.
-    fig.suptitle(tit)                                                       # Place the title for the figure.
+                                   figsize = (10, 8))                       # Create a figure with 2 subplots.
+    plt.suptitle(tit + '\n' + 'Quadratic Mean Error = ' + str(LQ))          # Place the title for the figure.
     
     ax1.set_title('Computed solution')                                      # Title for the first subplot.
     ax1.plot_surface(x, y, u_ap)                                            # Plot the computed solution.
@@ -273,10 +323,13 @@ def Graph_2D_Stationary(x, y, u_ap, u_ex, tit):
     ax2.set_zlim([min, max])                                                # Set the axis limits for subplot 2.
     ax2.grid(True)                                                          # Plot a grid on subplot 2.
 
+    if save:                                                                # If saving results is requested.
+        nom = 'Results/' + tit + '.png'                                     # The name for the file under the 'Results' folder.
+        plt.savefig(nom)                                                    # Save the figure.
     plt.show()                                                              # Show the plot.
 
 
-def Graph_2D_Transient(x, y, u_ap, u_ex,tit):
+def Graph_2D_Transient(x, y, u_ap, u_ex, tit, save):
     '''
     Graph_2D_Transient
 
@@ -299,12 +352,20 @@ def Graph_2D_Transient(x, y, u_ap, u_ex,tit):
     t    = len(u_ex[0,0,:])                                                 # Check the number of time steps.
     step = int(np.ceil(t/50))                                               # Fix a step for the plots so only 50 time-steps are plotted.
     T    = np.linspace(0,1,t)                                               # Create a time mesh.
+
+    _, _, _, LQ = Error_norms_2D(u_ap, u_ex, verbose = False)               # Compute the norms of the error.
+
+    if save:                                                                # If saving results is requested.
+        nom    = 'Results/' + tit + '.mp4'                                  # The name for the file under the 'Results' folder.
+        fourcc = cv2.VideoWriter_fourcc(*'mp4v')                            # Choose the codec for the file.
+        out    = cv2.VideoWriter(nom, fourcc, 5, (1000, 800))               # Create a the file to save the video.
     
     fig, (ax1, ax2) = plt.subplots(1, 2, subplot_kw={"projection": "3d"}, \
-                                   figsize=(10, 6))                         # Create a figure with 2 subplots.
+                                   figsize = (10, 8))                       # Create a figure with 2 subplots.
 
     for k in np.arange(0,t,step):
-        plt.suptitle(tit + '\n' + 'Solution at t = ' + str(T[k]) + 's.')    # Place the title for the figure.
+        plt.suptitle(tit + '\n' + 'Solution at t = ' + str(T[k]) + 's.' +
+                     '\n' + 'Quadratic Mean Error =' + str(LQ[k]))          # Place the title for the figure.
         
         ax1.set_title('Computed Solution')                                  # Title for the first subplot.
         ax1.plot_surface(x, y, u_ap[:,:,k])                                 # Plot the computed solution.
@@ -317,11 +378,16 @@ def Graph_2D_Transient(x, y, u_ap, u_ex,tit):
         ax2.grid(True)                                                      # Plot a grid on subplot 2.
 
         plt.pause(0.01)                                                     # Pause for 0.01 seconds.
+        if save:                                                            # If saving results is requested.
+            fig.canvas.draw()                                               # Draw the canvas of the figure.
+            frame = np.asarray(fig.canvas.buffer_rgba())[:, :, :3]          # Convert the canvas into a np.array.
+            out.write(frame)                                                # Save the current frame.
         ax1.clear()                                                         # Clear the first subplot.
         ax2.clear()                                                         # Clear the second subplot.
         plt.cla()                                                           # Clear the graphic.
     
-    plt.suptitle(tit + '\n' + 'Solution at t = ' + str(T[-1]) + 's.')       # Place the title for the figure.
+    plt.suptitle(tit + '\n' + 'Solution at t = ' + str(T[-1]) + 's.' +
+                     '\n' + 'Quadratic Mean Error =' + str(LQ[-1]))         # Place the title for the figure.
     
     ax1.set_title('Computed Solution')                                      # Title for the first subplot.
     ax1.plot_surface(x, y, u_ap[:,:,-1])                                    # Plot the computed solution.
@@ -333,64 +399,10 @@ def Graph_2D_Transient(x, y, u_ap, u_ex,tit):
     ax2.set_zlim([min, max])                                                # Set the axis limits for subplot 2.
     ax2.grid(True)                                                          # Plot a grid on subplot 2.
 
-    plt.pause(1)                                                            # Pause for 1 second.
-
-def Cloud_Static(p, tt, u_ap, u_ex):
-    if tt.min() == 1:
-        tt -= 1
-    
-    min  = u_ex.min()
-    max  = u_ex.max()
-
-    fig, (ax1, ax2) = plt.subplots(1, 2, subplot_kw = {"projection": "3d"}, figsize=(10, 6))
-    
-    ax1.plot_trisurf(p[:,0], p[:,1], u_ap[:], triangles=tt, cmap=cm.coolwarm)
-    ax1.set_zlim([min, max])
-    ax1.set_title('Approximation')
-    
-    ax2.plot_trisurf(p[:,0], p[:,1], u_ex[:], triangles=tt, cmap=cm.coolwarm)
-    ax2.set_zlim([min, max])
-    ax2.set_title('Theoretical Solution')
-
-    plt.show()
-
-def Cloud_Transient(p, tt, u_ap, u_ex):
-    if tt.min() == 1:
-        tt -= 1
-    t    = len(u_ex[0,:])
-    step = int(np.ceil(t/50))
-    min  = u_ex.min()
-    max  = u_ex.max()
-    T    = np.linspace(0,1,t)
-
-    fig, (ax1, ax2) = plt.subplots(1, 2, subplot_kw = {"projection": "3d"}, figsize=(10, 6))
-
-    for k in np.arange(0,t,step):
-        
-        tin = float(T[k])
-        plt.suptitle('Solution at t = %1.3f s.' %tin)
-
-        ax1.plot_trisurf(p[:,0], p[:,1], u_ap[:,k], triangles=tt, cmap=cm.coolwarm, linewidth=0, antialiased=False)
-        ax1.set_zlim([min, max])
-        ax1.set_title('Approximation')
-        
-        ax2.plot_trisurf(p[:,0], p[:,1], u_ex[:,k], triangles=tt, cmap=cm.coolwarm, linewidth=0, antialiased=False)
-        ax2.set_zlim([min, max])
-        ax2.set_title('Theoretical Solution')
-
-        plt.pause(0.01)
-        ax1.clear()
-        ax2.clear()
-
-    tin = float(T[-1])
-    plt.suptitle('Solution at t = %1.3f s.' %tin)
-
-    ax1.plot_trisurf(p[:,0], p[:,1], u_ap[:,-1], triangles=tt, cmap=cm.coolwarm, linewidth=0, antialiased=False)
-    ax1.set_zlim([min, max])
-    ax1.set_title('Approximation')
-    
-    ax2.plot_trisurf(p[:,0], p[:,1], u_ex[:,-1], triangles=tt, cmap=cm.coolwarm, linewidth=0, antialiased=False)
-    ax2.set_zlim([min, max])
-    ax2.set_title('Theoretical Solution')
-
-    plt.pause(0.1)
+    plt.pause(0.1)                                                          # Pause for 0.1 seconds.
+    if save:                                                                # If saving results is requested.
+        fig.canvas.draw()                                                   # Draw the canvas of the figure.
+        frame = np.asarray(fig.canvas.buffer_rgba())[:, :, :3]              # Convert the canvas into a np.array.
+        out.write(frame)                                                    # Save the current frame.
+        out.release()                                                       # Save the frames into the video.
+    plt.close()

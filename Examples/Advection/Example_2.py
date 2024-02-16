@@ -42,8 +42,8 @@ from Scripts.Graphs import Graph_2D
 from Scripts.Error_norms import Error_norms_2D
 
 # Problem Parameters
-m    = 41
-n    = 41
+m    = 21
+n    = 21
 t    = 800
 u    = lambda x,y,t,a,b: 0.2*np.exp((-(x-.5-a*t)**2-(y-.5-b*t)**2)/.01)
 a    = 0.4
@@ -67,7 +67,7 @@ for k in range(t):
 # Problem-solving
 u_ap = A2FTCSM(x, y, T, u, a, b)
 # Plot the solution
-Graph_2D('2D Advection Equation. FTCS. Matrix.', x, y, u_ap, u_ex)
+Graph_2D('2D Advection Equation. FTCS. Matrix', x, y, u_ap, u_ex, save = True)
 # Error computation
 print('\n2D Advection Equation. FTCS. Matrix.')
 Error_norms_2D(u_ap, u_ex)
@@ -75,7 +75,7 @@ Error_norms_2D(u_ap, u_ex)
 # Problem-solving
 u_ap = A2FTCSI(x, y, T, u, a, b)
 # Plot the solution
-Graph_2D('2D Advection Equation. FTCS. Iterative.', x, y, u_ap, u_ex)
+Graph_2D('2D Advection Equation. FTCS. Iterative', x, y, u_ap, u_ex, save = True)
 # Error computation
 print('\n2D Advection Equation. FTCS. Iterative.')
 Error_norms_2D(u_ap, u_ex)
@@ -83,7 +83,7 @@ Error_norms_2D(u_ap, u_ex)
 # Problem-solving
 u_ap = A2FTBSM(x, y, T, u, a, b)
 # Plot the solution
-Graph_2D('2D Advection Equation. FTBS. Matrix.', x, y, u_ap, u_ex)
+Graph_2D('2D Advection Equation. FTBS. Matrix', x, y, u_ap, u_ex, save = True)
 # Error computation
 print('\n2D Advection Equation. FTBS. Matrix.')
 Error_norms_2D(u_ap, u_ex)
@@ -91,7 +91,7 @@ Error_norms_2D(u_ap, u_ex)
 # Problem-solving
 u_ap = A2FTBSI(x, y, T, u, a, b)
 # Plot the solution
-Graph_2D('2D Advection Equation. FTBS. Iterative.', x, y, u_ap, u_ex)
+Graph_2D('2D Advection Equation. FTBS. Iterative', x, y, u_ap, u_ex, save = True)
 # Error computation
 print('\n2D Advection Equation. FTBS. Iterative.')
 Error_norms_2D(u_ap, u_ex)
@@ -99,7 +99,7 @@ Error_norms_2D(u_ap, u_ex)
 # Problem-solving
 u_ap = A2LWM(x, y, T, u, a, b)
 # Plot the solution
-Graph_2D('2D Advection Equation. Lax-Wendroff. Matrix.', x, y, u_ap, u_ex)
+Graph_2D('2D Advection Equation. Lax-Wendroff. Matrix', x, y, u_ap, u_ex, save = True)
 # Error computation
 print('\n2D Advection Equation. Lax-Wendroff. Matrix.')
 Error_norms_2D(u_ap, u_ex)
@@ -107,7 +107,7 @@ Error_norms_2D(u_ap, u_ex)
 # Problem-solving
 u_ap = A2LWI(x, y, T, u, a, b)
 # Plot the solution
-Graph_2D('2D Advection Equation. Lax-Wendroff. Iterative.', x, y, u_ap, u_ex)
+Graph_2D('2D Advection Equation. Lax-Wendroff. Iterative', x, y, u_ap, u_ex, save = True)
 # Error computation
 print('\n2D Advection Equation. Lax-Wendroff. Iterative.')
 Error_norms_2D(u_ap, u_ex)
@@ -115,7 +115,7 @@ Error_norms_2D(u_ap, u_ex)
 # Problem-solving
 u_ap = A2BWM(x, y, T, u, a, b)
 # Plot the solution
-Graph_2D('2D Advection Equation. Beam Warming. Matrix.', x, y, u_ap, u_ex)
+Graph_2D('2D Advection Equation. Beam Warming. Matrix', x, y, u_ap, u_ex, save = True)
 # Error computation
 print('\n2D Advection Equation. Beam Warming. Matrix.')
 Error_norms_2D(u_ap, u_ex)
@@ -123,7 +123,7 @@ Error_norms_2D(u_ap, u_ex)
 # Problem-solving
 u_ap = A2BWI(x, y, T, u, a, b)
 # Plot the solution
-Graph_2D('2D Advection Equation. Beam Warming. Iterative.', x, y, u_ap, u_ex)
+Graph_2D('2D Advection Equation. Beam Warming. Iterative', x, y, u_ap, u_ex, save = True)
 # Error computation
 print('\n2D Advection Equation. Beam Warming. Iterative.')
 Error_norms_2D(u_ap, u_ex)
@@ -137,7 +137,7 @@ for k in range(t):
 # Problem-solving
 u_ap = A2FTCSM(x, y, T, u, -a, -b)
 # Plot the solution
-Graph_2D('2D Advection Equation. FTCS. Matrix.', x, y, u_ap, u_ex)
+Graph_2D('2D Advection Equation. FTCS. Matrix', x, y, u_ap, u_ex, save = True)
 # Error computation
 print('\n2D Advection Equation. FTCS. Matrix.')
 Error_norms_2D(u_ap, u_ex)
@@ -145,7 +145,7 @@ Error_norms_2D(u_ap, u_ex)
 # Problem-solving
 u_ap = A2FTCSI(x, y, T, u, -a, -b)
 # Plot the solution
-Graph_2D('2D Advection Equation. FTCS. Iterative.', x, y, u_ap, u_ex)
+Graph_2D('2D Advection Equation. FTCS. Iterative', x, y, u_ap, u_ex, save = True)
 # Error computation
 print('\n2D Advection Equation. FTCS. Iterative.')
 Error_norms_2D(u_ap, u_ex)
@@ -153,7 +153,7 @@ Error_norms_2D(u_ap, u_ex)
 # Problem-solving
 u_ap = A2FTFSM(x, y, T, u, -a, -b)
 # Plot the solution
-Graph_2D('2D Advection Equation. FTFS. Matrix.', x, y, u_ap, u_ex)
+Graph_2D('2D Advection Equation. FTFS. Matrix', x, y, u_ap, u_ex, save = True)
 # Error computation
 print('\n2D Advection Equation. FTFS. Matrix.')
 Error_norms_2D(u_ap, u_ex)
@@ -161,7 +161,7 @@ Error_norms_2D(u_ap, u_ex)
 # Problem-solving
 u_ap = A2FTFSI(x, y, T, u, -a, -b)
 # Plot the solution
-Graph_2D('2D Advection Equation. FTFS. Iterative.', x, y, u_ap, u_ex)
+Graph_2D('2D Advection Equation. FTFS. Iterative', x, y, u_ap, u_ex, save = True)
 # Error computation
 print('\n2D Advection Equation. FTFS. Iterative.')
 Error_norms_2D(u_ap, u_ex)
@@ -169,7 +169,7 @@ Error_norms_2D(u_ap, u_ex)
 # Problem-solving
 u_ap = A2LWM(x, y, T, u, -a, -b)
 # Plot the solution
-Graph_2D('2D Advection Equation. Lax-Wendroff. Matrix.', x, y, u_ap, u_ex)
+Graph_2D('2D Advection Equation. Lax-Wendroff. Matrix', x, y, u_ap, u_ex, save = True)
 # Error computation
 print('\n2D Advection Equation. Lax-Wendroff. Matrix.')
 Error_norms_2D(u_ap, u_ex)
@@ -177,7 +177,7 @@ Error_norms_2D(u_ap, u_ex)
 # Problem-solving
 u_ap = A2LWI(x, y, T, u, -a, -b)
 # Plot the solution
-Graph_2D('2D Advection Equation. Lax-Wendroff. Iterative.', x, y, u_ap, u_ex)
+Graph_2D('2D Advection Equation. Lax-Wendroff. Iterative', x, y, u_ap, u_ex, save = True)
 # Error computation
 print('\n2D Advection Equation. Lax-Wendroff. Iterative.')
 Error_norms_2D(u_ap, u_ex)
@@ -185,7 +185,7 @@ Error_norms_2D(u_ap, u_ex)
 # Problem-solving
 u_ap = A2BWM(x, y, T, u, -a, -b)
 # Plot the solution
-Graph_2D('2D Advection Equation. Beam Warming. Matrix.', x, y, u_ap, u_ex)
+Graph_2D('2D Advection Equation. Beam Warming. Matrix', x, y, u_ap, u_ex, save = True)
 # Error computation
 print('\n2D Advection Equation. Beam Warming. Matrix.')
 Error_norms_2D(u_ap, u_ex)
@@ -193,7 +193,7 @@ Error_norms_2D(u_ap, u_ex)
 # Problem-solving
 u_ap = A2BWI(x, y, T, u, -a, -b)
 # Plot the solution
-Graph_2D('2D Advection Equation. Beam Warming. Iterative.', x, y, u_ap, u_ex)
+Graph_2D('2D Advection Equation. Beam Warming. Iterative', x, y, u_ap, u_ex, save = True)
 # Error computation
 print('\n2D Advection Equation. Beam Warming. Iterative.')
 Error_norms_2D(u_ap, u_ex)

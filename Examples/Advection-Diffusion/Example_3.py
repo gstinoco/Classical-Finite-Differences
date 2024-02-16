@@ -57,7 +57,7 @@ for k in range(t):
 # Problem-solving
 u_ap = AdvectionDiffusion1D_MOL(x, T, u, nu, a, 2)
 # Plot the solution
-Graph_1D('1D Advection-Diffusion Equation. MOL. Runge-Kutta 2.', x, u_ap, u_ex)
+Graph_1D('1D Advection-Diffusion Equation. MOL. Runge-Kutta 2', x, u_ap, u_ex, save = True)
 # Error computation
 print('\n1D Advection-Diffusion Equation. MOL. Runge-Kutta 2.')
 Error_norms_1D(u_ap, u_ex)
@@ -65,7 +65,7 @@ Error_norms_1D(u_ap, u_ex)
 # Problem-solving
 u_ap = AdvectionDiffusion1D_MOL(x, T, u, nu, a, 3)
 # Plot the solution
-Graph_1D('1D Advection-Diffusion Equation. MOL. Runge-Kutta 3.', x, u_ap, u_ex)
+Graph_1D('1D Advection-Diffusion Equation. MOL. Runge-Kutta 3', x, u_ap, u_ex, save = True)
 # Error computation
 print('\n1D Advection-Diffusion Equation. MOL. Runge-Kutta 3.')
 Error_norms_1D(u_ap, u_ex)
@@ -73,16 +73,16 @@ Error_norms_1D(u_ap, u_ex)
 # Problem-solving
 u_ap = AdvectionDiffusion1D_MOL(x, T, u, nu, a, 4)
 # Plot the solution
-Graph_1D('1D Advection-Diffusion Equation. MOL. Runge-Kutta 4.', x, u_ap, u_ex)
+Graph_1D('1D Advection-Diffusion Equation. MOL. Runge-Kutta 4', x, u_ap, u_ex, save = True)
 # Error computation
 print('\n1D Advection-Diffusion Equation. MOL. Runge-Kutta 4.')
 Error_norms_1D(u_ap, u_ex)
 
 
 # Problem Parameters
-m  = 11
-n  = 11
-t  = 400
+m  = 21
+n  = 21
+t  = 800
 u  = lambda x, y, t, nu, a, b: (1/(4*t+1))*np.exp(-(x-a*t-0.5)**2/(nu*(4*t+1)) - (y-b*t-0.5)**2/(nu*(4*t+1)))
 nu = 0.2
 a  = 0.05
@@ -106,7 +106,7 @@ for k in range(t):
 # Problem-solving
 u_ap = AdvectionDiffusion2D_MOL(x, y, T, u, nu, a, b, 2)
 # Plot the solution
-Graph_2D('2D Advection-Diffusion Equation. MOL. Runge-Kutta 2.', x, y, u_ap, u_ex)
+Graph_2D('2D Advection-Diffusion Equation. MOL. Runge-Kutta 2', x, y, u_ap, u_ex, save = True)
 # Error computation
 print('\n2D Advection-Diffusion Equation. MOL. Runge-Kutta 2.')
 Error_norms_2D(u_ap, u_ex)
@@ -114,7 +114,7 @@ Error_norms_2D(u_ap, u_ex)
 # Problem-solving
 u_ap = AdvectionDiffusion2D_MOL(x, y, T, u, nu, a, b, 3)
 # Plot the solution
-Graph_2D('2D Advection-Diffusion Equation. MOL. Runge-Kutta 3.', x, y, u_ap, u_ex)
+Graph_2D('2D Advection-Diffusion Equation. MOL. Runge-Kutta 3', x, y, u_ap, u_ex, save = True)
 # Error computation
 print('\n2D Advection-Diffusion Equation. MOL. Runge-Kutta 3.')
 Error_norms_2D(u_ap, u_ex)
@@ -122,7 +122,7 @@ Error_norms_2D(u_ap, u_ex)
 # Problem-solving
 u_ap = AdvectionDiffusion2D_MOL(x, y, T, u, nu, a, b, 4)
 # Plot the solution
-Graph_2D('2D Advection-Diffusion Equation. MOL. Runge-Kutta 4.', x, y, u_ap, u_ex)
+Graph_2D('2D Advection-Diffusion Equation. MOL. Runge-Kutta 4', x, y, u_ap, u_ex, save = True)
 # Error computation
 print('\n2D Advection-Diffusion Equation. MOL. Runge-Kutta 4.')
 Error_norms_2D(u_ap, u_ex)

@@ -60,7 +60,7 @@ for k in range(t):
 # Problem-solving
 u_ap = DEM(x, y, T, u, nu)
 # Plot the solution
-Graph_2D('2D Diffusion Equation. Matrix.', x, y, u_ap, u_ex)
+Graph_2D('2D Diffusion Equation. Matrix', x, y, u_ap, u_ex, save = True)
 # Error computation
 print('\n2D Diffusion Equation. Matrix.')
 Error_norms_2D(u_ap, u_ex)
@@ -68,7 +68,7 @@ Error_norms_2D(u_ap, u_ex)
 # Problem-solving
 u_ap = DEI(x, y, T, u, nu)
 # Plot the solution
-Graph_2D('2D Diffusion Equation. Iterative.', x, y, u_ap, u_ex)
+Graph_2D('2D Diffusion Equation. Iterative', x, y, u_ap, u_ex, save = True)
 # Error computation
 print('\n2D Diffusion Equation. Iterative.')
 Error_norms_2D(u_ap, u_ex)
@@ -76,7 +76,7 @@ Error_norms_2D(u_ap, u_ex)
 # Problem-solving
 u_ap = DEM_CN(x, y, T, u, nu)
 # Plot the solution
-Graph_2D('2D Diffusion Equation. Crank-Nicolson. Matrix.', x, y, u_ap, u_ex)
+Graph_2D('2D Diffusion Equation. Crank-Nicolson. Matrix', x, y, u_ap, u_ex, save = True)
 # Error computation
 print('\n2D Diffusion Equation. Crank-Nicolson. Matrix.')
 Error_norms_2D(u_ap, u_ex)
@@ -84,7 +84,7 @@ Error_norms_2D(u_ap, u_ex)
 # Problem-solving
 u_ap = DEI_CN(x, y, T, u, nu)
 # Plot the solution
-Graph_2D('2D Diffusion Equation. Crank-Nicolson. Iterative.', x, y, u_ap, u_ex)
+Graph_2D('2D Diffusion Equation. Crank-Nicolson. Iterative', x, y, u_ap, u_ex, save = True)
 # Error computation
 print('\n2D Diffusion Equation. Crank-Nicolson. Iterative.')
 Error_norms_2D(u_ap, u_ex)

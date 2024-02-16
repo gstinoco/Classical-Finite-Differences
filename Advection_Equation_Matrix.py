@@ -632,7 +632,7 @@ def Advection_2D_FTFS(x, y, T, u, a, b):
     for i in range(m-1):                                                    # For all the nodes in one direction.
         for j in range(n-1):                                                # For all the nodes in the other direction.
             k = i * m + j                                                   # Linearized Index.
-            if i == 0 or i == m - 1 or j == 0 or j == m - 1:                # If the node is in the boundary.
+            if i == m - 1 or j == m - 1:                                    # If the node is in the boundary.
                 A[k, k] = 1                                                 # A with ones to keep the boundary condition.
             else:                                                           # If the node is an inner node.
                 A[k, k]   = r_x + r_y                                       # A matrix value for central node.

@@ -36,7 +36,7 @@ from Scripts.Graphs import Graph_1D
 from Scripts.Error_norms import Error_norms_1D
 
 # Problem Parameters
-m    = 41
+m    = 21
 t    = 200
 u    = lambda x, t, nu, a: (1/np.sqrt(4*t+1))*np.exp((-(x-0.5-a*t)**2)/(nu*(4*t+1)))
 nu   = 0.1
@@ -57,7 +57,7 @@ for k in range(t):
 # Problem-solving
 u_ap = AD1M(x, T, u, nu, a)
 # Plot the solution
-Graph_1D('1D Diffusion Equation. Matrix.', x, u_ap, u_ex)
+Graph_1D('1D Advection-Diffusion Equation. Matrix', x, u_ap, u_ex, save = True)
 # Error computation
 print('\n1D Poisson Equation. Matrix.')
 Error_norms_1D(u_ap, u_ex)
@@ -65,7 +65,7 @@ Error_norms_1D(u_ap, u_ex)
 # Problem-solving
 u_ap = AD1I(x, T, u, nu, a)
 # Plot the solution
-Graph_1D('1D Diffusion Equation. Iterative.', x, u_ap, u_ex)
+Graph_1D('1D Advection-Diffusion Equation. Iterative', x, u_ap, u_ex, save = True)
 # Error computation
 print('\n1D Poisson Equation. Iterative.')
 Error_norms_1D(u_ap, u_ex)
@@ -73,7 +73,7 @@ Error_norms_1D(u_ap, u_ex)
 # Problem-solving
 u_ap = AD1CNM(x, T, u, nu, a)
 # Plot the solution
-Graph_1D('1D Diffusion Equation. Crank-Nicolson. Matrix.', x, u_ap, u_ex)
+Graph_1D('1D Advection-Diffusion Equation. Crank-Nicolson. Matrix', x, u_ap, u_ex, save = True)
 # Error computation
 print('\n1D Poisson Equation. Crank-Nicolson. Matrix.')
 Error_norms_1D(u_ap, u_ex)
@@ -81,7 +81,7 @@ Error_norms_1D(u_ap, u_ex)
 # Problem-solving
 u_ap = AD1CNI(x, T, u, nu, a)
 # Plot the solution
-Graph_1D('1D Diffusion Equation. Crank-Nicolson. Iterative.', x, u_ap, u_ex)
+Graph_1D('1D Advection-Diffusion Equation. Crank-Nicolson. Iterative', x, u_ap, u_ex, save = True)
 # Error computation
 print('\n1D Poisson Equation. Crank-Nicolson. Iterative.')
 Error_norms_1D(u_ap, u_ex)

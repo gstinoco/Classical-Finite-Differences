@@ -56,7 +56,7 @@ for k in range(t):
 # Problem-solving
 u_ap = Diffusion1D_MOL(x, T, u, nu, 2)
 # Plot the solution
-Graph_1D('1D Diffusion Equation. MOL. Runge-Kutta 2.', x, u_ap, u_ex)
+Graph_1D('1D Diffusion Equation. MOL. Runge-Kutta 2', x, u_ap, u_ex, save = True)
 # Error computation
 print('\n1D Diffusion Equation. MOL. Runge-Kutta 2.')
 Error_norms_1D(u_ap, u_ex)
@@ -64,7 +64,7 @@ Error_norms_1D(u_ap, u_ex)
 # Problem-solving
 u_ap = Diffusion1D_MOL(x, T, u, nu, 3)
 # Plot the solution
-Graph_1D('1D Diffusion Equation. MOL. Runge-Kutta 3.', x, u_ap, u_ex)
+Graph_1D('1D Diffusion Equation. MOL. Runge-Kutta 3', x, u_ap, u_ex, save = True)
 # Error computation
 print('\n1D Diffusion Equation. MOL. Runge-Kutta 3.')
 Error_norms_1D(u_ap, u_ex)
@@ -72,7 +72,7 @@ Error_norms_1D(u_ap, u_ex)
 # Problem-solving
 u_ap = Diffusion1D_MOL(x, T, u, nu, 4)
 # Plot the solution
-Graph_1D('1D Diffusion Equation. MOL. Runge-Kutta 4.', x, u_ap, u_ex)
+Graph_1D('1D Diffusion Equation. MOL. Runge-Kutta 4', x, u_ap, u_ex, save = True)
 # Error computation
 print('\n1D Diffusion Equation. MOL. Runge-Kutta 4.')
 Error_norms_1D(u_ap, u_ex)
@@ -103,7 +103,7 @@ for k in range(t):
 # Problem-solving
 u_ap = Diffusion2D_MOL(x, y, T, u, nu, 2)
 # Plot the solution
-Graph_2D('2D Diffusion Equation. MOL. Runge-Kutta 2.', x, y, u_ap, u_ex)
+Graph_2D('2D Diffusion Equation. MOL. Runge-Kutta 2', x, y, u_ap, u_ex, save = True)
 # Error computation
 print('\n2D Diffusion Equation. MOL. Runge-Kutta 2.')
 Error_norms_2D(u_ap, u_ex)
@@ -111,7 +111,7 @@ Error_norms_2D(u_ap, u_ex)
 # Problem-solving
 u_ap = Diffusion2D_MOL(x, y, T, u, nu, 3)
 # Plot the solution
-Graph_2D('2D Diffusion Equation. MOL. Runge-Kutta 3.', x, y, u_ap, u_ex)
+Graph_2D('2D Diffusion Equation. MOL. Runge-Kutta 3', x, y, u_ap, u_ex, save = True)
 # Error computation
 print('\n2D Diffusion Equation. MOL. Runge-Kutta 3.')
 Error_norms_2D(u_ap, u_ex)
@@ -119,7 +119,7 @@ Error_norms_2D(u_ap, u_ex)
 # Problem-solving
 u_ap = Diffusion2D_MOL(x, y, T, u, nu, 4)
 # Plot the solution
-Graph_2D('2D Diffusion Equation. MOL. Runge-Kutta 4.', x, y, u_ap, u_ex)
+Graph_2D('2D Diffusion Equation. MOL. Runge-Kutta 4', x, y, u_ap, u_ex, save = True)
 # Error computation
 print('\n2D Diffusion Equation. MOL. Runge-Kutta 4.')
 Error_norms_2D(u_ap, u_ex)

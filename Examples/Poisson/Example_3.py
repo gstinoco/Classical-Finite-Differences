@@ -52,7 +52,7 @@ for i in range(m):
 # Problem-solving
 u_ap = PM(x, y, f, u)
 # Plot the solutions
-Graph_2D('2D Poisson Equation. Matrix.', x, y, u_ap, u_ex)
+Graph_2D('2D Poisson Equation. Matrix', x, y, u_ap, u_ex, save = True)
 # Error computation
 print('\n2D Poisson Equation. Matrix.')
 Error_norms_2D(u_ap, u_ex)
@@ -60,7 +60,7 @@ Error_norms_2D(u_ap, u_ex)
 # Problem-solving
 u_ap = PI(x, y, f, u)
 # Plot the solutions
-Graph_2D('2D Poisson Equation. Iterative.', x, y, u_ap, u_ex)
+Graph_2D('2D Poisson Equation. Iterative', x, y, u_ap, u_ex, save = True)
 # Error computation
 print('\n2D Poisson Equation. Iterative.')
 Error_norms_2D(u_ap, u_ex)

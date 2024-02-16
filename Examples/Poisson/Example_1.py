@@ -55,7 +55,7 @@ u_ex = u(x)
 # Problem-solving
 u_ap = PM(x, f, u)
 # Plot the solutions
-Graph_1D('1D Poisson Equation. Matrix.', x, u_ap, u_ex)
+Graph_1D('1D Poisson Equation. Matrix', x, u_ap, u_ex, save = True)
 # Error computation
 print('\n1D Poisson Equation. Matrix.')
 Error_norms_1D(u_ap, u_ex)
@@ -63,7 +63,7 @@ Error_norms_1D(u_ap, u_ex)
 # Problem-solving
 u_ap = PI(x, f, u)
 # Plot the solutions
-Graph_1D('1D Poisson Equation. Iterative.', x, u_ap, u_ex)
+Graph_1D('1D Poisson Equation. Iterative', x, u_ap, u_ex, save = True)
 # Error computation
 print('\n1D Poisson Equation. Iterative.')
 Error_norms_1D(u_ap, u_ex)

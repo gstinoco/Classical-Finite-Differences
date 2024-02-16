@@ -55,29 +55,29 @@ x = np.linspace(0, 1, m)
 # Problem-solving
 u_ap = NM_1(x, f, a, b)
 # Plot the solution
-Graph_1D('Neumann 1. Matrix Formulation.', x, u_ap)
+Graph_1D('1D Poisson Equation. Neumann 1. Matrix', x, u_ap, save = True)
 
 # Problem-solving
 u_ap = NI_1(x, f, a, b)
 # Plot the solution
-Graph_1D('Neumann 1. Iterative Formulation.', x, u_ap)
+Graph_1D('1D Poisson Equation. Neumann 1. Iterative', x, u_ap, save = True)
 
 # Problem-solving
 u_ap = NM_2(x, f, a, b)
 # Plot the solution
-Graph_1D('Neumann 2. Matrix Formulation.', x, u_ap)
+Graph_1D('1D Poisson Equation. Neumann 2. Matrix', x, u_ap, save = True)
 
 # Problem-solving
 u_ap = NI_2(x, f, a, b)
 # Plot the solution
-Graph_1D('Neumann 2. Iterative Formulation.', x, u_ap)
+Graph_1D('1D Poisson Equation. Neumann 2. Iterative', x, u_ap, save = True)
 
 # Problem-solving
 u_ap = NM_3(x, f, a, b)
 # Plot the solution
-Graph_1D('Neumann 3. Matrix Formulation.', x, u_ap)
+Graph_1D('1D Poisson Equation. Neumann 3. Matrix', x, u_ap, save = True)
 
 # Problem-solving
 u_ap = NI_3(x, f, a, b)
 # Plot the solution
-Graph_1D('Neumann 3. Iterative Formulation.', x, u_ap)
+Graph_1D('1D Poisson Equation. Neumann 3. Iterative', x, u_ap, save = True)

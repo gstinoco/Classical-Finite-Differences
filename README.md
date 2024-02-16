@@ -41,17 +41,15 @@ This repository contains a variety of Classical Finite Differences Schemes to so
         2. Classical 1D problem with Dirichlet conditions using a FTBS stencil.
         3. Classical 1D problem with Dirichlet conditions using a FTFS stencil.
         4. Classical 1D problem with Dirichlet conditions using a Leapfrog approach.
-        5. Classical 1D problem with Dirichlet conditions using a Lax-Friedrichs approach.
-        6. Classical 1D problem with Dirichlet conditions using an optimized Lax-Friedrichs approach.
-        7. Classical 1D problem with Dirichlet conditions using a Lax-Wendroff approach.
-        8. Classical 1D problem with Dirichlet conditions using a Beam Warming approach.
-        9. Classical 2D problem with Dirichlet conditions using a FTCS stencil.
-        10. Classical 2D problem with Dirichlet conditions using a FTBS stencil.
-        11. Classical 2D problem with Dirichlet conditions using a FTFS stencil.
-        12. Classical 2D problem with Dirichlet conditions using a Lax-Wendroff approach.
-        13. Classical 2D problem with Dirichlet conditions using a Beam Warming approach.
-        14. 1D problem with Dirichlet conditions using a MOL approach.
-        15. 2D problem with Dirichlet conditions using a MOL approach.
+        5. Classical 1D problem with Dirichlet conditions using a Lax-Wendroff approach.
+        6. Classical 1D problem with Dirichlet conditions using a Beam Warming approach.
+        7. Classical 2D problem with Dirichlet conditions using a FTCS stencil.
+        8. Classical 2D problem with Dirichlet conditions using a FTBS stencil.
+        9. Classical 2D problem with Dirichlet conditions using a FTFS stencil.
+        10. Classical 2D problem with Dirichlet conditions using a Lax-Wendroff approach.
+        11. Classical 2D problem with Dirichlet conditions using a Beam Warming approach.
+        12. 1D problem with Dirichlet conditions using a MOL approach.
+        13. 2D problem with Dirichlet conditions using a MOL approach.
     2. Matrix approach.
         1. Classical 1D problem with Dirichlet conditions using a FTCS stencil.
         2. Classical 1D problem with Dirichlet conditions using a FTBS stencil.

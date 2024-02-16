@@ -36,9 +36,9 @@ from Scripts.Graphs import Graph_2D
 from Scripts.Error_norms import Error_norms_2D
  
 # Problem Parameters
-m  = 11
-n  = 11
-t  = 400
+m  = 21
+n  = 21
+t  = 800
 u  = lambda x, y, t, nu, a, b: (1/(4*t+1))*np.exp(-(x-a*t-0.5)**2/(nu*(4*t+1)) - (y-b*t-0.5)**2/(nu*(4*t+1)))
 nu = 0.2
 a  = 0.05
@@ -62,7 +62,7 @@ for k in range(t):
 # Problem-solving
 u_ap = AD2M(x, y, T, u, nu, a, b)
 # Plot the solution
-Graph_2D('2D Advection-Diffusion Equation. Matrix.', x, y, u_ap, u_ex)
+Graph_2D('2D Advection-Diffusion Equation. Matrix', x, y, u_ap, u_ex, save = True)
 # Error computation
 print('\n2D Advection-Diffusion Equation. Matrix.')
 Error_norms_2D(u_ap, u_ex)
@@ -70,7 +70,7 @@ Error_norms_2D(u_ap, u_ex)
 # Problem-solving
 u_ap = AD2I(x, y, T, u, nu, a, b)
 # Plot the solution
-Graph_2D('2D Advection-Diffusion Equation. Iterative.', x, y, u_ap, u_ex)
+Graph_2D('2D Advection-Diffusion Equation. Iterative', x, y, u_ap, u_ex, save = True)
 # Error computation
 print('\n2D Advection-Diffusion Equation. Iterative.')
 Error_norms_2D(u_ap, u_ex)
@@ -78,7 +78,7 @@ Error_norms_2D(u_ap, u_ex)
 # Problem-solving
 u_ap = AD2CNM(x, y, T, u, nu, a, b)
 # Plot the solution
-Graph_2D('2D Advection-Diffusion Equation. Crank-Nicolson. Matrix.', x, y, u_ap, u_ex)
+Graph_2D('2D Advection-Diffusion Equation. Crank-Nicolson. Matrix', x, y, u_ap, u_ex, save = True)
 # Error computation
 print('\n2D Advection-Diffusion Equation. Crank-Nicolson. Matrix.')
 Error_norms_2D(u_ap, u_ex)
@@ -86,7 +86,7 @@ Error_norms_2D(u_ap, u_ex)
 # Problem-solving
 u_ap = AD2CNI(x, y, T, u, nu, a, b)
 # Plot the solution
-Graph_2D('2D Advection-Diffusion Equation. Crank-Nicolson. Iterative.', x, y, u_ap, u_ex)
+Graph_2D('2D Advection-Diffusion Equation. Crank-Nicolson. Iterative', x, y, u_ap, u_ex, save = True)
 # Error computation
 print('\n2D Advection-Diffusion Equation. Crank-Nicolson. Iterative.')
 Error_norms_2D(u_ap, u_ex)
