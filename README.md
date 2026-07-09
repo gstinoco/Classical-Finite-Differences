@@ -259,20 +259,28 @@ The `Results/` directory is part of the public teaching material. It acts as a r
   <tbody>
     <tr>
       <td align="center">
-        <img src="Results/Poisson/2D_FD.png" alt="2D Poisson FD result" width="190"><br>
-        <sub><code>2D_FD.png</code></sub>
+        <a href="Results/Poisson/2D_FD.png">
+          <img src="assets/gallery/poisson_2d_fd.png" alt="2D Poisson FD result" width="190">
+        </a><br>
+        <sub><code>Poisson/2D_FD.png</code></sub>
       </td>
       <td align="center">
-        <img src="Results/Diffusion/2D_GS.gif" alt="2D diffusion GS animation" width="190"><br>
-        <sub><code>2D_GS.gif</code></sub>
+        <a href="Results/Diffusion/2D_GS.gif">
+          <img src="assets/gallery/diffusion_2d_gs.png" alt="2D diffusion GS animation preview" width="190">
+        </a><br>
+        <sub><code>Diffusion/2D_GS.gif</code></sub>
       </td>
       <td align="center">
-        <img src="Results/Advection/1D_FD_LaxWendroff.gif" alt="1D advection FD Lax-Wendroff animation" width="190"><br>
-        <sub><code>1D_FD_LaxWendroff.gif</code></sub>
+        <a href="Results/Advection/1D_FD_LaxWendroff.gif">
+          <img src="assets/gallery/advection_1d_fd_laxwendroff.png" alt="1D advection FD Lax-Wendroff animation preview" width="190">
+        </a><br>
+        <sub><code>Advection/1D_FD_LaxWendroff.gif</code></sub>
       </td>
       <td align="center">
-        <img src="Results/Advection_Diffusion/2D_GS_CN.gif" alt="2D advection-diffusion GS Crank-Nicolson animation" width="190"><br>
-        <sub><code>2D_GS_CN.gif</code></sub>
+        <a href="Results/Advection_Diffusion/2D_GS_CN.gif">
+          <img src="assets/gallery/advection_diffusion_2d_gs_cn.png" alt="2D advection-diffusion GS Crank-Nicolson animation preview" width="190">
+        </a><br>
+        <sub><code>Advection_Diffusion/2D_GS_CN.gif</code></sub>
       </td>
     </tr>
   </tbody>
