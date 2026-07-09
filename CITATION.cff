@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "If you use this software in teaching, research, reports, theses, or derived work, please cite it using the metadata in this file."
+type: software
+title: "Classical Finite Differences"
+authors:
+  - family-names: "Tinoco Guerrero"
+    given-names: "Gerardo"
+    orcid: "https://orcid.org/0000-0003-3119-770X"
+    affiliation: "Universidad Michoacana de San Nicolas de Hidalgo"
+abstract: "A computational and pedagogical Python project for solving partial differential equations with classical finite-difference methods."
+repository-code: "https://github.com/gstinoco/Classical-Finite-Differences"
+url: "https://github.com/gstinoco/Classical-Finite-Differences"
+license: "MIT"
+date-released: "2026-07-09"

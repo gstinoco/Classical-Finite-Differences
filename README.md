@@ -7,7 +7,7 @@
 [![NumPy](https://img.shields.io/badge/NumPy-Numerical%20Computing-013243.svg)](https://numpy.org/)
 [![Matplotlib](https://img.shields.io/badge/Matplotlib-Visualization-11557C.svg)](https://matplotlib.org/)
 [![Pytest](https://img.shields.io/badge/Pytest-Tested-0A9EDC.svg)](https://docs.pytest.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 **A computational and pedagogical guide to solving partial differential equations with classical finite differences.**
 
@@ -650,14 +650,29 @@ This project is maintained as academic and teaching material by Dr. Gerardo Tino
 
 ## How to Cite or Acknowledge This Work
 
-If you use this repository for a course, workshop, thesis, report, or derived implementation, please acknowledge:
+If you use this repository for a course, workshop, thesis, report, publication, or derived implementation, please cite it. Citation metadata is also provided in [`CITATION.cff`](CITATION.cff), which GitHub can use to generate citation formats automatically.
+
+**Recommended citation**
 
 ```text
-Tinoco Guerrero, G. Classical Finite Differences.
-Universidad Michoacana de San Nicolás de Hidalgo, 2026.
+Tinoco Guerrero, G. (2026). Classical Finite Differences.
+Universidad Michoacana de San Nicolás de Hidalgo.
 https://github.com/gstinoco/Classical-Finite-Differences
+```
+
+**BibTeX**
+
+```bibtex
+@software{tinoco_guerrero_2026_classical_finite_differences,
+  author       = {Tinoco Guerrero, Gerardo},
+  title        = {Classical Finite Differences},
+  year         = {2026},
+  institution  = {Universidad Michoacana de San Nicolás de Hidalgo},
+  url          = {https://github.com/gstinoco/Classical-Finite-Differences},
+  license      = {MIT}
+}
 ```
 
 ## License
 
-This project is distributed under the MIT License. See the license information in the repository for details.
+This project is distributed under the MIT License. See [`LICENSE`](LICENSE) for the full license text.
