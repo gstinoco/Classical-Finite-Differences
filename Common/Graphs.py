@@ -68,7 +68,7 @@ def Stationary_1D(x, phi_ap, phi_ex, title='Solution Comparison (1D)', show=True
     """
     # Figure setup
     plt.rcParams["figure.figsize"] = (16, 9)                                                    # Set default figure size.
-    fig, ax = plt.subplots(1, 1)                                                                # Create single-axis canvas.
+    fig, ax                        = plt.subplots(1, 1)                                         # Create single-axis canvas.
     plt.suptitle(title)                                                                         # Set figure title.
 
     # Axis limits
@@ -128,7 +128,7 @@ def Stationary_2D(x, y, phi_ap, phi_ex, title='Solution Comparison (2D)', show=T
     """
     # Figure setup
     plt.rcParams["figure.figsize"] = (16, 9)                                                    # Set figure size.
-    fig, ax = plt.subplots(1, 1, subplot_kw={"projection": "3d"})                               # Create a single 3D axis.
+    fig, ax                        = plt.subplots(1, 1, subplot_kw={"projection": "3d"})        # Create a single 3D axis.
     plt.suptitle(title)                                                                         # Set figure title.
 
     # Axis limits
@@ -197,7 +197,7 @@ def Transient_1D(x, u_ap, u_ex, title='Time Evolution (1D)', show=True, save_pat
 
     # Figure setup
     plt.rcParams["figure.figsize"] = (16, 9)                                                    # Set figure size.
-    fig, ax = plt.subplots(1, 1)                                                                # Create single axis.
+    fig, ax                        = plt.subplots(1, 1)                                         # Create single axis.
 
     # Animation only when show=True; if show=False, no interactive windows
     # Animation loop
@@ -311,7 +311,7 @@ def Transient_2D(x, y, u_ap, u_ex, title='Time Evolution (2D)', show=True, save_
 
     # Figure setup
     plt.rcParams["figure.figsize"] = (16, 9)                                                    # Figure size.
-    fig, ax = plt.subplots(1, 1, subplot_kw={"projection": "3d"})                               # Single 3D axis.
+    fig, ax                        = plt.subplots(1, 1, subplot_kw={"projection": "3d"})        # Single 3D axis.
 
     # Animation loop
     if show:

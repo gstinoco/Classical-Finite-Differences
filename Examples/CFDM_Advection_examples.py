@@ -86,10 +86,11 @@ def run_1d_example(show=False, save_path=RESULTS_DIR, nodes=41, time_steps=800, 
     rows = []                                                                                   # Accumulates metric rows for all 1D methods.
     plot_cases = []                                                                             # Accumulates plot metadata for all 1D method outputs.
     for display_name, method_arg, sign in ADVECTION_METHODS_1D:
-        a_case = sign * speed                                                                   # Selects the signed velocity compatible with the stencil direction.
+        a_case          = sign * speed                                                          # Selects the signed velocity compatible with the stencil direction.
 
         u_matrix, u_ex = CAdvection.Advection1D(x, time_steps, u, a_case, method=method_arg)    # Solves the 1D case with the matrix implementation.
-        u_iter, _ = CAdvection.Advection1D_iter(x, time_steps, u, a_case, method=method_arg)    # Solves the 1D case with the iterative implementation.
+        u_iter, _      = CAdvection.Advection1D_iter(x, time_steps, u, a_case, method=method_arg)
+                                                                                                # Solves the 1D case with the iterative implementation.
 
         rows.append(ExampleTools.transient_row(f"{display_name} FD", u_ex, u_matrix))           # Adds finite-difference formulation transient metrics for this stencil.
         rows.append(ExampleTools.transient_row(f"{display_name} GS", u_ex, u_iter))             # Adds Gauss-Seidel-style transient metrics for this stencil.
@@ -130,17 +131,17 @@ def run_2d_example(show=False, save_path=RESULTS_DIR, nodes=41, time_steps=800, 
     x_1d = np.linspace(0, 1, nodes)                                                             # Builds the x-coordinate mesh nodes.
     y_1d = np.linspace(0, 1, nodes)                                                             # Builds the y-coordinate mesh nodes.
     x, y = np.meshgrid(x_1d, y_1d)                                                              # Expands 1D coordinate vectors into a rectangular 2D mesh.
-    u = lambda x, y, t, a, b: 0.2*np.exp(-((x - 0.5 - a*t)**2 + (y - 0.5 - b*t)**2) / 0.01)     # Defines a transported Gaussian pulse.
+    u    = lambda x, y, t, a, b: 0.2*np.exp(-((x - 0.5 - a*t)**2 + (y - 0.5 - b*t)**2) / 0.01) # Defines a transported Gaussian pulse.
 
     rows = []                                                                                   # Accumulates metric rows for all 2D methods.
     plot_cases = []                                                                             # Accumulates plot metadata for all 2D method outputs.
     for display_name, method_arg, sign_x, sign_y in ADVECTION_METHODS_2D:
-        a_case = sign_x * speed_x                                                               # Selects the signed x-velocity compatible with the stencil direction.
-        b_case = sign_y * speed_y                                                               # Selects the signed y-velocity compatible with the stencil direction.
+        a_case         = sign_x * speed_x                                                       # Selects the signed x-velocity compatible with the stencil direction.
+        b_case         = sign_y * speed_y                                                       # Selects the signed y-velocity compatible with the stencil direction.
 
         u_matrix, u_ex = CAdvection.Advection2D(x, y, time_steps, u, a_case, b_case, method=method_arg)
                                                                                                 # Solves the 2D case with the matrix implementation.
-        u_iter, _ = CAdvection.Advection_2D_iter(x, y, time_steps, u, a_case, b_case, method=method_arg)
+        u_iter, _      = CAdvection.Advection_2D_iter(x, y, time_steps, u, a_case, b_case, method=method_arg)
                                                                                                 # Solves the 2D case with the iterative implementation.
 
         rows.append(ExampleTools.transient_row(f"{display_name} FD", u_ex, u_matrix))           # Adds finite-difference formulation transient metrics for this stencil.

@@ -67,11 +67,10 @@ def Diffusion1D(x, t, u, v):
     T    = np.linspace(0, 1, t)                                                                 # Time grid over [0, 1].
     dt   = T[1] - T[0]                                                                          # Time step size.
     r    = v*dt/(dx**2)                                                                         # r has all the coefficients of the method.
-    u_ap = np.zeros([m, t])                                                                     # Approximate solution container.
-    u_ex = np.zeros([m, t])                                                                     # Exact solution container.
+    u_ap = np.empty([m, t])                                                                     # Allocate approximate solution values assigned below.
 
     # Initial condition
-    u_ap[:, 0] = u(x, T[0], v)                                                                  # Apply initial state at t = 0.
+    u_ap[:, 0]  = u(x, T[0], v)                                                                 # Apply initial state at t = 0.
 
     # Boundary conditions
     u_ap[0,  :] = u(x[0],  T, v)                                                                # Boundary at x = 0 over all k.
@@ -82,7 +81,7 @@ def Diffusion1D(x, t, u, v):
 
     # Explicit time integration with Dirichlet boundaries
     for k in range(t-1):                                                                        # Loop over time steps.
-        u_new = u_ap[:, k] + A@u_ap[:, k]                                                       # Compute new approximation from current state.
+        u_new           = u_ap[:, k] + A@u_ap[:, k]                                             # Compute new approximation from current state.
         u_ap[1:-1, k+1] = u_new[1:-1]                                                           # The approximation is saved for interior nodes.
 
     # Exact solution for comparison
@@ -125,8 +124,7 @@ def Diffusion1D_iter(x, t, u, v):
     T    = np.linspace(0, 1, t)                                                                 # Time grid over [0, 1].
     dt   = T[1] - T[0]                                                                          # Time step size.
     r    = v*dt/(dx**2)                                                                         # r has all the coefficients of the method.
-    u_ap = np.zeros([m, t])                                                                     # Approximate solution container.
-    u_ex = np.zeros([m, t])                                                                     # Exact solution container.
+    u_ap = np.empty([m, t])                                                                     # Allocate approximate solution values assigned below.
 
     # Initial condition
     u_ap[:, 0] = u(x, T[0], v)                                                                  # Apply initial state at t = 0.
@@ -191,8 +189,7 @@ def Diffusion2D(x, y, t, u, v, implicit=False, lam=0.5):
     dt   = T[1] - T[0]                                                                          # Time step size.
     r_x  = v*dt/(dx**2)                                                                         # Diffusive CFL coefficient in the x direction.
     r_y  = v*dt/(dy**2)                                                                         # Diffusive CFL coefficient in the y direction.
-    u_ap = np.zeros([m, n, t])                                                                  # Approximate solution container.
-    u_ex = np.zeros([m, n, t])                                                                  # Exact solution container.
+    u_ap = np.empty([m, n, t])                                                                  # Allocate approximate solution values assigned below.
 
     # Initial condition
     u_ap[:, :, 0] = u(x, y, T[0], v)                                                            # Apply initial state at t = 0.
@@ -218,14 +215,13 @@ def Diffusion2D(x, y, t, u, v, implicit=False, lam=0.5):
 
     # Time integration on interior nodes
     for k in range(t-1):                                                                        # Loop over time steps.
-        u_old = u_ap[:, :, k].reshape(m*n)                                                      # Flatten current state (row-major).
-        u_new = np.einsum('ij,j->i', K2, u_old)                                                 # Apply time-stepping matrix.
-        urr   = u_new.reshape(m, n)                                                             # Reshape back to 2D.
+        u_old                 = u_ap[:, :, k].reshape(m*n)                                      # Flatten current state (row-major).
+        u_new                 = np.einsum('ij,j->i', K2, u_old)                                 # Apply time-stepping matrix.
+        urr                   = u_new.reshape(m, n)                                             # Reshape back to 2D.
         u_ap[1:-1, 1:-1, k+1] = urr[1:-1, 1:-1]                                                 # Update interior (keep boundaries).
         
     # Exact solution for comparison
-    for k in range(t):                                                                          # Evaluate at all time steps.
-        u_ex[:, :, k] = u(x, y, T[k], v)                                                        # Exact solution.
+    u_ex = u(x[:, :, None], y[:, :, None], T[None, None, :], v)                                 # Evaluate exact solution over the full space-time mesh.
 
     return u_ap, u_ex                                                                           # Return approximate and exact.
 
@@ -267,8 +263,7 @@ def Diffusion2D_iter(x, y, t, u, v, implicit=False, lam=0.5):
     dt   = T[1] - T[0]                                                                          # Time step size.
     r_x  = v*dt/(dx**2)                                                                         # r_x has all the coefficients of the method.
     r_y  = v*dt/(dy**2)                                                                         # r_y has all the coefficients of the method.
-    u_ap = np.zeros([m, n, t])                                                                  # Approximate solution container.
-    u_ex = np.zeros([m, n, t])                                                                  # Exact solution container.
+    u_ap = np.empty([m, n, t])                                                                  # Allocate approximate solution values assigned below.
     
     # Initial condition
     u_ap[:, :, 0] = u(x, y, T[0], v)                                                            # Apply initial state at t = 0.
@@ -295,8 +290,7 @@ def Diffusion2D_iter(x, y, t, u, v, implicit=False, lam=0.5):
                 )                                                                               # 5-point stencil sum for 2D diffusion.
     
     # Exact solution for comparison
-    for k in range(t):                                                                          # Evaluate at all time steps.
-        u_ex[:, :, k] = u(x, y, T[k], v)                                                        # Exact solution.
+    u_ex = u(x[:, :, None], y[:, :, None], T[None, None, :], v)                                 # Evaluate exact solution over the full space-time mesh.
 
     return u_ap, u_ex                                                                           # Return approximate and exact.
 
@@ -328,10 +322,6 @@ def A_1D_calc(m, r):
         A[i, i]   = -2*r                                                                        # Central node contribution.
         A[i, i+1] = r                                                                           # Right neighbor contribution.
     
-    # Dirichlet boundary rows
-    A[0,   0]     = 0                                                                           # Boundary row as zero for I+A.
-    A[-1, -1]     = 0                                                                           # Boundary row as zero for I+A.
-    
     return A
 
 def A_2D_calc(m, n, r_x, r_y):
@@ -358,9 +348,7 @@ def A_2D_calc(m, n, r_x, r_y):
     for i in range(m):                                                                          # Traverse mesh rows.
         for j in range(n):                                                                      # Traverse mesh columns.
             k = i * n + j                                                                       # Map node (i, j) to row-major vector index.
-            if i == 0 or i == m-1 or j == 0 or j == n-1:                                        # Boundary node.
-                A[k, k] = 0                                                                     # Boundary row as zero for I+A.
-            else:                                                                               # Interior node.
+            if not (i == 0 or i == m-1 or j == 0 or j == n-1):                                  # Interior node.
                 A[k, k]   = -2*r_x - 2*r_y                                                      # Central node contribution.
                 A[k, k-1] = r_x                                                                 # Left neighbor contribution.
                 A[k, k+1] = r_x                                                                 # Right neighbor contribution.

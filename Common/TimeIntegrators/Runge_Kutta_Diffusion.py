@@ -57,7 +57,7 @@ def RungeKutta2_1D(x, T, nu, u, u_ap):
     np.ndarray
         2D array of the computed interior approximations in time.
     """
-    t = len(T)                                                                                  # Number of temporal nodes.
+    t  = len(T)                                                                                 # Number of temporal nodes.
     dt = T[1] - T[0]                                                                            # Uniform time-step size.
 
     for k in range(t - 1):
@@ -93,7 +93,7 @@ def RungeKutta3_1D(x, T, nu, u, u_ap):
     np.ndarray
         2D array of the computed interior approximations in time.
     """
-    t = len(T)                                                                                  # Number of temporal nodes.
+    t  = len(T)                                                                                 # Number of temporal nodes.
     dt = T[1] - T[0]                                                                            # Uniform time-step size.
 
     for k in range(t - 1):
@@ -130,7 +130,7 @@ def RungeKutta4_1D(x, T, nu, u, u_ap):
     np.ndarray
         2D array of the computed interior approximations in time.
     """
-    t = len(T)                                                                                  # Number of temporal nodes.
+    t  = len(T)                                                                                 # Number of temporal nodes.
     dt = T[1] - T[0]                                                                            # Uniform time-step size.
 
     for k in range(t - 1):
@@ -172,11 +172,11 @@ def rhs_1D(u_ap, T, k, x, nu, u):
     np.ndarray
         1D array of the evaluated spatial derivatives.
     """
-    m = len(x)                                                                                  # Number of spatial nodes.
-    dx = x[1] - x[0]                                                                            # Uniform spatial step size.
-    s = np.zeros(m)                                                                             # Allocate RHS vector.
+    m     = len(x)                                                                              # Number of spatial nodes.
+    dx    = x[1] - x[0]                                                                         # Uniform spatial step size.
+    s     = np.zeros(m)                                                                         # Allocate RHS vector.
 
-    s[0] = u(x[0], T[k], nu)                                                                    # Left boundary value at time T[k].
+    s[0]  = u(x[0], T[k], nu)                                                                   # Left boundary value at time T[k].
     s[-1] = u(x[-1], T[k], nu)                                                                  # Right boundary value at time T[k].
 
     for i in range(1, m - 1):
@@ -210,7 +210,7 @@ def RungeKutta2_2D(x, y, T, nu, u, u_ap):
     np.ndarray
         3D array of the computed interior approximations in time.
     """
-    t = len(T)                                                                                  # Number of temporal nodes.
+    t  = len(T)                                                                                 # Number of temporal nodes.
     dt = T[1] - T[0]                                                                            # Uniform time-step size.
 
     for k in range(t - 1):
@@ -249,7 +249,7 @@ def RungeKutta3_2D(x, y, T, nu, u, u_ap):
     np.ndarray
         3D array of the computed interior approximations in time.
     """
-    t = len(T)                                                                                  # Number of temporal nodes.
+    t  = len(T)                                                                                 # Number of temporal nodes.
     dt = T[1] - T[0]                                                                            # Uniform time-step size.
 
     for k in range(t - 1):
@@ -289,7 +289,7 @@ def RungeKutta4_2D(x, y, T, nu, u, u_ap):
     np.ndarray
         3D array of the computed interior approximations in time.
     """
-    t = len(T)                                                                                  # Number of temporal nodes.
+    t  = len(T)                                                                                 # Number of temporal nodes.
     dt = T[1] - T[0]                                                                            # Uniform time-step size.
 
     for k in range(t - 1):
@@ -333,15 +333,15 @@ def rhs_2D(u_ap, T, k, x, y, nu, u):
         2D array of the evaluated spatial derivatives.
     """
     m, n = x.shape                                                                              # Number of mesh rows and columns.
-    dx = x[0, 1] - x[0, 0]                                                                      # Uniform column spacing in the x direction.
-    dy = y[1, 0] - y[0, 0]                                                                      # Uniform row spacing in the y direction.
-    s = np.zeros([m, n])                                                                        # Allocate the 2D RHS array.
+    dx   = x[0, 1] - x[0, 0]                                                                    # Uniform column spacing in the x direction.
+    dy   = y[1, 0] - y[0, 0]                                                                    # Uniform row spacing in the y direction.
+    s    = np.zeros([m, n])                                                                     # Allocate the 2D RHS array.
 
     for i in range(m):
-        s[i, 0] = u(x[i, 0], y[i, 0], T[k], nu)                                                 # Left boundary at the first x-column.
+        s[i, 0]  = u(x[i, 0], y[i, 0], T[k], nu)                                                # Left boundary at the first x-column.
         s[i, -1] = u(x[i, -1], y[i, -1], T[k], nu)                                              # Right boundary at the last x-column.
     for j in range(n):
-        s[0, j] = u(x[0, j], y[0, j], T[k], nu)                                                 # Bottom boundary at the first y-row.
+        s[0, j]  = u(x[0, j], y[0, j], T[k], nu)                                                # Bottom boundary at the first y-row.
         s[-1, j] = u(x[-1, j], y[-1, j], T[k], nu)                                              # Top boundary at the last y-row.
 
     for i in range(1, m - 1):

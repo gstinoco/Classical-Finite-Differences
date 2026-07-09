@@ -89,15 +89,15 @@ def run_1d_example(show=False, save_path=RESULTS_DIR, nodes=21, time_steps=200, 
         """
         return (1 / np.sqrt(4*t + 1)) * np.exp(-((x - 0.5 - a_val*t)**2) / (nu_val * (4*t + 1)))
 
-    x = np.linspace(0, 1, nodes)                                                                # Builds the 1D spatial mesh over the unit interval.
+    x                   = np.linspace(0, 1, nodes)                                              # Builds the 1D spatial mesh over the unit interval.
 
     u_explicit_fd, u_ex = CAdvDiff.AdvectionDiffusion1D(x, time_steps, u_exact, nu, a, implicit=False)
                                                                                                 # Solves the 1D explicit problem with the FD matrix formulation.
-    u_explicit_gs, _ = CAdvDiff.AdvectionDiffusion1D_iter(x, time_steps, u_exact, nu, a, implicit=False)
+    u_explicit_gs, _    = CAdvDiff.AdvectionDiffusion1D_iter(x, time_steps, u_exact, nu, a, implicit=False)
                                                                                                 # Solves the 1D explicit problem with the GS iterative formulation.
-    u_cn_fd, _ = CAdvDiff.AdvectionDiffusion1D(x, time_steps, u_exact, nu, a, implicit=True, lam=0.5)
+    u_cn_fd, _          = CAdvDiff.AdvectionDiffusion1D(x, time_steps, u_exact, nu, a, implicit=True, lam=0.5)
                                                                                                 # Solves the 1D Crank-Nicolson problem with the FD matrix formulation.
-    u_cn_gs, _ = CAdvDiff.AdvectionDiffusion1D_iter(x, time_steps, u_exact, nu, a, implicit=True, lam=0.5)
+    u_cn_gs, _          = CAdvDiff.AdvectionDiffusion1D_iter(x, time_steps, u_exact, nu, a, implicit=True, lam=0.5)
                                                                                                 # Solves the 1D Crank-Nicolson problem with the GS iterative formulation.
 
     ExampleTools.print_metrics("1D Results (Transient)", [                                      # Prints a common metric table over the full 1D time history.
@@ -167,17 +167,17 @@ def run_2d_example(show=False, save_path=RESULTS_DIR, nodes=21, time_steps=200, 
         """
         return (1 / (4*t + 1)) * np.exp(-((x - 0.5 - a_val*t)**2 + (y - 0.5 - b_val*t)**2) / (nu_val * (4*t + 1)))
 
-    x_1d = np.linspace(0, 1, nodes)                                                             # Builds the x-coordinate mesh nodes.
-    y_1d = np.linspace(0, 1, nodes)                                                             # Builds the y-coordinate mesh nodes.
-    x, y = np.meshgrid(x_1d, y_1d)                                                              # Expands 1D coordinate vectors into a rectangular 2D mesh.
+    x_1d                = np.linspace(0, 1, nodes)                                              # Builds the x-coordinate mesh nodes.
+    y_1d                = np.linspace(0, 1, nodes)                                              # Builds the y-coordinate mesh nodes.
+    x, y                = np.meshgrid(x_1d, y_1d)                                               # Expands 1D coordinate vectors into a rectangular 2D mesh.
 
     u_explicit_fd, u_ex = CAdvDiff.AdvectionDiffusion2D(x, y, time_steps, u_exact, nu, a, b, implicit=False)
                                                                                                 # Solves the 2D explicit problem with the FD matrix formulation.
-    u_explicit_gs, _ = CAdvDiff.AdvectionDiffusion2D_iter(x, y, time_steps, u_exact, nu, a, b, implicit=False)
+    u_explicit_gs, _    = CAdvDiff.AdvectionDiffusion2D_iter(x, y, time_steps, u_exact, nu, a, b, implicit=False)
                                                                                                 # Solves the 2D explicit problem with the GS iterative formulation.
-    u_cn_fd, _ = CAdvDiff.AdvectionDiffusion2D(x, y, time_steps, u_exact, nu, a, b, implicit=True, lam=0.5)
+    u_cn_fd, _          = CAdvDiff.AdvectionDiffusion2D(x, y, time_steps, u_exact, nu, a, b, implicit=True, lam=0.5)
                                                                                                 # Solves the 2D Crank-Nicolson problem with the FD matrix formulation.
-    u_cn_gs, _ = CAdvDiff.AdvectionDiffusion2D_iter(x, y, time_steps, u_exact, nu, a, b, implicit=True, lam=0.5)
+    u_cn_gs, _          = CAdvDiff.AdvectionDiffusion2D_iter(x, y, time_steps, u_exact, nu, a, b, implicit=True, lam=0.5)
                                                                                                 # Solves the 2D Crank-Nicolson problem with the GS iterative formulation.
 
     ExampleTools.print_metrics("2D Results (Transient)", [                                      # Prints a common metric table over the full 2D time history.

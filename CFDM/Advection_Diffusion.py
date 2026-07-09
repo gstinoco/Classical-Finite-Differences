@@ -67,11 +67,10 @@ def AdvectionDiffusion1D(x, t, u, v, a, implicit=False, lam=0.5):
     dt   = T[1] - T[0]                                                                          # Time step size.
     r_d  = v*dt/(dx**2)                                                                         # r_d has all the diffusive coefficients of the method.
     r_a  = a*dt/(2*dx)                                                                          # r_a has all the advective coefficients of the method.
-    u_ap = np.zeros([m, t])                                                                     # Approximate solution container.
-    u_ex = np.zeros([m, t])                                                                     # Exact solution container.
+    u_ap = np.empty([m, t])                                                                     # Allocate approximate solution values assigned below.
 
     # Initial condition
-    u_ap[:, 0] = u(x, T[0], v, a)                                                               # Apply initial state at t = 0.
+    u_ap[:, 0]  = u(x, T[0], v, a)                                                              # Apply initial state at t = 0.
 
     # Dirichlet boundaries
     u_ap[0,  :] = u(x[0],  T, v, a)                                                             # Boundary at x = 0 over all k.
@@ -91,7 +90,7 @@ def AdvectionDiffusion1D(x, t, u, v, a, implicit=False, lam=0.5):
 
     # Time integration with Dirichlet boundaries
     for k in range(t-1):                                                                        # Loop over time steps.
-        u_new = np.einsum('ij,j->i', K, u_ap[:, k])                                             # Compute new approximation from current state.
+        u_new           = np.einsum('ij,j->i', K, u_ap[:, k])                                   # Compute new approximation from current state.
         u_ap[1:-1, k+1] = u_new[1:-1]                                                           # The approximation is saved for interior nodes.
 
     # Exact solution for comparison
@@ -137,11 +136,10 @@ def AdvectionDiffusion1D_iter(x, t, u, v, a, implicit=False, lam=0.5):
     r_d  = v*dt/(dx**2)                                                                         # Diffusive coefficient.
     r_a  = a*dt/(2*dx)                                                                          # Advective coefficient.
     tol  = np.sqrt(np.finfo(float).eps)                                                         # Tolerance for implicit scheme.
-    u_ap = np.zeros([m, t])                                                                     # Approximate solution container.
-    u_ex = np.zeros([m, t])                                                                     # Exact solution container.
+    u_ap = np.zeros([m, t])                                                                     # Store solution values and provide the implicit initial guess.
 
     # Initial condition
-    u_ap[:, 0] = u(x, T[0], v, a)                                                               # Apply initial state at t = 0.
+    u_ap[:, 0]  = u(x, T[0], v, a)                                                              # Apply initial state at t = 0.
 
     # Dirichlet boundaries
     u_ap[0,  :] = u(x[0],  T, v, a)                                                             # Boundary at x = 0 over all k.
@@ -220,8 +218,7 @@ def AdvectionDiffusion2D(x, y, t, u, v, a, b, implicit=False, lam=0.5):
     r_dy = v*dt/(dy**2)                                                                         # Diffusive coefficient y.
     r_a  = a*dt/(2*dx)                                                                          # Advective coefficient x.
     r_b  = b*dt/(2*dy)                                                                          # Advective coefficient y.
-    u_ap = np.zeros([m, n, t])                                                                  # Approximate solution container.
-    u_ex = np.zeros([m, n, t])                                                                  # Exact solution container.
+    u_ap = np.empty([m, n, t])                                                                  # Allocate approximate solution values assigned below.
 
     # Initial condition
     u_ap[:, :, 0] = u(x, y, T[0], v, a, b)                                                      # Apply initial state at t = 0.
@@ -247,14 +244,13 @@ def AdvectionDiffusion2D(x, y, t, u, v, a, b, implicit=False, lam=0.5):
 
     # Time integration on interior nodes
     for k in range(t-1):                                                                        # Loop over time steps.
-        u_old = u_ap[:, :, k].reshape(m*n)                                                      # Flatten current state (row-major).
-        u_new = np.einsum('ij,j->i', K2, u_old)                                                 # Apply time-stepping matrix.
-        urr   = u_new.reshape(m, n)                                                             # Reshape back to 2D.
+        u_old                 = u_ap[:, :, k].reshape(m*n)                                      # Flatten current state (row-major).
+        u_new                 = np.einsum('ij,j->i', K2, u_old)                                 # Apply time-stepping matrix.
+        urr                   = u_new.reshape(m, n)                                             # Reshape back to 2D.
         u_ap[1:-1, 1:-1, k+1] = urr[1:-1, 1:-1]                                                 # Update interior (keep boundaries).
         
     # Exact solution for comparison
-    for k in range(t):                                                                          # Evaluate at all time steps.
-        u_ex[:, :, k] = u(x, y, T[k], v, a, b)                                                  # Exact solution.
+    u_ex = u(x[:, :, None], y[:, :, None], T[None, None, :], v, a, b)                           # Evaluate exact solution over the full space-time mesh.
 
     return u_ap, u_ex                                                                           # Return approximate and exact.
 
@@ -300,8 +296,7 @@ def AdvectionDiffusion2D_iter(x, y, t, u, v, a, b, implicit=False, lam=0.5):
     r_a  = a*dt/(2*dx)                                                                          # Advective coefficient x.
     r_b  = b*dt/(2*dy)                                                                          # Advective coefficient y.
     tol  = np.sqrt(np.finfo(float).eps)                                                         # Tolerance for iterative.
-    u_ap = np.zeros([m, n, t])                                                                  # Approximate solution container.
-    u_ex = np.zeros([m, n, t])                                                                  # Exact solution container.
+    u_ap = np.zeros([m, n, t])                                                                  # Store solution values and provide the implicit initial guess.
 
     # Initial condition
     u_ap[:, :, 0] = u(x, y, T[0], v, a, b)                                                      # Apply initial state at t = 0.
@@ -350,8 +345,7 @@ def AdvectionDiffusion2D_iter(x, y, t, u, v, a, b, implicit=False, lam=0.5):
                         u_ap[i, j, k+1] = t_val                                                 # Assign new value at interior node.
         
     # Exact solution for comparison
-    for k in range(t):                                                                          # Evaluate at all time steps.
-        u_ex[:, :, k] = u(x, y, T[k], v, a, b)                                                  # Exact solution.
+    u_ex = u(x[:, :, None], y[:, :, None], T[None, None, :], v, a, b)                            # Evaluate exact solution over the full space-time mesh.
 
     return u_ap, u_ex                                                                           # Return approximate and exact.
 
@@ -414,7 +408,7 @@ def A_2D_calc(m, n, r_dx, r_dy, r_a, r_b):
     for i in range(m):                                                                          # For all rows (y direction).
         for j in range(n):                                                                      # For all columns (x direction).
             k = i * n + j                                                                       # Linearized index.
-            if i != 0 and i != m-1 and j != 0 and j != n-1:                                     # Interior node.
+            if not (i == 0 or i == m-1 or j == 0 or j == n-1):                                  # If the node is an inner node.
                 A[k, k]   = -2*r_dx - 2*r_dy                                                    # Central node.
                 A[k, k-1] = r_dx + r_a                                                          # Left neighbor (x direction).
                 A[k, k+1] = r_dx - r_a                                                          # Right neighbor (x direction).

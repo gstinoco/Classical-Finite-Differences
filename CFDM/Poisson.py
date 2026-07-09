@@ -142,8 +142,6 @@ def Poisson2D(x, y, phi, f):
     m, n   = x.shape                                                                            # Number of mesh rows and columns.
     dx     = x[0, 1] - x[0, 0]                                                                  # Uniform column spacing in the x direction.
     dy     = y[1, 0] - y[0, 0]                                                                  # Uniform row spacing in the y direction.
-    phi_ap = np.zeros([m, n])                                                                   # Allocate the approximate solution on the full mesh.
-    phi_ex = np.zeros([m, n])                                                                   # Allocate the exact solution on the full mesh.
     
     # Operator matrix
     A = A_2D_calc(m, n, dx, dy)                                                                 # Assemble the 2D Laplacian matrix with Dirichlet rows.
@@ -155,9 +153,7 @@ def Poisson2D(x, y, phi, f):
     phi_ap = np.linalg.solve(A, rhs).reshape((m, n))                                            # Solve the flattened system and restore the mesh shape.
     
     # Exact solution
-    for i in range(m):                                                                          # Traverse mesh rows (y direction).
-        for j in range(n):                                                                      # Traverse mesh columns (x direction).
-            phi_ex[i,j] = phi(x[i, j], y[i, j])                                                 # Evaluate exact solution at node.
+    phi_ex = phi(x, y)                                                                          # Evaluate exact solution over the full mesh.
     
     return phi_ap, phi_ex                                                                       # Return approximate and exact solutions on the mesh.
 
@@ -348,7 +344,7 @@ def RHS_2D_calc(x, y, f, phi, m, n):
                 - Interior entries: -f(x_i, y_j).
     """
     # Initialize RHS
-    rhs    = np.zeros(m*n)                                                                      # Allocate the flattened right-hand side vector.
+    rhs = np.empty(m*n)                                                                         # Allocate RHS entries; every node is assigned below.
 
     # Loop nodes and assign values
     for i in range(m):                                                                          # Traverse mesh rows.
@@ -386,19 +382,19 @@ def Poisson1D_Neumann_1(x, phi, f, sig, beta):
     phi_ex : numpy.ndarray
         Exact solution evaluated on x.
     """
-    m      = len(x)                                                                             # Number of nodes in the 1D mesh.
-    dx     = x[1] - x[0]                                                                        # Uniform distance between adjacent nodes.
+    m       = len(x)                                                                            # Number of nodes in the 1D mesh.
+    dx      = x[1] - x[0]                                                                       # Uniform distance between adjacent nodes.
     
-    A      = A_1D_calc(m, dx)                                                                   # Start from the Dirichlet 1D Poisson matrix.
+    A       = A_1D_calc(m, dx)                                                                  # Start from the Dirichlet 1D Poisson matrix.
     A[0, 0] = -dx / dx**2                                                                       # Coefficient -1/dx in (phi_1 - phi_0)/dx = sig.
     A[0, 1] = dx / dx**2                                                                        # Coefficient  1/dx in (phi_1 - phi_0)/dx = sig.
     
-    rhs    = RHS_1D_calc(x, dx, f, phi)                                                         # Start from the Dirichlet/source RHS vector.
-    rhs[0] = sig                                                                                # Set the left derivative value for the Neumann row.
+    rhs     = RHS_1D_calc(x, dx, f, phi)                                                        # Start from the Dirichlet/source RHS vector.
+    rhs[0]  = sig                                                                               # Set the left derivative value for the Neumann row.
     rhs[-1] = beta                                                                              # Set the right Dirichlet boundary value.
     
-    phi_ap = np.linalg.solve(A, rhs)                                                            # Solve the modified Neumann-Dirichlet linear system.
-    phi_ex = phi(x)                                                                             # Exact solution for comparison.
+    phi_ap  = np.linalg.solve(A, rhs)                                                           # Solve the modified Neumann-Dirichlet linear system.
+    phi_ex  = phi(x)                                                                            # Exact solution for comparison.
     return phi_ap, phi_ex                                                                       # Return approximate and exact solutions.
 
 def Poisson1D_Neumann_1_iter(x, phi, f, sig, beta, max_iter=20000, tol=1e-12):
@@ -480,17 +476,16 @@ def Poisson1D_Neumann_2(x, phi, f, sig, beta):
     m      = len(x)                                                                             # Number of nodes in the 1D mesh.
     dx     = x[1] - x[0]                                                                        # Uniform distance between adjacent nodes.
     
-    A      = A_1D_calc(m, dx)                                                                   # Start from the Dirichlet 1D Poisson matrix.
+    A       = A_1D_calc(m, dx)                                                                  # Start from the Dirichlet 1D Poisson matrix.
     A[0, 0] = -dx / dx**2                                                                       # Coefficient -1/dx in the reduced centered Neumann row.
     A[0, 1] = dx / dx**2                                                                        # Coefficient  1/dx in the reduced centered Neumann row.
-    A[-1, -2] = 0                                                                               # Keep the right Dirichlet row independent of its neighbor.
     
-    rhs    = RHS_1D_calc(x, dx, f, phi)                                                         # Start from the Dirichlet/source RHS vector.
-    rhs[0] = sig - ((dx / 2) * f(x[0]))                                                         # Add the source correction from the centered Neumann formula.
+    rhs     = RHS_1D_calc(x, dx, f, phi)                                                        # Start from the Dirichlet/source RHS vector.
+    rhs[0]  = sig - ((dx / 2) * f(x[0]))                                                        # Add the source correction from the centered Neumann formula.
     rhs[-1] = beta                                                                              # Set the right Dirichlet boundary value.
     
-    phi_ap = np.linalg.solve(A, rhs)                                                            # Solve the modified Neumann-Dirichlet linear system.
-    phi_ex = phi(x)                                                                             # Exact solution for comparison.
+    phi_ap  = np.linalg.solve(A, rhs)                                                           # Solve the modified Neumann-Dirichlet linear system.
+    phi_ex  = phi(x)                                                                            # Exact solution for comparison.
     return phi_ap, phi_ex                                                                       # Return approximate and exact solutions.
 
 def Poisson1D_Neumann_2_iter(x, phi, f, sig, beta, max_iter=20000, tol=1e-12):
@@ -572,18 +567,17 @@ def Poisson1D_Neumann_3(x, phi, f, sig, beta):
     m      = len(x)                                                                             # Number of nodes in the 1D mesh.
     dx     = x[1] - x[0]                                                                        # Uniform distance between adjacent nodes.
     
-    A      = A_1D_calc(m, dx)                                                                   # Start from the Dirichlet 1D Poisson matrix.
+    A       = A_1D_calc(m, dx)                                                                  # Start from the Dirichlet 1D Poisson matrix.
     A[0, 0] = -(3 / 2) * dx / dx**2                                                             # Coefficient -3/(2dx) in the forward Neumann row.
     A[0, 1] = 2 * dx / dx**2                                                                    # Coefficient  2/dx in the forward Neumann row.
     A[0, 2] = -(1 / 2) * dx / dx**2                                                             # Coefficient -1/(2dx) in the forward Neumann row.
-    A[-1, -2] = 0                                                                               # Keep the right Dirichlet row independent of its neighbor.
     
-    rhs    = RHS_1D_calc(x, dx, f, phi)                                                         # Start from the Dirichlet/source RHS vector.
-    rhs[0] = sig                                                                                # Set the left derivative value for the Neumann row.
+    rhs     = RHS_1D_calc(x, dx, f, phi)                                                        # Start from the Dirichlet/source RHS vector.
+    rhs[0]  = sig                                                                               # Set the left derivative value for the Neumann row.
     rhs[-1] = beta                                                                              # Set the right Dirichlet boundary value.
     
-    phi_ap = np.linalg.solve(A, rhs)                                                            # Solve the modified Neumann-Dirichlet linear system.
-    phi_ex = phi(x)                                                                             # Exact solution for comparison.
+    phi_ap  = np.linalg.solve(A, rhs)                                                           # Solve the modified Neumann-Dirichlet linear system.
+    phi_ex  = phi(x)                                                                            # Exact solution for comparison.
     return phi_ap, phi_ex                                                                       # Return approximate and exact solutions.
 
 def Poisson1D_Neumann_3_iter(x, phi, f, sig, beta, max_iter=20000, tol=1e-12):

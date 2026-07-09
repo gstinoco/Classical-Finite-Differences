@@ -62,11 +62,11 @@ def run_1d_example(show=False, save_path=RESULTS_DIR, nodes=41):
         Results are printed and figures are optionally displayed or saved.
     """
     phi = lambda x: x*np.cos(x)                                                                 # Defines the exact solution used to impose Dirichlet boundaries.
-    f = lambda x: 2*np.sin(x) + x*np.cos(x)                                                     # Defines the source term consistent with Delta phi = -f.
-    x = np.linspace(0, 2*np.pi, nodes)                                                          # Builds the 1D spatial mesh over the benchmark interval.
+    f   = lambda x: 2*np.sin(x) + x*np.cos(x)                                                   # Defines the source term consistent with Delta phi = -f.
+    x   = np.linspace(0, 2*np.pi, nodes)                                                        # Builds the 1D spatial mesh over the benchmark interval.
 
     phi_fd, phi_ex = CPoisson.Poisson1D(x, phi, f)                                              # Solves the 1D problem with the direct finite-difference system.
-    phi_gs, _ = CPoisson.Poisson1D_iter(x, phi, f, max_iter=10000, tol=1e-12)                   # Solves the same 1D problem with Gauss-Seidel iterations.
+    phi_gs, _      = CPoisson.Poisson1D_iter(x, phi, f, max_iter=10000, tol=1e-12)              # Solves the same 1D problem with Gauss-Seidel iterations.
 
     ExampleTools.print_metrics("1D Results", [                                                  # Prints a common metric table for the 1D Dirichlet case.
         ExampleTools.stationary_row("FD", phi_ex, phi_fd),                                      # Adds the direct solver error metrics against the exact solution.
@@ -97,14 +97,14 @@ def run_2d_example(show=False, save_path=RESULTS_DIR, nodes=41):
     None
         Results are printed and figures are optionally displayed or saved.
     """
-    phi = lambda x, y: 2*np.exp(2*x + y)                                                        # Defines the exact 2D solution used on the Dirichlet boundary.
-    f = lambda x, y: -10*np.exp(2*x + y)                                                        # Defines the 2D source term consistent with Delta phi = -f.
+    phi  = lambda x, y: 2*np.exp(2*x + y)                                                       # Defines the exact 2D solution used on the Dirichlet boundary.
+    f    = lambda x, y: -10*np.exp(2*x + y)                                                     # Defines the 2D source term consistent with Delta phi = -f.
     x_1d = np.linspace(0, 1, nodes)                                                             # Builds the x-coordinate mesh nodes.
     y_1d = np.linspace(0, 1, nodes)                                                             # Builds the y-coordinate mesh nodes.
     x, y = np.meshgrid(x_1d, y_1d)                                                              # Expands 1D coordinate vectors into a rectangular 2D mesh.
 
     phi_fd, phi_ex = CPoisson.Poisson2D(x, y, phi, f)                                           # Solves the 2D problem with the direct finite-difference system.
-    phi_gs, _ = CPoisson.Poisson2D_iter(x, y, phi, f, max_iter=10000, tol=1e-10)                # Solves the same 2D problem with Gauss-Seidel iterations.
+    phi_gs, _      = CPoisson.Poisson2D_iter(x, y, phi, f, max_iter=10000, tol=1e-10)           # Solves the same 2D problem with Gauss-Seidel iterations.
 
     ExampleTools.print_metrics("2D Results", [                                                  # Prints a common metric table for the 2D Dirichlet case.
         ExampleTools.stationary_row("FD", phi_ex, phi_fd),                                      # Adds the direct solver error metrics against the exact surface.
@@ -135,21 +135,21 @@ def run_neumann_example(show=False, save_path=RESULTS_DIR, nodes=41):
     None
         Results are printed and figures are optionally displayed or saved.
     """
-    phi = lambda x: x**2 - x + 1                                                                # Defines the quadratic exact solution for the Neumann benchmark.
-    f = lambda x: -2*np.ones_like(x)                                                            # Defines the source term consistent with the quadratic solution.
-    sig = -1.0                                                                                  # Sets the prescribed derivative at the Neumann boundary.
+    phi  = lambda x: x**2 - x + 1                                                               # Defines the quadratic exact solution for the Neumann benchmark.
+    f    = lambda x: -2*np.ones_like(x)                                                         # Defines the source term consistent with the quadratic solution.
+    sig  = -1.0                                                                                 # Sets the prescribed derivative at the Neumann boundary.
     beta = 1.0                                                                                  # Sets the prescribed value at the Dirichlet boundary.
-    x = np.linspace(0, 1, nodes)                                                                # Builds the 1D mesh for the mixed-boundary benchmark.
+    x    = np.linspace(0, 1, nodes)                                                             # Builds the 1D mesh for the mixed-boundary benchmark.
 
     phi_n1_fd, phi_ex = CPoisson.Poisson1D_Neumann_1(x, phi, f, sig, beta)                      # Solves with the first-order two-point Neumann formula.
-    phi_n2_fd, _ = CPoisson.Poisson1D_Neumann_2(x, phi, f, sig, beta)                           # Solves with the centered two-point Neumann formula.
-    phi_n3_fd, _ = CPoisson.Poisson1D_Neumann_3(x, phi, f, sig, beta)                           # Solves with the second-order three-point Neumann formula.
+    phi_n2_fd, _      = CPoisson.Poisson1D_Neumann_2(x, phi, f, sig, beta)                      # Solves with the centered two-point Neumann formula.
+    phi_n3_fd, _      = CPoisson.Poisson1D_Neumann_3(x, phi, f, sig, beta)                      # Solves with the second-order three-point Neumann formula.
 
-    phi_n1_gs, _ = CPoisson.Poisson1D_Neumann_1_iter(x, phi, f, sig, beta, max_iter=20000, tol=1e-12)
+    phi_n1_gs, _      = CPoisson.Poisson1D_Neumann_1_iter(x, phi, f, sig, beta, max_iter=20000, tol=1e-12)
                                                                                                 # Iterates the first-order Neumann system.
-    phi_n2_gs, _ = CPoisson.Poisson1D_Neumann_2_iter(x, phi, f, sig, beta, max_iter=20000, tol=1e-12) 
+    phi_n2_gs, _      = CPoisson.Poisson1D_Neumann_2_iter(x, phi, f, sig, beta, max_iter=20000, tol=1e-12) 
                                                                                                 # Iterates the centered Neumann system.
-    phi_n3_gs, _ = CPoisson.Poisson1D_Neumann_3_iter(x, phi, f, sig, beta, max_iter=20000, tol=1e-12)
+    phi_n3_gs, _      = CPoisson.Poisson1D_Neumann_3_iter(x, phi, f, sig, beta, max_iter=20000, tol=1e-12)
                                                                                                 # Iterates the three-point Neumann system.
 
     ExampleTools.print_metrics("1D Neumann Results", [                                          # Prints one comparable table for all Neumann variants.

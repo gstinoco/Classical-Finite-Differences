@@ -167,8 +167,8 @@ def _prepare_time_arrays(y_true, y_pred, axis_time=-1):
     Returns pairs (Y_true, Y_pred) with shape (S, T) where S=flattened space and T=time.
     """
     # Normalize axis and validate inputs
-    y_t, y_p = _validate_pair_nd(y_true, y_pred)                                                # Validate and obtain aligned arrays.
-    ndim = y_t.ndim                                                                             # Number of dimensions in inputs.
+    y_t, y_p  = _validate_pair_nd(y_true, y_pred)                                               # Validate and obtain aligned arrays.
+    ndim      = y_t.ndim                                                                        # Number of dimensions in inputs.
     axis_time = int(axis_time)                                                                  # Normalize axis index to int.
     if axis_time < 0:                                                                           # Support negative indices for time axis.
         axis_time += ndim                                                                       # Convert negative axis to positive.
@@ -178,8 +178,8 @@ def _prepare_time_arrays(y_true, y_pred, axis_time=-1):
     # Move time axis to the end and flatten space
     y_t = np.moveaxis(y_t, axis_time, -1)                                                       # Place time axis at last position.
     y_p = np.moveaxis(y_p, axis_time, -1)                                                       # Same operation for predictions.
-    S = int(np.prod(y_t.shape[:-1]))                                                            # Flattened spatial size.
-    T = int(y_t.shape[-1])                                                                      # Number of time steps.
+    S   = int(np.prod(y_t.shape[:-1]))                                                          # Flattened spatial size.
+    T   = int(y_t.shape[-1])                                                                    # Number of time steps.
 
     # Reshape to (S, T)
     Yt = y_t.reshape(S, T)                                                                      # Reshape ground truth to (S, T).
@@ -372,7 +372,7 @@ def mse_t(y_true, y_pred, axis_time=-1):
     Yt, Yp = _prepare_time_arrays(y_true, y_pred, axis_time=axis_time)                          # Prepare arrays with shape (S, T).
 
     # Residuals across space for each time step
-    diff = Yt - Yp                                                                              # Residuals across space for each time step.
+    diff   = Yt - Yp                                                                            # Residuals across space for each time step.
 
     # Compute per-time MSE
     return np.mean(diff * diff, axis=0).astype(float)                                           # Vector of MSE for each time step.
@@ -399,7 +399,7 @@ def mape_t(y_true, y_pred, axis_time=-1, porcentaje=True, epsilon=1e-8, ignore_z
 
     # Initialize output vector
     S, T = Yt.shape                                                                             # S=flattened space, T=time steps.
-    out = np.empty(T, dtype=float)                                                              # Allocate output vector over time.
+    out  = np.empty(T, dtype=float)                                                             # Allocate output vector over time.
     if ignore_zeros:
         # Mask positions with significant y_true
         mask = np.abs(Yt) > float(epsilon)                                                      # Mask positions with significant y_true.
@@ -430,10 +430,10 @@ def r2_t(y_true, y_pred, axis_time=-1):
 
     # Initialize output vector
     S, T = Yt.shape                                                                             # S=flattened space, T=time steps.
-    out = np.empty(T, dtype=float)                                                              # Allocate output vector over time.
+    out  = np.empty(T, dtype=float)                                                             # Allocate output vector over time.
     for k in range(T):
         # Residuals and sums at time k
-        diff = Yt[:, k] - Yp[:, k]                                                              # Residuals at time k across space.
+        diff   = Yt[:, k] - Yp[:, k]                                                            # Residuals at time k across space.
         ss_res = float(np.sum(diff * diff))                                                     # Sum of squared residuals at time k.
         y_mean = float(np.mean(Yt[:, k]))                                                       # Mean ground truth at time k.
         ss_tot = float(np.sum((Yt[:, k] - y_mean) ** 2))                                        # Total sum of squares at time k.

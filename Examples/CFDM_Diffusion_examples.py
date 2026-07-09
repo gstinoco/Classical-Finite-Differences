@@ -69,7 +69,7 @@ def run_1d_example(show=False, save_path=RESULTS_DIR, nodes=21, time_steps=400, 
     x = np.linspace(0, 1, nodes)                                                                # Builds the 1D spatial mesh over the unit interval.
 
     u_fd, u_ex = CDiffusion.Diffusion1D(x, time_steps, u, diffusivity)                          # Solves the 1D transient problem with the matrix scheme.
-    u_gs, _ = CDiffusion.Diffusion1D_iter(x, time_steps, u, diffusivity)                        # Solves the same 1D problem with Gauss-Seidel iterations.
+    u_gs, _    = CDiffusion.Diffusion1D_iter(x, time_steps, u, diffusivity)                     # Solves the same 1D problem with Gauss-Seidel iterations.
 
     ExampleTools.print_metrics("1D Results (Transient)", [                                      # Prints a common metric table over the full 1D time history.
         ExampleTools.transient_row("FD", u_ex, u_fd),                                           # Adds matrix-scheme transient error metrics.
@@ -104,13 +104,13 @@ def run_2d_example(show=False, save_path=RESULTS_DIR, nodes=21, time_steps=400, 
     None
         Results are printed and figures are optionally displayed or saved.
     """
-    u = lambda x, y, t, v: np.exp(-2*np.pi**2*v*t) * np.cos(np.pi*x) * np.cos(np.pi*y)          # Defines the exact separable 2D diffusion solution.
+    u    = lambda x, y, t, v: np.exp(-2*np.pi**2*v*t) * np.cos(np.pi*x) * np.cos(np.pi*y)       # Defines the exact separable 2D diffusion solution.
     x_1d = np.linspace(0, 1, nodes)                                                             # Builds the x-coordinate mesh nodes.
     y_1d = np.linspace(0, 1, nodes)                                                             # Builds the y-coordinate mesh nodes.
     x, y = np.meshgrid(x_1d, y_1d)                                                              # Expands 1D coordinate vectors into a rectangular 2D mesh.
 
     u_fd, u_ex = CDiffusion.Diffusion2D(x, y, time_steps, u, diffusivity)                       # Solves the 2D transient problem with the matrix scheme.
-    u_gs, _ = CDiffusion.Diffusion2D_iter(x, y, time_steps, u, diffusivity)                     # Solves the same 2D problem with Gauss-Seidel iterations.
+    u_gs, _    = CDiffusion.Diffusion2D_iter(x, y, time_steps, u, diffusivity)                  # Solves the same 2D problem with Gauss-Seidel iterations.
 
     ExampleTools.print_metrics("2D Results (Transient)", [                                      # Prints a common metric table over the full 2D time history.
         ExampleTools.transient_row("FD", u_ex, u_fd),                                           # Adds matrix-scheme transient error metrics.

@@ -69,18 +69,17 @@ def Advection1D(x, t, u, a, method='FTCS'):
     m    = len(x)                                                                               # Number of spatial nodes.
     dx   = x[1] - x[0]                                                                          # Spatial step size (uniform grid).
     dt   = T[1] - T[0]                                                                          # Time step size.
-    u_ap = np.zeros([m, t])                                                                     # Approximate solution container.
-    u_ex = np.zeros([m, t])                                                                     # Exact solution container.
+    u_ap = np.empty([m, t])                                                                     # Allocate approximate solution values assigned below.
     
     # Initial condition
-    u_ap[:, 0] = u(x, T[0], a)                                                                  # Apply initial state at t = 0.
+    u_ap[:, 0]  = u(x, T[0], a)                                                                 # Apply initial state at t = 0.
     
     # Boundary conditions
     u_ap[0,  :] = u(x[0],  T, a)                                                                # Boundary at x = 0 over all k.
     u_ap[-1, :] = u(x[-1], T, a)                                                                # Boundary at x = 1 over all k.
     
     # Operator matrix
-    A      = A_1D_calc(m, a, dt, dx, method)                                                    # 1D advection stencil operator.
+    A           = A_1D_calc(m, a, dt, dx, method)                                               # 1D advection stencil operator.
 
     # Explicit time integration
     for k in range(t-1):                                                                        # Loop over time steps.
@@ -134,11 +133,10 @@ def Advection1D_iter(x, t, u, a, method='FTCS'):
     m    = len(x)                                                                               # Number of spatial nodes.
     dx   = x[1] - x[0]                                                                          # Spatial step size (uniform grid).
     dt   = T[1] - T[0]                                                                          # Time step size.
-    u_ap = np.zeros([m, t])                                                                     # Approximate solution container.
-    u_ex = np.zeros([m, t])                                                                     # Exact solution container.
+    u_ap = np.empty([m, t])                                                                     # Allocate approximate solution values assigned below.
 
     # Initial condition
-    u_ap[:, 0] = u(x, T[0], a)                                                                  # Apply initial state at t = 0.
+    u_ap[:, 0]  = u(x, T[0], a)                                                                 # Apply initial state at t = 0.
 
     # Dirichlet boundaries (enforced for all times)
     u_ap[0,  :] = u(x[0],  T, a)                                                                # Boundary at x = 0 over all k.
@@ -215,10 +213,7 @@ def Advection2D(x, y, t, u, a, b, method='FTCS'):
     dx   = x[0, 1] - x[0, 0]                                                                    # dx is defined as the space step-length in x.
     dy   = y[1, 0] - y[0, 0]                                                                    # dy is defined as the space step-length in y.
     dt   = T[1] - T[0]                                                                          # Time step size.
-
-    # Solution initialization.
-    u_ap = np.zeros([m, n, t])                                                                  # u_ap is initialized with zeros.
-    u_ex = np.zeros([m, n, t])                                                                  # u_ex is initialized with zeros.
+    u_ap = np.empty([m, n, t])                                                                  # Allocate approximate solution values assigned below.
 
     # Initial condition
     u_ap[:, :, 0] = u(x, y, T[0], a, b)                                                         # Apply initial state at t = 0.
@@ -249,10 +244,9 @@ def Advection2D(x, y, t, u, a, b, method='FTCS'):
             raise ValueError('Method not implemented.') 
     
     # Exact solution for comparison
-    for k in range(t):                                                                          # Evaluate at all time steps.
-        u_ex[:, :, k] = u(x, y, T[k], a, b)                                                     # Exact solution.
+    u_ex = u(x[:, :, None], y[:, :, None], T[None, None, :], a, b)                               # Evaluate exact solution over the full space-time mesh.
             
-    return u_ap, u_ex                                                                           # Return the computed solution.
+    return u_ap, u_ex                                                                            # Return the computed solution.
 
 def Advection_2D_iter(x, y, t, u, a, b, method='FTCS'):
     """
@@ -288,10 +282,7 @@ def Advection_2D_iter(x, y, t, u, a, b, method='FTCS'):
     dx   = x[0, 1] - x[0, 0]                                                                    # dx is defined as the space step-length in x.
     dy   = y[1, 0] - y[0, 0]                                                                    # dy is defined as the space step-length in y.
     dt   = T[1] - T[0]                                                                          # Time step size.
-
-    # Solution initialization.
-    u_ap = np.zeros([m, n, t])                                                                  # u_ap is initialized with zeros.
-    u_ex = np.zeros([m, n, t])                                                                  # u_ex is initialized with zeros.
+    u_ap = np.empty([m, n, t])                                                                  # Allocate approximate solution values assigned below.
 
     # Initial condition
     u_ap[:, :, 0] = u(x, y, T[0], a, b)                                                         # Apply initial state at t = 0.
@@ -351,10 +342,9 @@ def Advection_2D_iter(x, y, t, u, a, b, method='FTCS'):
             raise ValueError('Method not implemented.')
         
     # Exact solution for comparison
-    for k in range(t):                                                                          # Evaluate at all time steps.
-        u_ex[:, :, k] = u(x, y, T[k], a, b)                                                     # Exact solution.
+    u_ex = u(x[:, :, None], y[:, :, None], T[None, None, :], a, b)                               # Evaluate exact solution over the full space-time mesh.
 
-    return u_ap, u_ex                                                                           # Return the computed solution.
+    return u_ap, u_ex                                                                            # Return the computed solution.
 
 def A_1D_calc(m, a, dt, dx, method="FTCS"):
     """
@@ -375,7 +365,7 @@ def A_1D_calc(m, a, dt, dx, method="FTCS"):
     Returns
         A : numpy.ndarray (m, m)
             Matrix with:
-              - Boundary rows: identity to keep Dirichlet values fixed.
+              - Boundary rows: unused by the solvers because Dirichlet values are preserved separately.
               - Interior rows: scheme-specific advection stencil entries.
     
     Notes
@@ -387,33 +377,29 @@ def A_1D_calc(m, a, dt, dx, method="FTCS"):
 
     if method == 'FTCS':
         r = a*dt/(2*dx)                                                                         # r is defined as the CFL coefficient.
-                    # Finite Differences Matrix
+        # Finite Differences Matrix
         for i in range(1, m-1):                                                                 # Loop through the Matrix.
             A[i, i+1] = -r                                                                      # Superior diagonal.
             A[i, i-1] = r                                                                       # Inferior diagonal.
-        A[0, 0] = A[-1, -1] = 0                                                                 # Boundary Conditions.
     elif method == 'FTBS':
-        r    = a*dt/dx                                                                          # r is defined as the CFL coefficient.
-                    # Finite Differences Matrix
+        r = a*dt/dx                                                                             # r is defined as the CFL coefficient.
+        # Finite Differences Matrix
         for i in range(1, m):                                                                   # Loop through the Matrix.
             A[i, i]   = -r                                                                      # Main diagonal.
             A[i, i-1] = r                                                                       # Inferior diagonal.
-        A[0, 0] = 0                                                                             # Boundary Conditions.
     elif method == 'FTFS':
-        r    = a*dt/dx                                                                          # r is defined as the CFL coefficient.
-                    # Finite Differences Matrix
+        r = a*dt/dx                                                                             # r is defined as the CFL coefficient.
+        # Finite Differences Matrix
         for i in range(m-1):                                                                    # Loop through the Matrix.
             A[i, i+1] = -r                                                                      # Superior diagonal.
             A[i, i]   = r                                                                       # Main diagonal.
-        A[-1, -1] = 0                                                                           # Boundary Conditions.
     elif method == 'LaxWendroff':
-        r    = a*dt/dx                                                                          # r is defined as the CFL coefficient.
-                    # Finite Differences Matrix
+        r = a*dt/dx                                                                             # r is defined as the CFL coefficient.
+        # Finite Differences Matrix
         for i in range(1, m-1):                                                                 # Loop through the Matrix.
             A[i, i+1] = -(r/2) + (r**2)/2                                                       # Superior diagonal.
             A[i, i]   = -r**2                                                                   # Main diagonal.
             A[i, i-1] = (r/2) + (r**2)/2                                                        # Inferior diagonal.
-        A[0, 0] = A[-1, -1] = 0                                                                 # Boundary Conditions.
     else:
         raise ValueError('Method not implemented.')
     return A
@@ -438,7 +424,7 @@ def A_2D_calc(m, n, a, b, dt, dx, dy, method="FTCS"):
     Returns
         A : numpy.ndarray (m*n, m*n)
             Matrix with:
-              - Boundary rows: identity to keep Dirichlet values fixed.
+              - Boundary rows: unused by the solvers because Dirichlet values are preserved separately.
               - Interior rows: advection stencil entries based on flow direction.
     
     Notes
@@ -451,13 +437,11 @@ def A_2D_calc(m, n, a, b, dt, dx, dy, method="FTCS"):
     if method == 'FTCS':
         r_x = a*dt/(2*dx)                                                                       # r_x is defined as the CFL coefficient.
         r_y = b*dt/(2*dy)                                                                       # r_y is defined as the CFL coefficient.
-                    # Finite Differences Matrix
+        # Finite Differences Matrix
         for i in range(m):                                                                      # For all the nodes in one direction.
             for j in range(n):                                                                  # For all the nodes in the other direction.
                 k = i * n + j                                                                   # Linearized Index.
-                if i == 0 or i == m - 1 or j == 0 or j == n - 1:                                # If the node is in the boundary.
-                    A[k, k] = 0                                                                 # A with zeros to keep the boundary condition in explicit.
-                else:                                                                           # If the node is an inner node.
+                if not (i == 0 or i == m - 1 or j == 0 or j == n - 1):                          # If the node is an inner node.
                     A[k, k-1] = r_x                                                             # A matrix value for left node.
                     A[k, k+1] = -r_x                                                            # A matrix value for right node.
                     A[k, k-n] = r_y                                                             # A matrix value for downer node.
@@ -465,39 +449,33 @@ def A_2D_calc(m, n, a, b, dt, dx, dy, method="FTCS"):
     elif method == 'FTBS':
         r_x = a*dt/dx                                                                           # r_x is defined as the CFL coefficient.
         r_y = b*dt/dy                                                                           # r_y is defined as the CFL coefficient.
-                    # Finite Differences Matrix
+        # Finite Differences Matrix
         for i in range(m):                                                                      # For all the nodes in one direction.
             for j in range(n):                                                                  # For all the nodes in the other direction.
                 k = i * n + j                                                                   # Linearized Index.
-                if i == 0 or i == m - 1 or j == 0 or j == n - 1:                                # If the node is in the boundary.
-                    A[k, k] = 0                                                                 # A with zeros to keep the boundary condition in explicit.
-                else:                                                                           # If the node is an inner node.
+                if not (i == 0 or i == m - 1 or j == 0 or j == n - 1):                          # If the node is an inner node.
                     A[k, k]   = -r_x - r_y                                                      # A matrix value for central node.
                     A[k, k-1] = r_x                                                             # A matrix value for left node.
                     A[k, k-n] = r_y                                                             # A matrix value for downer node.
     elif method == 'FTFS':
         r_x = a*dt/dx                                                                           # r_x is defined as the CFL coefficient.
         r_y = b*dt/dy                                                                           # r_y is defined as the CFL coefficient.
-                    # Finite Differences Matrix
+        # Finite Differences Matrix
         for i in range(m):                                                                      # For all the nodes in one direction.
             for j in range(n):                                                                  # For all the nodes in the other direction.
                 k = i * n + j                                                                   # Linearized Index.
-                if i == 0 or i == m - 1 or j == 0 or j == n - 1:                                # If the node is in the boundary.
-                    A[k, k] = 0                                                                 # A with zeros to keep the boundary condition in explicit.
-                else:                                                                           # If the node is an inner node.
+                if not (i == 0 or i == m - 1 or j == 0 or j == n - 1):                          # If the node is an inner node.
                     A[k, k]   = r_x + r_y                                                       # A matrix value for central node.
                     A[k, k+1] = -r_x                                                            # A matrix value for right node.
                     A[k, k+n] = -r_y                                                            # A matrix value for upper node.
     elif method == 'LaxWendroff':
         r_x = a*dt/dx                                                                           # r_x is defined as the CFL coefficient.
         r_y = b*dt/dy                                                                           # r_y is defined as the CFL coefficient.
-                    # Finite Differences Matrix
+        # Finite Differences Matrix
         for i in range(m):                                                                      # For all the nodes in one direction.
             for j in range(n):                                                                  # For all the nodes in the other direction.
                 k = i * n + j                                                                   # Linearized Index.
-                if i == 0 or i == m - 1 or j == 0 or j == n - 1:                                # If the node is in the boundary.
-                    A[k, k] = 0                                                                 # A with zeros to keep the boundary condition in explicit.
-                else:                                                                           # If the node is an inner node. 
+                if not (i == 0 or i == m - 1 or j == 0 or j == n - 1):                          # If the node is an inner node. 
                     A[k, k]   = -r_x**2 - r_y**2                                                # A matrix value for central node.
                     A[k, k-1] = r_x/2 + r_x**2/2                                                # A matrix value for left node.
                     A[k, k+1] = -r_x/2 + r_x**2/2                                               # A matrix value for right node.
@@ -509,4 +487,5 @@ def A_2D_calc(m, n, a, b, dt, dx, dy, method="FTCS"):
 
 
 if __name__ == '__main__':
-    print("This module defines transient advection solvers. Run Examples/CFDM_Advection_examples.py for examples.")       # Inform users that examples live outside this module.
+    print("This module defines transient advection solvers. Run Examples/CFDM_Advection_examples.py for examples.")
+                                                                                                # Inform users that examples live outside this module.
