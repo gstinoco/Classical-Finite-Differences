@@ -1,6 +1,6 @@
-# Classical Finite Differences
-
 <div align="center">
+
+# Classical Finite Differences
 
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-black.svg)](https://github.com/gstinoco/Classical_Finite_Differences)
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/downloads/)
@@ -37,6 +37,13 @@ This repository connects the mathematical derivation of finite-difference scheme
 
 ## :bulb: Why This Repository Exists
 
+<div align="center">
+
+### :sparkles: From Equations to Reproducible Code
+*A guided bridge between finite-difference theory, implementation, verification, and visualization*
+
+</div>
+
 Finite differences are often the first place where students see partial differential equations become algorithms. The idea is simple:
 
 ```text
@@ -47,18 +54,51 @@ solution     ->  arrays that can be measured, plotted, and tested
 
 The purpose of this project is not to hide that process behind a black box. The purpose is to make each step visible:
 
-| Step | What students can inspect |
-|---|---|
-| Mathematical model | The PDE, boundary conditions, and exact benchmark solution. |
-| Discretization | The finite-difference stencil used in space and time. |
-| Implementation | Matrix/vector formulations and node-wise stencil formulations. |
-| Verification | Error metrics against exact solutions. |
-| Visualization | Static plots and transient animations. |
-| Testing | Automated checks that guard against regressions and unstable mistakes. |
+<table align="center">
+  <thead>
+    <tr>
+      <th align="left" width="220">Step</th>
+      <th align="left">What students can inspect</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>:page_facing_up: Mathematical model</b></td>
+      <td>The PDE, boundary conditions, and exact benchmark solution.</td>
+    </tr>
+    <tr>
+      <td><b>:triangular_ruler: Discretization</b></td>
+      <td>The finite-difference stencil used in space and time.</td>
+    </tr>
+    <tr>
+      <td><b>:computer: Implementation</b></td>
+      <td>Matrix/vector formulations and node-wise stencil formulations.</td>
+    </tr>
+    <tr>
+      <td><b>:bar_chart: Verification</b></td>
+      <td>Error metrics against exact solutions.</td>
+    </tr>
+    <tr>
+      <td><b>:movie_camera: Visualization</b></td>
+      <td>Static plots and transient animations.</td>
+    </tr>
+    <tr>
+      <td><b>:test_tube: Testing</b></td>
+      <td>Automated checks that guard against regressions and unstable mistakes.</td>
+    </tr>
+  </tbody>
+</table>
 
 The code is intentionally explicit. It is designed for lectures, guided labs, reports, and independent study.
 
 ## :compass: Numerical Roadmap
+
+<div align="center">
+
+### :round_pushpin: A Common Workflow Across PDE Families
+*Each example follows the same path: model, mesh, stencil, solver, metrics, figures, and tests*
+
+</div>
 
 Each example follows the same computational story:
 
@@ -115,6 +155,13 @@ The repository currently includes five equation families:
 
 ## :label: Method Labels
 
+<div align="center">
+
+### :bookmark_tabs: Naming the Computational Form
+*The labels describe how the same finite-difference idea is organized in code*
+
+</div>
+
 All methods in this repository are finite-difference methods. The labels used in the examples describe how the discrete equations are solved or organized.
 
 ### :pushpin: Stationary Poisson Problems
@@ -138,6 +185,13 @@ For Diffusion, Wave, Advection, and Advection-Diffusion, the examples use implem
 This distinction is important. In transient examples, both formulations are finite-difference implementations; the time-integration scheme is stated separately, for example `Explicit`, `Crank-Nicolson`, or the centered wave update.
 
 ## :open_file_folder: Repository Structure
+
+<div align="center">
+
+### :file_folder: A Small Laboratory With Clear Responsibilities
+*Solvers, examples, shared tools, tests, assets, and results live in separate places*
+
+</div>
 
 ```text
 Classical Finite Differences/
@@ -178,6 +232,13 @@ Classical Finite Differences/
 
 ## :rocket: Quick Start
 
+<div align="center">
+
+### :zap: Three Commands to Start Exploring
+*Clone the project, install the dependencies, and run a first Poisson example*
+
+</div>
+
 ### :one: Clone
 
 ```bash
@@ -216,15 +277,45 @@ Results/Poisson/
 
 ## :computer: Running the Examples
 
+<div align="center">
+
+### :keyboard: Executable Teaching Workflows
+*Each script builds the benchmark, runs the solver, prints metrics, and writes visual results*
+
+</div>
+
 Each example file can be executed directly:
 
-| Equation | Command |
-|---|---|
-| Poisson | `python Examples/CFDM_Poisson_examples.py` |
-| Diffusion | `python Examples/CFDM_Diffusion_examples.py` |
-| Wave | `python Examples/CFDM_Wave_examples.py` |
-| Advection | `python Examples/CFDM_Advection_examples.py` |
-| Advection-Diffusion | `python Examples/CFDM_Advection_Diffusion_examples.py` |
+<table align="center">
+  <thead>
+    <tr>
+      <th align="left">Equation</th>
+      <th align="left">Command</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>:magnet: Poisson</b></td>
+      <td><code>python Examples/CFDM_Poisson_examples.py</code></td>
+    </tr>
+    <tr>
+      <td><b>:droplet: Diffusion</b></td>
+      <td><code>python Examples/CFDM_Diffusion_examples.py</code></td>
+    </tr>
+    <tr>
+      <td><b>:ocean: Wave</b></td>
+      <td><code>python Examples/CFDM_Wave_examples.py</code></td>
+    </tr>
+    <tr>
+      <td><b>:dash: Advection</b></td>
+      <td><code>python Examples/CFDM_Advection_examples.py</code></td>
+    </tr>
+    <tr>
+      <td><b>:twisted_rightwards_arrows: Advection-Diffusion</b></td>
+      <td><code>python Examples/CFDM_Advection_Diffusion_examples.py</code></td>
+    </tr>
+  </tbody>
+</table>
 
 Examples can also be called from Python to control cost, suppress file output, or reuse arrays in a notebook:
 
@@ -251,6 +342,13 @@ Common parameters:
 | `time_steps` | Number of time levels for transient examples. |
 
 ## :movie_camera: Results Gallery
+
+<div align="center">
+
+### :framed_picture: Figures for Stationary Problems, GIFs for Transient Problems
+*The README uses curated assets while links point to the full reproducible outputs in `Results/`*
+
+</div>
 
 The `Results/` directory is part of the teaching material. It provides a visual reference for the methods and a reproducible gallery of outputs.
 
@@ -301,9 +399,9 @@ The `Results/` directory is part of the teaching material. It provides a visual 
     <tr>
       <td align="center" width="50%">
         <a href="Results/Advection/2D_Matrix_LaxWendroff.gif">
-          <img src="assets/gallery/advection_2d_matrix_laxwendroff.gif" alt="1D advection matrix Lax-Wendroff animation" width="300">
+          <img src="assets/gallery/advection_2d_matrix_laxwendroff.gif" alt="2D advection matrix Lax-Wendroff animation" width="300">
         </a><br>
-        <sub><code>Advection/1D_Matrix_LaxWendroff.gif</code></sub>
+        <sub><code>Advection/2D_Matrix_LaxWendroff.gif</code></sub>
       </td>
       <td align="center" width="50%">
         <a href="Results/Advection_Diffusion/2D_Stencil_CN.gif">
@@ -322,7 +420,7 @@ Representative outputs:
 | Poisson | `Results/Poisson/2D_FD.png` |
 | Diffusion | `Results/Diffusion/2D_Stencil.gif` |
 | Wave | `Results/Wave/2D_Stencil.gif` |
-| Advection | `Results/Advection/1D_Matrix_LaxWendroff.gif` |
+| Advection | `Results/Advection/2D_Matrix_LaxWendroff.gif` |
 | Advection-Diffusion | `Results/Advection_Diffusion/2D_Stencil_CN.gif` |
 
 Naming convention:
@@ -479,6 +577,13 @@ Some schemes are included because they are pedagogically useful even when they a
 
 ## :bar_chart: Error Metrics
 
+<div align="center">
+
+### :straight_ruler: One Language for Comparing Numerical Results
+*All examples report the same metrics so methods and equations can be discussed side by side*
+
+</div>
+
 The examples print a common table of metrics so different methods can be compared using the same language.
 
 Let `u_ex` be the exact solution and `u_ap` the numerical approximation.
@@ -494,6 +599,13 @@ Let `u_ex` be the exact solution and `u_ap` the numerical approximation.
 For transient examples, the metrics are computed over the full space-time solution arrays, not only at the final time.
 
 ## :test_tube: Automated Tests
+
+<div align="center">
+
+### :white_check_mark: Numerical Checks Before Sharing Changes
+*Tests protect accuracy, consistency, rectangular meshes, stability choices, and warning-free execution*
+
+</div>
 
 Run the full test suite with:
 
@@ -511,26 +623,97 @@ python -m compileall CFDM Common Examples Tests
 
 Current tests cover:
 
-| Test focus | Why it matters |
-|---|---|
-| Accuracy against exact solutions | Confirms that examples solve the intended benchmark problem. |
-| Matrix vs stencil consistency | Checks that paired formulations agree numerically. |
-| Rectangular meshes | Helps detect swapped axes and hidden square-grid assumptions. |
-| CFL-aware transient cases | Guards against accidental unstable parameter choices. |
-| Warning-free execution | Catches numerical failures before they become silent bad results. |
+<table align="center">
+  <thead>
+    <tr>
+      <th align="left" width="240">Test focus</th>
+      <th align="left">Why it matters</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>:dart: Accuracy</b></td>
+      <td>Confirms that examples solve the intended benchmark problem.</td>
+    </tr>
+    <tr>
+      <td><b>:left_right_arrow: Matrix vs stencil</b></td>
+      <td>Checks that paired formulations agree numerically.</td>
+    </tr>
+    <tr>
+      <td><b>:straight_ruler: Rectangular meshes</b></td>
+      <td>Helps detect swapped axes and hidden square-grid assumptions.</td>
+    </tr>
+    <tr>
+      <td><b>:vertical_traffic_light: CFL-aware cases</b></td>
+      <td>Guards against accidental unstable parameter choices.</td>
+    </tr>
+    <tr>
+      <td><b>:warning: Warning-free execution</b></td>
+      <td>Catches numerical failures before they become silent bad results.</td>
+    </tr>
+  </tbody>
+</table>
 
 ## :world_map: Suggested Learning Path
 
-1. Start with `Examples/CFDM_Poisson_examples.py` to study stationary boundary-value problems.
-2. Move to `Examples/CFDM_Diffusion_examples.py` to see how a solution evolves in time.
-3. Explore `Examples/CFDM_Wave_examples.py` to compare oscillatory propagation with diffusive smoothing.
-4. Continue with `Examples/CFDM_Advection_examples.py` to study transport, upwinding, and method choice.
-5. Finish with `Examples/CFDM_Advection_Diffusion_examples.py` to combine transport and diffusion.
-6. Open the corresponding files in `CFDM/` and compare `FD/GS` for Poisson with `Matrix/Stencil` for transient equations.
-7. Inspect `Common/Metrics.py`, `Common/Graphs.py`, and `Common/ExampleTools.py` to see how verification and visualization are shared.
-8. Modify a benchmark solution or mesh size, then run the tests again.
+<div align="center">
+
+### :books: A Suggested Path Through the Material
+*Start with stationary problems, then move through increasingly rich transient models*
+
+</div>
+
+<table align="center">
+  <thead>
+    <tr>
+      <th align="center" width="80">Step</th>
+      <th align="left">What to study</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="center"><b>:one:</b></td>
+      <td>Start with <code>Examples/CFDM_Poisson_examples.py</code> to study stationary boundary-value problems.</td>
+    </tr>
+    <tr>
+      <td align="center"><b>:two:</b></td>
+      <td>Move to <code>Examples/CFDM_Diffusion_examples.py</code> to see how a solution evolves in time.</td>
+    </tr>
+    <tr>
+      <td align="center"><b>:three:</b></td>
+      <td>Explore <code>Examples/CFDM_Wave_examples.py</code> to compare oscillatory propagation with diffusive smoothing.</td>
+    </tr>
+    <tr>
+      <td align="center"><b>:four:</b></td>
+      <td>Continue with <code>Examples/CFDM_Advection_examples.py</code> to study transport, upwinding, and method choice.</td>
+    </tr>
+    <tr>
+      <td align="center"><b>:five:</b></td>
+      <td>Finish with <code>Examples/CFDM_Advection_Diffusion_examples.py</code> to combine transport and diffusion.</td>
+    </tr>
+    <tr>
+      <td align="center"><b>:six:</b></td>
+      <td>Open the corresponding files in <code>CFDM/</code> and compare <code>FD/GS</code> for Poisson with <code>Matrix/Stencil</code> for transient equations.</td>
+    </tr>
+    <tr>
+      <td align="center"><b>:seven:</b></td>
+      <td>Inspect <code>Common/Metrics.py</code>, <code>Common/Graphs.py</code>, and <code>Common/ExampleTools.py</code> to see how verification and visualization are shared.</td>
+    </tr>
+    <tr>
+      <td align="center"><b>:eight:</b></td>
+      <td>Modify a benchmark solution or mesh size, then run the tests again.</td>
+    </tr>
+  </tbody>
+</table>
 
 ## :mortar_board: Teaching Use
+
+<div align="center">
+
+### :classical_building: Designed for Courses, Labs, and Reports
+*The examples are explicit enough to read in class and reproducible enough to use in assignments*
+
+</div>
 
 This project can support lectures, laboratory sessions, workshops, homework discussions, and self-study.
 
@@ -567,14 +750,47 @@ This project can support lectures, laboratory sessions, workshops, homework disc
 
 ## :wrench: Development Conventions
 
-| Convention | Purpose |
-|---|---|
-| Public `.py` files start with a complete institutional header. | Preserve authorship, context, funding, and revision history. |
-| Public functions include complete docstrings. | Make numerical assumptions, arguments, and return values explicit. |
-| Inline comments describe meaningful operations. | Support line-by-line guided reading. |
-| Python files include an `if __name__ == "__main__":` block when direct execution is meaningful. | Make scripts easy to run from the terminal. |
-| Example outputs use `FD/GS` for Poisson and `Matrix/Stencil` for transient equations. | Keep tables, figures, and filenames mathematically accurate. |
-| Local planning files use names such as `*.local.*`. | Keep private review notes out of version control. |
+<div align="center">
+
+### :gear: Conventions That Keep the Project Teachable
+*The code is written to be read, compared, executed, and safely extended*
+
+</div>
+
+<table align="center">
+  <thead>
+    <tr>
+      <th align="left" width="300">Convention</th>
+      <th align="left">Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>:page_with_curl: Complete institutional headers</b></td>
+      <td>Preserve authorship, context, funding, and revision history.</td>
+    </tr>
+    <tr>
+      <td><b>:bookmark_tabs: Complete public docstrings</b></td>
+      <td>Make numerical assumptions, arguments, and return values explicit.</td>
+    </tr>
+    <tr>
+      <td><b>:speech_balloon: Descriptive inline comments</b></td>
+      <td>Support line-by-line guided reading.</td>
+    </tr>
+    <tr>
+      <td><b>:arrow_forward: Direct execution blocks</b></td>
+      <td>Make scripts easy to run from the terminal when direct execution is meaningful.</td>
+    </tr>
+    <tr>
+      <td><b>:label: Accurate output labels</b></td>
+      <td>Use <code>FD/GS</code> for Poisson and <code>Matrix/Stencil</code> for transient equations.</td>
+    </tr>
+    <tr>
+      <td><b>:lock: Local planning files</b></td>
+      <td>Keep private review notes out of version control with names such as <code>*.local.*</code>.</td>
+    </tr>
+  </tbody>
+</table>
 
 ## :scientist: Team
 
