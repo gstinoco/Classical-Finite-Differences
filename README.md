@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![GitHub](https://img.shields.io/badge/GitHub-Repository-black.svg)](https://github.com/gstinoco/Classical-Finite-Differences)
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-black.svg)](https://github.com/gstinoco/Classical_Finite_Differences)
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![NumPy](https://img.shields.io/badge/NumPy-Numerical_Computing-013243.svg)](https://numpy.org/)
 [![Matplotlib](https://img.shields.io/badge/Matplotlib-Visualization-11557C.svg)](https://matplotlib.org/)
@@ -181,8 +181,8 @@ Classical Finite Differences/
 ### 1. Clone
 
 ```bash
-git clone https://github.com/gstinoco/Classical-Finite-Differences.git
-cd Classical-Finite-Differences
+git clone https://github.com/gstinoco/Classical_Finite_Differences.git
+cd Classical_Finite_Differences
 ```
 
 ### 2. Install
@@ -576,99 +576,293 @@ This project can support lectures, laboratory sessions, workshops, homework disc
 | Example outputs use `FD/GS` for Poisson and `Matrix/Stencil` for transient equations. | Keep tables, figures, and filenames mathematically accurate. |
 | Local planning files use names such as `*.local.*`. | Keep private review notes out of version control. |
 
-## Author, Institutions, and Funding
+## :scientist: Research Team
 
-This project is maintained as academic and teaching material by Dr. Gerardo Tinoco Guerrero, with support from research, education, and engineering institutions in Mexico.
+<div align="center">
+
+### :star2: Meet the Team
+*Researchers and graduate students advancing meshless computational methods*
+
+</div>
+
+### :busts_in_silhouette: Main Researchers
 
 <table align="center">
   <thead>
     <tr>
-      <th align="center" width="160">Profile</th>
-      <th align="left">Author</th>
-      <th align="left">Institutions</th>
-      <th align="left">Contact and Academic Links</th>
+      <th align="center" width="120">Photo</th>
+      <th align="left">Researcher</th>
+      <th align="left">Affiliation</th>
+      <th align="left">Contact</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td align="center">
-        <img src="assets/team/gtinoco.webp" alt="Dr. Gerardo Tinoco Guerrero" width="112" height="112"><br>
-        <sub>Numerical methods, mathematical modeling, and scientific computing</sub>
+      <td align="center" width="120">
+        <img src="assets/team/gtinoco.webp" alt="Dr. Gerardo Tinoco Guerrero" width="96" height="96" style="border-radius: 50%;">
       </td>
       <td>
-        <b>Dr. Gerardo Tinoco Guerrero</b><br>
-        <sub>Author and maintainer of the Classical Finite Differences project.</sub>
+        <b>Dr. Gerardo Tinoco Guerrero</b> :mexico:<br/>
+        <sub>Numerical Methods &amp; Computational Mathematics</sub>
       </td>
       <td>
-        <a href="https://www.umich.mx"><img alt="University: UMSNH" src="https://img.shields.io/badge/University-UMSNH-1A3A6B"></a><br>
-        <a href="http://www.siiia.com.mx"><img alt="Company: SIIIA MATH" src="https://img.shields.io/badge/Company-SIIIA_MATH-0B1B3A"></a><br>
-        <img alt="Aula CIMNE-Morelia" src="https://img.shields.io/badge/Aula-CIMNE--Morelia-455A64">
+        <a href="http://www.siiia.com.mx"><img alt="Company: SIIIA MATH" src="https://img.shields.io/badge/%F0%9F%8F%A2%20Company-SIIIA%20MATH-0B1B3A"></a><br/>
+        <a href="http://www.umich.mx"><img alt="University: UMSNH" src="https://img.shields.io/badge/%F0%9F%8E%93%20University-UMSNH-1A3A6B"></a>
       </td>
       <td>
-        <a href="mailto:gerardo.tinoco@umich.mx"><img alt="Email: gerardo.tinoco@umich.mx" src="https://img.shields.io/badge/Email-gerardo.tinoco%40umich.mx-1565C0"></a><br>
-        <a href="https://orcid.org/0000-0003-3119-770X"><img alt="ORCID 0000-0003-3119-770X" src="https://img.shields.io/badge/ORCID-0000--0003--3119--770X-A6CE39"></a><br>
-        <a href="https://www.researchgate.net/profile/Gerardo-Tinoco-Guerrero"><img alt="ResearchGate Profile" src="https://img.shields.io/badge/ResearchGate-Profile-00CCBB"></a>
+        <a href="mailto:gerardo.tinoco@umich.mx"><img alt="Contact" src="https://img.shields.io/badge/%F0%9F%93%A7-Contact-blue"></a><br/>
+        <a href="https://orcid.org/0000-0003-3119-770X"><img alt="ORCID 0000-0003-3119-770X" src="https://img.shields.io/badge/ORCID-0000--0003--3119--770X-green"></a><br/>
+        <a href="https://www.researchgate.net/profile/Gerardo-Tinoco-Guerrero"><img alt="ResearchGate Profile" src="https://img.shields.io/badge/ResearchGate-Profile-teal"></a>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" width="120">
+        <img src="assets/team/dmota.webp" alt="Dr. Francisco Javier Domínguez Mota" width="96" height="96" style="border-radius: 50%;">
+      </td>
+      <td>
+        <b>Dr. Francisco Javier Domínguez Mota</b> :mexico:<br/>
+        <sub>Applied Mathematics &amp; Finite Difference Methods</sub>
+      </td>
+      <td>
+        <a href="http://www.siiia.com.mx"><img alt="Company: SIIIA MATH" src="https://img.shields.io/badge/%F0%9F%8F%A2%20Company-SIIIA%20MATH-0B1B3A"></a><br/>
+        <a href="http://www.umich.mx"><img alt="University: UMSNH" src="https://img.shields.io/badge/%F0%9F%8E%93%20University-UMSNH-1A3A6B"></a>
+      </td>
+      <td>
+        <a href="mailto:francisco.mota@umich.mx"><img alt="Contact" src="https://img.shields.io/badge/%F0%9F%93%A7-Contact-blue"></a><br/>
+        <a href="https://orcid.org/0000-0001-6837-172X"><img alt="ORCID 0000-0001-6837-172X" src="https://img.shields.io/badge/ORCID-0000--0001--6837--172X-green"></a><br/>
+        <a href="https://www.researchgate.net/profile/Francisco-Dominguez-Mota"><img alt="ResearchGate Profile" src="https://img.shields.io/badge/ResearchGate-Profile-teal"></a>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" width="120">
+        <img src="assets/team/jagt.webp" alt="Dr. José Alberto Guzmán Torres" width="96" height="96" style="border-radius: 50%;">
+      </td>
+      <td>
+        <b>Dr. José Alberto Guzmán Torres</b> :mexico:<br/>
+        <sub>Engineering Applications &amp; Artificial Intelligence</sub>
+      </td>
+      <td>
+        <a href="http://www.siiia.com.mx"><img alt="Company: SIIIA MATH" src="https://img.shields.io/badge/%F0%9F%8F%A2%20Company-SIIIA%20MATH-0B1B3A"></a><br/>
+        <a href="http://www.umich.mx"><img alt="University: UMSNH" src="https://img.shields.io/badge/%F0%9F%8E%93%20University-UMSNH-1A3A6B"></a>
+      </td>
+      <td>
+        <a href="mailto:jose.alberto.guzman@umich.mx"><img alt="Contact" src="https://img.shields.io/badge/%F0%9F%93%A7-Contact-blue"></a><br/>
+        <a href="https://orcid.org/0000-0002-9309-9390"><img alt="ORCID 0000-0002-9309-9390" src="https://img.shields.io/badge/ORCID-0000--0002--9309--9390-green"></a><br/>
+        <a href="https://www.researchgate.net/profile/Jose-Guzman-Torres"><img alt="ResearchGate Profile" src="https://img.shields.io/badge/ResearchGate-Profile-teal"></a>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" width="120">
+        <img src="assets/team/harias.webp" alt="Dr. Heriberto Árias Rojas" width="96" height="96" style="border-radius: 50%;">
+      </td>
+      <td>
+        <b>Dr. Heriberto Árias Rojas</b> :mexico:<br/>
+        <sub>Engineering Applications</sub>
+      </td>
+      <td>
+        <a href="http://www.siiia.com.mx"><img alt="Company: SIIIA MATH" src="https://img.shields.io/badge/%F0%9F%8F%A2%20Company-SIIIA%20MATH-0B1B3A"></a><br/>
+        <a href="http://www.umich.mx"><img alt="University: UMSNH" src="https://img.shields.io/badge/%F0%9F%8E%93%20University-UMSNH-1A3A6B"></a>
+      </td>
+      <td>
+        <a href="mailto:heriberto.arias@umich.mx"><img alt="Contact" src="https://img.shields.io/badge/%F0%9F%93%A7-Contact-blue"></a><br/>
+        <a href="https://orcid.org/0000-0002-7641-8310"><img alt="ORCID 0000-0002-7641-8310" src="https://img.shields.io/badge/ORCID-0000--0002--7641--8310-green"></a><br/>
+        <a href="https://www.researchgate.net/profile/Heriberto-Arias-Rojas"><img alt="ResearchGate Profile" src="https://img.shields.io/badge/ResearchGate-Profile-teal"></a>
       </td>
     </tr>
   </tbody>
 </table>
 
-### Funding & Support
+### :mortar_board: Ph.D. Research Students
 
-<table>
+<table align="center">
   <thead>
     <tr>
-      <th align="left" width="260">Organization</th>
-      <th align="left">Acknowledgement</th>
+      <th align="center" width="120">Photo</th>
+      <th align="left">Student</th>
+      <th align="left">Institution</th>
+      <th align="left">Contact</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td><img alt="SeCiHTI" src="https://img.shields.io/badge/SeCiHTI-Science_and_Humanities-0B1B3A"></td>
+      <td align="center" width="120">
+        <img src="assets/team/gpj.webp" alt="Gabriela Pedraza-Jiménez" width="96" height="96" style="border-radius: 50%;">
+      </td>
       <td>
-        Secretariat of Science, Humanities, Technology and Innovation, SeCiHTI
-        (Secretaría de Ciencia, Humanidades, Tecnología e Innovación, SeCiHTI). Mexico.
+        <b>Gabriela Pedraza-Jiménez</b><br/>
+        <img alt="Ph.D. Research Student" src="https://img.shields.io/badge/Ph.D.-Research%20Student-2E8B57?style=flat-square">
+      </td>
+      <td>
+        <a href="http://www.umich.mx"><img alt="University: UMSNH" src="https://img.shields.io/badge/%F0%9F%8E%93%20University-UMSNH-1A3A6B"></a>
+      </td>
+      <td>
+        <a href="mailto:2220157h@umich.mx"><img alt="Contact" src="https://img.shields.io/badge/%F0%9F%93%A7-Contact-blue"></a>
       </td>
     </tr>
     <tr>
-      <td><img alt="CIC-UMSNH" src="https://img.shields.io/badge/CIC--UMSNH-Scientific_Research-1A3A6B"></td>
-      <td>
-        Coordination of Scientific Research of the Universidad Michoacana de San Nicolás de Hidalgo, CIC-UMSNH
-        (Coordinación de la Investigación Científica de la Universidad Michoacana de San Nicolás de Hidalgo, CIC-UMSNH). Mexico.
+      <td align="center" width="120">
+        <img src="assets/team/eci.webp" alt="Eli Chagolla-Inzunza" width="96" height="96" style="border-radius: 50%;">
       </td>
-    </tr>
-    <tr>
-      <td><img alt="SIIIA MATH" src="https://img.shields.io/badge/SIIIA_MATH-Engineering_Solutions-00897B"></td>
-      <td>SIIIA MATH: Soluciones en Ingeniería.</td>
-    </tr>
-    <tr>
-      <td><img alt="Aula CIMNE-Morelia" src="https://img.shields.io/badge/Aula_CIMNE--Morelia-Academic_Collaboration-455A64"></td>
-      <td>Aula CIMNE-Morelia. Mexico.</td>
+      <td>
+        <b>Eli Chagolla-Inzunza</b><br/>
+        <img alt="Ph.D. Research Student" src="https://img.shields.io/badge/Ph.D.-Research%20Student-2E8B57?style=flat-square">
+      </td>
+      <td>
+        <a href="http://www.umich.mx"><img alt="University: UMSNH" src="https://img.shields.io/badge/%F0%9F%8E%93%20University-UMSNH-1A3A6B"></a>
+      </td>
+      <td>
+        <a href="mailto:1137626b@umich.mx"><img alt="Contact" src="https://img.shields.io/badge/%F0%9F%93%A7-Contact-blue"></a>
+      </td>
     </tr>
   </tbody>
 </table>
+
+### :mortar_board: M.Sc. Research Students
+
+<table align="center">
+  <thead>
+    <tr>
+      <th align="center" width="120">Photo</th>
+      <th align="left">Student</th>
+      <th align="left">Institution</th>
+      <th align="left">Contact</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="center" width="120">
+        <img src="assets/team/jlgf.webp" alt="Jorge L. González-Figueroa" width="96" height="96" style="border-radius: 50%;">
+      </td>
+      <td>
+        <b>Jorge L. González-Figueroa</b><br/>
+        <img alt="M.Sc. Research Student" src="https://img.shields.io/badge/M.Sc.-Research%20Student-green?style=flat-square">
+      </td>
+      <td>
+        <a href="http://www.umich.mx"><img alt="University: UMSNH" src="https://img.shields.io/badge/%F0%9F%8E%93%20University-UMSNH-1A3A6B"></a>
+      </td>
+      <td>
+        <a href="mailto:1718717h@umich.mx"><img alt="Contact" src="https://img.shields.io/badge/%F0%9F%93%A7-Contact-blue"></a>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" width="120">
+        <img src="assets/team/cnmb.webp" alt="Christopher N. Magaña-Barocio" width="96" height="96" style="border-radius: 50%;">
+      </td>
+      <td>
+        <b>Christopher N. Magaña-Barocio</b><br/>
+        <img alt="M.Sc. Research Student" src="https://img.shields.io/badge/M.Sc.-Research%20Student-green?style=flat-square">
+      </td>
+      <td>
+        <a href="http://www.umich.mx"><img alt="University: UMSNH" src="https://img.shields.io/badge/%F0%9F%8E%93%20University-UMSNH-1A3A6B"></a>
+      </td>
+      <td>
+        <a href="mailto:1339846k@umich.mx"><img alt="Contact" src="https://img.shields.io/badge/%F0%9F%93%A7-Contact-blue"></a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### :mortar_board: Undergraduate Research Students
+
+<table align="center">
+  <thead>
+    <tr>
+      <th align="center" width="120">Photo</th>
+      <th align="left">Student</th>
+      <th align="left">Institution</th>
+      <th align="left">Contact</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="center" width="120">
+        <img src="assets/team/mgfl.webp" alt="Maria Goretti Fraga Lopez" width="96" height="96" style="border-radius: 50%;">
+      </td>
+      <td>
+        <b>Maria Goretti Fraga-Lopez</b><br/>
+        <img alt="Undergraduate Research Student" src="https://img.shields.io/badge/Undergraduate-Research%20Student-green?style=flat-square">
+      </td>
+      <td>
+        <a href="http://www.umich.mx"><img alt="University: UMSNH" src="https://img.shields.io/badge/%F0%9F%8E%93%20University-UMSNH-1A3A6B"></a>
+      </td>
+      <td>
+        <a href="mailto:1702174b@umich.mx"><img alt="Contact" src="https://img.shields.io/badge/%F0%9F%93%A7-Contact-blue"></a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+## :factory: Industry Partners Supporting Innovation
+
+<div align="center">
+
+### :star2: Industry Partners Supporting Innovation
+*Collaboration between academia and industry to accelerate real-world impact*
+
+</div>
+
+<div align="center">
+
+<table align="center" width="70%">
+<tr>
+<td align="center">
+
+### :factory: **SIIIA MATH**
+#### *Soluciones de Ingeniería, México*
+
+<div align="center">
+
+[![Website](https://img.shields.io/badge/🌐-Visit%20Website-blue?style=for-the-badge)](http://www.siiia.com.mx)
+[![Type](https://img.shields.io/badge/📊-R%26D%20Company-orange?style=flat-square)](http://www.siiia.com.mx)
+[![Location](https://img.shields.io/badge/📍-Morelia,%20Mexico-green?style=flat-square)](http://www.siiia.com.mx)
+
+</div>
+
+**🎯 Focus areas:**
+- Mathematical modeling & simulation
+- AI/ML engineering solutions
+- Technology transfer and applied R&amp;D
+
+<div align="center">
+
+[![Contact](https://img.shields.io/badge/📧-Partnership%20Contact-0B1B3A?style=for-the-badge)](mailto:gtinoco@siiia.com.mx)
+
+</div>
+
+</td>
+</tr>
+</table>
+
+</div>
+
 
 ## Citation
 
-If this repository supports a course, workshop, thesis, report, publication, or derived implementation, please cite it. Citation metadata is provided in [`CITATION.cff`](CITATION.cff).
+If this repository supports a course, workshop, thesis, report, publication, or derived implementation, please cite it as academic software. Citation metadata is provided in [`CITATION.cff`](CITATION.cff), which GitHub and other tools can use to generate additional formats.
+
+The citation below lists the main software authors. The broader research team shown above may be acknowledged when their participation is relevant to a specific course, report, or derived project.
 
 Recommended citation:
 
 ```text
-Tinoco Guerrero, G. (2026). Classical Finite Differences.
-Universidad Michoacana de San Nicolás de Hidalgo.
-https://github.com/gstinoco/Classical-Finite-Differences
+Tinoco Guerrero, G., Domínguez Mota, F. J., Guzmán Torres, J. A., & Árias Rojas, H. (2026).
+Classical Finite Differences [Software].
+Universidad Michoacana de San Nicolás de Hidalgo and SIIIA MATH.
+https://github.com/gstinoco/Classical_Finite_Differences
 ```
 
 BibTeX:
 
 ```bibtex
 @software{tinoco_guerrero_2026_classical_finite_differences,
-  author       = {Tinoco Guerrero, Gerardo},
+  author       = {Tinoco Guerrero, Gerardo and Domínguez Mota, Francisco Javier and Guzmán Torres, José Alberto and Árias Rojas, Heriberto},
   title        = {Classical Finite Differences},
   year         = {2026},
-  institution  = {Universidad Michoacana de San Nicolás de Hidalgo},
-  url          = {https://github.com/gstinoco/Classical-Finite-Differences},
+  publisher    = {Universidad Michoacana de San Nicolás de Hidalgo and SIIIA MATH},
+  type         = {Software},
+  url          = {https://github.com/gstinoco/Classical_Finite_Differences},
   license      = {MIT}
 }
 ```
@@ -676,3 +870,17 @@ BibTeX:
 ## License
 
 This project is distributed under the MIT License. See [`LICENSE`](LICENSE) for the full license text.
+
+---
+
+<div align="center">
+
+*Making classical finite differences easier to study, verify, and teach*
+
+[![GitHub stars](https://img.shields.io/github/stars/gstinoco/Classical_Finite_Differences?style=social)](https://github.com/gstinoco/Classical_Finite_Differences/stargazers) [![GitHub forks](https://img.shields.io/github/forks/gstinoco/Classical_Finite_Differences?style=social)](https://github.com/gstinoco/Classical_Finite_Differences/network/members) [![GitHub watchers](https://img.shields.io/github/watchers/gstinoco/Classical_Finite_Differences?style=social)](https://github.com/gstinoco/Classical_Finite_Differences/watchers)
+
+<br/>
+
+<b>If this project helps your research, please consider giving it a star.</b>
+
+</div>
