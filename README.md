@@ -18,16 +18,16 @@ This repository connects the mathematical derivation of finite-difference scheme
 
 <table align="center">
   <tr>
-    <td align="center"><a href="#quick-start"><b>Quick Start</b></a><br><sub>Install and run a first example.</sub></td>
-    <td align="center"><a href="#numerical-roadmap"><b>Roadmap</b></a><br><sub>How the project is organized.</sub></td>
-    <td align="center"><a href="#equations-and-methods"><b>Methods</b></a><br><sub>PDEs, schemes, and conventions.</sub></td>
-    <td align="center"><a href="#results-gallery"><b>Results</b></a><br><sub>Figures and animations.</sub></td>
+    <td align="center"><a href="#quick-start"><b>:rocket: Quick Start</b></a><br><sub>Install and run a first example.</sub></td>
+    <td align="center"><a href="#numerical-roadmap"><b>:compass: Roadmap</b></a><br><sub>How the project is organized.</sub></td>
+    <td align="center"><a href="#equations-and-methods"><b>:triangular_ruler: Methods</b></a><br><sub>PDEs, schemes, and conventions.</sub></td>
+    <td align="center"><a href="#results-gallery"><b>:movie_camera: Results</b></a><br><sub>Figures and animations.</sub></td>
   </tr>
   <tr>
-    <td align="center"><a href="#error-metrics"><b>Metrics</b></a><br><sub>How accuracy is measured.</sub></td>
-    <td align="center"><a href="#automated-tests"><b>Tests</b></a><br><sub>Numerical verification.</sub></td>
-    <td align="center"><a href="#teaching-use"><b>Teaching</b></a><br><sub>Classroom and study uses.</sub></td>
-    <td align="center"><a href="#author-institutions-and-funding"><b>Author</b></a><br><sub>Institutions and support.</sub></td>
+    <td align="center"><a href="#error-metrics"><b>:bar_chart: Metrics</b></a><br><sub>How accuracy is measured.</sub></td>
+    <td align="center"><a href="#automated-tests"><b>:test_tube: Tests</b></a><br><sub>Numerical verification.</sub></td>
+    <td align="center"><a href="#teaching-use"><b>:mortar_board: Teaching</b></a><br><sub>Classroom and study uses.</sub></td>
+    <td align="center"><a href="#team"><b>:scientist: Team</b></a><br><sub>People and support.</sub></td>
   </tr>
 </table>
 
@@ -35,7 +35,7 @@ This repository connects the mathematical derivation of finite-difference scheme
 
 ---
 
-## Why This Repository Exists
+## :bulb: Why This Repository Exists
 
 Finite differences are often the first place where students see partial differential equations become algorithms. The idea is simple:
 
@@ -58,7 +58,7 @@ The purpose of this project is not to hide that process behind a black box. The 
 
 The code is intentionally explicit. It is designed for lectures, guided labs, reports, and independent study.
 
-## Numerical Roadmap
+## :compass: Numerical Roadmap
 
 Each example follows the same computational story:
 
@@ -113,11 +113,11 @@ The repository currently includes five equation families:
   </tbody>
 </table>
 
-## Method Labels
+## :label: Method Labels
 
 All methods in this repository are finite-difference methods. The labels used in the examples describe how the discrete equations are solved or organized.
 
-### Stationary Poisson Problems
+### :pushpin: Stationary Poisson Problems
 
 For Poisson, the examples use the traditional labels:
 
@@ -126,7 +126,7 @@ For Poisson, the examples use the traditional labels:
 | `FD` | Finite-difference matrix formulation | Assemble the linear system and solve it directly. |
 | `GS` | Gauss-Seidel formulation | Sweep through the grid using Gauss-Seidel updates. |
 
-### Transient Problems
+### :hourglass_flowing_sand: Transient Problems
 
 For Diffusion, Wave, Advection, and Advection-Diffusion, the examples use implementation labels:
 
@@ -137,7 +137,7 @@ For Diffusion, Wave, Advection, and Advection-Diffusion, the examples use implem
 
 This distinction is important. In transient examples, both formulations are finite-difference implementations; the time-integration scheme is stated separately, for example `Explicit`, `Crank-Nicolson`, or the centered wave update.
 
-## Repository Structure
+## :open_file_folder: Repository Structure
 
 ```text
 Classical Finite Differences/
@@ -176,16 +176,16 @@ Classical Finite Differences/
 | `Tests/` | Automated tests for accuracy, consistency, rectangular grids, warnings, and implementation agreement. |
 | `assets/` | Images used by the README and teaching presentation. |
 
-## Quick Start
+## :rocket: Quick Start
 
-### 1. Clone
+### :one: Clone
 
 ```bash
 git clone https://github.com/gstinoco/Classical_Finite_Differences.git
 cd Classical_Finite_Differences
 ```
 
-### 2. Install
+### :two: Install
 
 A virtual environment or Conda environment is recommended.
 
@@ -202,7 +202,7 @@ opencv-python
 pytest
 ```
 
-### 3. Run a First Example
+### :three: Run a First Example
 
 ```bash
 python Examples/CFDM_Poisson_examples.py
@@ -214,7 +214,7 @@ This prints error tables and writes figures under:
 Results/Poisson/
 ```
 
-## Running the Examples
+## :computer: Running the Examples
 
 Each example file can be executed directly:
 
@@ -250,7 +250,7 @@ Common parameters:
 | `nodes_2d` | Number of nodes per spatial direction for two-dimensional examples. |
 | `time_steps` | Number of time levels for transient examples. |
 
-## Results Gallery
+## :movie_camera: Results Gallery
 
 The `Results/` directory is part of the teaching material. It provides a visual reference for the methods and a reproducible gallery of outputs.
 
@@ -340,9 +340,9 @@ Examples:
 2D_Stencil_CN.gif
 ```
 
-## Equations and Methods
+## :triangular_ruler: Equations and Methods
 
-### Poisson Equation
+### :magnet: Poisson Equation
 
 Poisson problems are stationary boundary-value problems that appear in electrostatics, gravitation, pressure projection, potential theory, and steady-state modeling.
 
@@ -364,7 +364,7 @@ Available solvers:
 
 The Neumann variants compare different finite-difference approximations for the derivative condition at the left boundary. The examples keep a Dirichlet condition at the right boundary.
 
-### Diffusion Equation
+### :droplet: Diffusion Equation
 
 Diffusion models smoothing, heat conduction, concentration spreading, and gradient-driven transport.
 
@@ -389,7 +389,7 @@ implicit=True
 lam=0.5
 ```
 
-### Wave Equation
+### :ocean: Wave Equation
 
 The wave equation models propagation with finite speed, including vibrations, signals, and oscillatory fields.
 
@@ -409,7 +409,7 @@ Available solvers:
 
 The implemented scheme uses centered finite differences in time and space. The first two time levels are initialized from the exact benchmark solution used by the examples.
 
-### Advection Equation
+### :dash: Advection Equation
 
 Advection describes transport by velocity: a profile moves through the domain while the numerical method attempts to preserve its shape.
 
@@ -436,7 +436,7 @@ Implemented schemes:
 | `FTFS` | Upwind scheme for negative velocities. |
 | `LaxWendroff` | Second-order method for smooth transport under appropriate CFL conditions. |
 
-### Advection-Diffusion Equation
+### :twisted_rightwards_arrows: Advection-Diffusion Equation
 
 Advection-Diffusion combines transport by velocity with diffusion-driven smoothing.
 
@@ -463,7 +463,7 @@ Example labels:
 | `Crank-Nicolson Matrix` | Crank-Nicolson-type update with matrix/vector implementation. |
 | `Crank-Nicolson Stencil` | Crank-Nicolson-type update with node-wise stencil implementation. |
 
-## Boundary Conditions and Stability
+## :vertical_traffic_light: Boundary Conditions and Stability
 
 The examples impose boundary values from the exact solution whenever possible. This makes verification direct because the numerical solution can be compared point by point against a known reference.
 
@@ -477,7 +477,7 @@ The examples impose boundary values from the exact solution whenever possible. T
 
 Some schemes are included because they are pedagogically useful even when they are not the best production choice. For example, unstable or conditionally stable methods are valuable for showing why discretization decisions matter.
 
-## Error Metrics
+## :bar_chart: Error Metrics
 
 The examples print a common table of metrics so different methods can be compared using the same language.
 
@@ -493,7 +493,7 @@ Let `u_ex` be the exact solution and `u_ap` the numerical approximation.
 
 For transient examples, the metrics are computed over the full space-time solution arrays, not only at the final time.
 
-## Automated Tests
+## :test_tube: Automated Tests
 
 Run the full test suite with:
 
@@ -519,7 +519,7 @@ Current tests cover:
 | CFL-aware transient cases | Guards against accidental unstable parameter choices. |
 | Warning-free execution | Catches numerical failures before they become silent bad results. |
 
-## Suggested Learning Path
+## :world_map: Suggested Learning Path
 
 1. Start with `Examples/CFDM_Poisson_examples.py` to study stationary boundary-value problems.
 2. Move to `Examples/CFDM_Diffusion_examples.py` to see how a solution evolves in time.
@@ -530,7 +530,7 @@ Current tests cover:
 7. Inspect `Common/Metrics.py`, `Common/Graphs.py`, and `Common/ExampleTools.py` to see how verification and visualization are shared.
 8. Modify a benchmark solution or mesh size, then run the tests again.
 
-## Teaching Use
+## :mortar_board: Teaching Use
 
 This project can support lectures, laboratory sessions, workshops, homework discussions, and self-study.
 
@@ -565,7 +565,7 @@ This project can support lectures, laboratory sessions, workshops, homework disc
   </tbody>
 </table>
 
-## Development Conventions
+## :wrench: Development Conventions
 
 | Convention | Purpose |
 |---|---|
@@ -576,22 +576,22 @@ This project can support lectures, laboratory sessions, workshops, homework disc
 | Example outputs use `FD/GS` for Poisson and `Matrix/Stencil` for transient equations. | Keep tables, figures, and filenames mathematically accurate. |
 | Local planning files use names such as `*.local.*`. | Keep private review notes out of version control. |
 
-## :scientist: Research Team
+## :scientist: Team
 
 <div align="center">
 
 ### :star2: Meet the Team
-*Researchers and graduate students advancing meshless computational methods*
+*Faculty and students building readable, reproducible teaching material for classical finite differences*
 
 </div>
 
-### :busts_in_silhouette: Main Researchers
+### :busts_in_silhouette: Main Contributors
 
 <table align="center">
   <thead>
     <tr>
       <th align="center" width="120">Photo</th>
-      <th align="left">Researcher</th>
+      <th align="left">Contributor</th>
       <th align="left">Affiliation</th>
       <th align="left">Contact</th>
     </tr>
@@ -603,7 +603,7 @@ This project can support lectures, laboratory sessions, workshops, homework disc
       </td>
       <td>
         <b>Dr. Gerardo Tinoco Guerrero</b> :mexico:<br/>
-        <sub>Numerical Methods &amp; Computational Mathematics</sub>
+        <sub>Numerical Methods, Scientific Computing &amp; Teaching Material</sub>
       </td>
       <td>
         <a href="http://www.siiia.com.mx"><img alt="Company: SIIIA MATH" src="https://img.shields.io/badge/%F0%9F%8F%A2%20Company-SIIIA%20MATH-0B1B3A"></a><br/>
@@ -639,7 +639,7 @@ This project can support lectures, laboratory sessions, workshops, homework disc
       </td>
       <td>
         <b>Dr. José Alberto Guzmán Torres</b> :mexico:<br/>
-        <sub>Engineering Applications &amp; Artificial Intelligence</sub>
+        <sub>Computational Engineering &amp; Educational Technology</sub>
       </td>
       <td>
         <a href="http://www.siiia.com.mx"><img alt="Company: SIIIA MATH" src="https://img.shields.io/badge/%F0%9F%8F%A2%20Company-SIIIA%20MATH-0B1B3A"></a><br/>
@@ -657,7 +657,7 @@ This project can support lectures, laboratory sessions, workshops, homework disc
       </td>
       <td>
         <b>Dr. Heriberto Árias Rojas</b> :mexico:<br/>
-        <sub>Engineering Applications</sub>
+        <sub>Engineering Applications &amp; Numerical Modeling</sub>
       </td>
       <td>
         <a href="http://www.siiia.com.mx"><img alt="Company: SIIIA MATH" src="https://img.shields.io/badge/%F0%9F%8F%A2%20Company-SIIIA%20MATH-0B1B3A"></a><br/>
@@ -672,7 +672,7 @@ This project can support lectures, laboratory sessions, workshops, homework disc
   </tbody>
 </table>
 
-### :mortar_board: Ph.D. Research Students
+### :mortar_board: Ph.D. Student Contributors
 
 <table align="center">
   <thead>
@@ -690,7 +690,7 @@ This project can support lectures, laboratory sessions, workshops, homework disc
       </td>
       <td>
         <b>Gabriela Pedraza-Jiménez</b><br/>
-        <img alt="Ph.D. Research Student" src="https://img.shields.io/badge/Ph.D.-Research%20Student-2E8B57?style=flat-square">
+        <img alt="Ph.D. Student Contributor" src="https://img.shields.io/badge/Ph.D.-Student%20Contributor-2E8B57?style=flat-square">
       </td>
       <td>
         <a href="http://www.umich.mx"><img alt="University: UMSNH" src="https://img.shields.io/badge/%F0%9F%8E%93%20University-UMSNH-1A3A6B"></a>
@@ -705,7 +705,7 @@ This project can support lectures, laboratory sessions, workshops, homework disc
       </td>
       <td>
         <b>Eli Chagolla-Inzunza</b><br/>
-        <img alt="Ph.D. Research Student" src="https://img.shields.io/badge/Ph.D.-Research%20Student-2E8B57?style=flat-square">
+        <img alt="Ph.D. Student Contributor" src="https://img.shields.io/badge/Ph.D.-Student%20Contributor-2E8B57?style=flat-square">
       </td>
       <td>
         <a href="http://www.umich.mx"><img alt="University: UMSNH" src="https://img.shields.io/badge/%F0%9F%8E%93%20University-UMSNH-1A3A6B"></a>
@@ -717,7 +717,7 @@ This project can support lectures, laboratory sessions, workshops, homework disc
   </tbody>
 </table>
 
-### :mortar_board: M.Sc. Research Students
+### :mortar_board: M.Sc. Student Contributors
 
 <table align="center">
   <thead>
@@ -735,7 +735,7 @@ This project can support lectures, laboratory sessions, workshops, homework disc
       </td>
       <td>
         <b>Jorge L. González-Figueroa</b><br/>
-        <img alt="M.Sc. Research Student" src="https://img.shields.io/badge/M.Sc.-Research%20Student-green?style=flat-square">
+        <img alt="M.Sc. Student Contributor" src="https://img.shields.io/badge/M.Sc.-Student%20Contributor-green?style=flat-square">
       </td>
       <td>
         <a href="http://www.umich.mx"><img alt="University: UMSNH" src="https://img.shields.io/badge/%F0%9F%8E%93%20University-UMSNH-1A3A6B"></a>
@@ -750,7 +750,7 @@ This project can support lectures, laboratory sessions, workshops, homework disc
       </td>
       <td>
         <b>Christopher N. Magaña-Barocio</b><br/>
-        <img alt="M.Sc. Research Student" src="https://img.shields.io/badge/M.Sc.-Research%20Student-green?style=flat-square">
+        <img alt="M.Sc. Student Contributor" src="https://img.shields.io/badge/M.Sc.-Student%20Contributor-green?style=flat-square">
       </td>
       <td>
         <a href="http://www.umich.mx"><img alt="University: UMSNH" src="https://img.shields.io/badge/%F0%9F%8E%93%20University-UMSNH-1A3A6B"></a>
@@ -762,7 +762,7 @@ This project can support lectures, laboratory sessions, workshops, homework disc
   </tbody>
 </table>
 
-### :mortar_board: Undergraduate Research Students
+### :mortar_board: Undergraduate Student Contributors
 
 <table align="center">
   <thead>
@@ -780,7 +780,7 @@ This project can support lectures, laboratory sessions, workshops, homework disc
       </td>
       <td>
         <b>Maria Goretti Fraga-Lopez</b><br/>
-        <img alt="Undergraduate Research Student" src="https://img.shields.io/badge/Undergraduate-Research%20Student-green?style=flat-square">
+        <img alt="Undergraduate Student Contributor" src="https://img.shields.io/badge/Undergraduate-Student%20Contributor-green?style=flat-square">
       </td>
       <td>
         <a href="http://www.umich.mx"><img alt="University: UMSNH" src="https://img.shields.io/badge/%F0%9F%8E%93%20University-UMSNH-1A3A6B"></a>
@@ -794,12 +794,12 @@ This project can support lectures, laboratory sessions, workshops, homework disc
 
 ---
 
-## :factory: Industry Partners Supporting Innovation
+## :factory: Institutional and Technical Support
 
 <div align="center">
 
-### :star2: Industry Partners Supporting Innovation
-*Collaboration between academia and industry to accelerate real-world impact*
+### :star2: Academic and Engineering Support
+*Collaboration that helps keep the examples, documentation, and computational tools useful for teaching*
 
 </div>
 
@@ -815,19 +815,19 @@ This project can support lectures, laboratory sessions, workshops, homework disc
 <div align="center">
 
 [![Website](https://img.shields.io/badge/🌐-Visit%20Website-blue?style=for-the-badge)](http://www.siiia.com.mx)
-[![Type](https://img.shields.io/badge/📊-R%26D%20Company-orange?style=flat-square)](http://www.siiia.com.mx)
+[![Type](https://img.shields.io/badge/📊-Engineering%20Support-orange?style=flat-square)](http://www.siiia.com.mx)
 [![Location](https://img.shields.io/badge/📍-Morelia,%20Mexico-green?style=flat-square)](http://www.siiia.com.mx)
 
 </div>
 
-**🎯 Focus areas:**
-- Mathematical modeling & simulation
-- AI/ML engineering solutions
-- Technology transfer and applied R&amp;D
+**🎯 Support areas:**
+- Mathematical modeling and simulation
+- Scientific computing examples
+- Educational software and documentation
 
 <div align="center">
 
-[![Contact](https://img.shields.io/badge/📧-Partnership%20Contact-0B1B3A?style=for-the-badge)](mailto:gtinoco@siiia.com.mx)
+[![Contact](https://img.shields.io/badge/📧-Contact-0B1B3A?style=for-the-badge)](mailto:gtinoco@siiia.com.mx)
 
 </div>
 
@@ -838,7 +838,7 @@ This project can support lectures, laboratory sessions, workshops, homework disc
 </div>
 
 
-## Citation
+## :memo: Citation
 
 If this repository supports a course, workshop, thesis, report, publication, or derived implementation, please cite it as academic software. Citation metadata is provided in [`CITATION.cff`](CITATION.cff), which GitHub and other tools can use to generate additional formats.
 
@@ -867,7 +867,7 @@ BibTeX:
 }
 ```
 
-## License
+## :scroll: License
 
 This project is distributed under the MIT License. See [`LICENSE`](LICENSE) for the full license text.
 
