@@ -822,7 +822,7 @@ This project can support lectures, laboratory sessions, workshops, homework disc
         <sub>Numerical Methods, Scientific Computing &amp; Teaching Material</sub>
       </td>
       <td>
-        <a href="http://www.siiia.com.mx"><img alt="Company: SIIIA MATH" src="https://img.shields.io/badge/%F0%9F%8F%A2%20Company-SIIIA%20MATH-0B1B3A"></a><br/>
+        <a href="http://www.siiia.com.mx"><img alt="Company: SIIIA MATH: Soluciones en Ingeniería" src="https://img.shields.io/badge/%F0%9F%8F%A2%20Company-SIIIA%20MATH-0B1B3A"></a><br/>
         <a href="http://www.umich.mx"><img alt="University: UMSNH" src="https://img.shields.io/badge/%F0%9F%8E%93%20University-UMSNH-1A3A6B"></a>
       </td>
       <td>
@@ -840,7 +840,7 @@ This project can support lectures, laboratory sessions, workshops, homework disc
         <sub>Applied Mathematics &amp; Finite Difference Methods</sub>
       </td>
       <td>
-        <a href="http://www.siiia.com.mx"><img alt="Company: SIIIA MATH" src="https://img.shields.io/badge/%F0%9F%8F%A2%20Company-SIIIA%20MATH-0B1B3A"></a><br/>
+        <a href="http://www.siiia.com.mx"><img alt="Company: SIIIA MATH: Soluciones en Ingeniería" src="https://img.shields.io/badge/%F0%9F%8F%A2%20Company-SIIIA%20MATH-0B1B3A"></a><br/>
         <a href="http://www.umich.mx"><img alt="University: UMSNH" src="https://img.shields.io/badge/%F0%9F%8E%93%20University-UMSNH-1A3A6B"></a>
       </td>
       <td>
@@ -858,7 +858,7 @@ This project can support lectures, laboratory sessions, workshops, homework disc
         <sub>Computational Engineering &amp; Educational Technology</sub>
       </td>
       <td>
-        <a href="http://www.siiia.com.mx"><img alt="Company: SIIIA MATH" src="https://img.shields.io/badge/%F0%9F%8F%A2%20Company-SIIIA%20MATH-0B1B3A"></a><br/>
+        <a href="http://www.siiia.com.mx"><img alt="Company: SIIIA MATH: Soluciones en Ingeniería" src="https://img.shields.io/badge/%F0%9F%8F%A2%20Company-SIIIA%20MATH-0B1B3A"></a><br/>
         <a href="http://www.umich.mx"><img alt="University: UMSNH" src="https://img.shields.io/badge/%F0%9F%8E%93%20University-UMSNH-1A3A6B"></a>
       </td>
       <td>
@@ -876,7 +876,7 @@ This project can support lectures, laboratory sessions, workshops, homework disc
         <sub>Engineering Applications &amp; Numerical Modeling</sub>
       </td>
       <td>
-        <a href="http://www.siiia.com.mx"><img alt="Company: SIIIA MATH" src="https://img.shields.io/badge/%F0%9F%8F%A2%20Company-SIIIA%20MATH-0B1B3A"></a><br/>
+        <a href="http://www.siiia.com.mx"><img alt="Company: SIIIA MATH: Soluciones en Ingeniería" src="https://img.shields.io/badge/%F0%9F%8F%A2%20Company-SIIIA%20MATH-0B1B3A"></a><br/>
         <a href="http://www.umich.mx"><img alt="University: UMSNH" src="https://img.shields.io/badge/%F0%9F%8E%93%20University-UMSNH-1A3A6B"></a>
       </td>
       <td>
@@ -1021,34 +1021,55 @@ This project can support lectures, laboratory sessions, workshops, homework disc
 
 <div align="center">
 
-<table align="center" width="70%">
-<tr>
-<td align="center">
-
-### :factory: **SIIIA MATH**
-#### *Soluciones de Ingeniería, México*
-
-<div align="center">
-
-[![Website](https://img.shields.io/badge/🌐-Visit%20Website-blue?style=for-the-badge)](http://www.siiia.com.mx)
-[![Type](https://img.shields.io/badge/📊-Engineering%20Support-orange?style=flat-square)](http://www.siiia.com.mx)
-[![Location](https://img.shields.io/badge/📍-Morelia,%20Mexico-green?style=flat-square)](http://www.siiia.com.mx)
-
-</div>
-
-**🎯 Support areas:**
-- Mathematical modeling and simulation
-- Scientific computing examples
-- Educational software and documentation
-
-<div align="center">
-
-[![Contact](https://img.shields.io/badge/📧-Contact-0B1B3A?style=for-the-badge)](mailto:gtinoco@siiia.com.mx)
-
-</div>
-
-</td>
-</tr>
+<table align="center">
+  <thead>
+    <tr>
+      <th align="center">Institution / Support</th>
+      <th align="left">Role in the Project</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="center" width="280">
+        <b>:school: UMSNH</b><br>
+        <sub>Universidad Michoacana de San Nicolás de Hidalgo</sub><br><br>
+        <a href="https://www.umich.mx"><img alt="University: UMSNH" src="https://img.shields.io/badge/University-UMSNH-1A3A6B?style=for-the-badge"></a>
+      </td>
+      <td>
+        Academic home for teaching, training, and scientific computing work related to numerical methods and applied mathematics.
+      </td>
+    </tr>
+    <tr>
+      <td align="center" width="280">
+        <b>:microscope: SeCiHTI</b><br>
+        <sub>Secretaría de Ciencia, Humanidades, Tecnología e Innovación</sub><br><br>
+        <img alt="SeCiHTI" src="https://img.shields.io/badge/Government-SeCiHTI-0B1B3A?style=for-the-badge">
+      </td>
+      <td>
+        Public support for science, humanities, technology, innovation, and academic development in Mexico.
+      </td>
+    </tr>
+    <tr>
+      <td align="center" width="280">
+        <b>:factory: SIIIA MATH: Soluciones en Ingeniería</b><br>
+        <sub>Engineering solutions and scientific computing support</sub><br><br>
+        <a href="http://www.siiia.com.mx"><img alt="SIIIA MATH: Soluciones en Ingeniería" src="https://img.shields.io/badge/Private_sector-SIIIA_MATH-00897B?style=for-the-badge"></a>
+      </td>
+      <td>
+        Technical support for mathematical modeling, simulation, scientific computing examples, and educational software documentation.
+      </td>
+    </tr>
+    <tr>
+      <td align="center" width="280">
+        <b>:classical_building: Aula-CIMNE Morelia</b><br>
+        <sub>Academic collaboration space</sub><br><br>
+        <img alt="Aula-CIMNE Morelia" src="https://img.shields.io/badge/Aula--CIMNE-Morelia-455A64?style=for-the-badge">
+      </td>
+      <td>
+        Academic collaboration environment supporting numerical methods education, computational mechanics, and knowledge transfer.
+      </td>
+    </tr>
+  </tbody>
 </table>
 
 </div>
@@ -1065,7 +1086,7 @@ Recommended citation:
 ```text
 Tinoco Guerrero, G., Domínguez Mota, F. J., Guzmán Torres, J. A., & Árias Rojas, H. (2026).
 Classical Finite Differences [Software].
-Universidad Michoacana de San Nicolás de Hidalgo and SIIIA MATH.
+Universidad Michoacana de San Nicolás de Hidalgo and SIIIA MATH: Soluciones en Ingeniería.
 https://github.com/gstinoco/Classical_Finite_Differences
 ```
 
@@ -1076,7 +1097,7 @@ BibTeX:
   author       = {Tinoco Guerrero, Gerardo and Domínguez Mota, Francisco Javier and Guzmán Torres, José Alberto and Árias Rojas, Heriberto},
   title        = {Classical Finite Differences},
   year         = {2026},
-  publisher    = {Universidad Michoacana de San Nicolás de Hidalgo and SIIIA MATH},
+  publisher    = {Universidad Michoacana de San Nicolás de Hidalgo and SIIIA MATH: Soluciones en Ingeniería},
   type         = {Software},
   url          = {https://github.com/gstinoco/Classical_Finite_Differences},
   license      = {MIT}
