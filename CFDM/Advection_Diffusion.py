@@ -102,7 +102,7 @@ def AdvectionDiffusion1D(x, t, u, v, a, implicit=False, lam=0.5):
 def AdvectionDiffusion1D_iter(x, t, u, v, a, implicit=False, lam=0.5):
     """
     Solve the Transient 1D Advection-Diffusion Equation with Dirichlet boundary conditions
-    using an Iterative (Gauss-Seidel) Formulation. Supports Explicit or Implicit schemes.
+    using a node-wise stencil formulation. Supports Explicit or Implicit schemes.
 
     Parameters
     ----------
@@ -257,7 +257,7 @@ def AdvectionDiffusion2D(x, y, t, u, v, a, b, implicit=False, lam=0.5):
 def AdvectionDiffusion2D_iter(x, y, t, u, v, a, b, implicit=False, lam=0.5):
     """
     Solve the Transient 2D Advection-Diffusion Equation with Dirichlet boundary conditions
-    using an Iterative (Gauss-Seidel) Formulation. Supports Explicit or Implicit schemes.
+    using a node-wise stencil formulation. Supports Explicit or Implicit schemes.
 
     Parameters
     ----------

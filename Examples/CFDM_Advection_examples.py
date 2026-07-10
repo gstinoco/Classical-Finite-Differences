@@ -86,16 +86,16 @@ def run_1d_example(show=False, save_path=RESULTS_DIR, nodes=41, time_steps=800, 
     rows = []                                                                                   # Accumulates metric rows for all 1D methods.
     plot_cases = []                                                                             # Accumulates plot metadata for all 1D method outputs.
     for display_name, method_arg, sign in ADVECTION_METHODS_1D:
-        a_case          = sign * speed                                                          # Selects the signed velocity compatible with the stencil direction.
+        a_case         = sign * speed                                                           # Selects the signed velocity compatible with the stencil direction.
 
         u_matrix, u_ex = CAdvection.Advection1D(x, time_steps, u, a_case, method=method_arg)    # Solves the 1D case with the matrix implementation.
         u_iter, _      = CAdvection.Advection1D_iter(x, time_steps, u, a_case, method=method_arg)
-                                                                                                # Solves the 1D case with the iterative implementation.
+                                                                                                # Solves the 1D case with the node-wise stencil implementation.
 
-        rows.append(ExampleTools.transient_row(f"{display_name} FD", u_ex, u_matrix))           # Adds finite-difference formulation transient metrics for this stencil.
-        rows.append(ExampleTools.transient_row(f"{display_name} GS", u_ex, u_iter))             # Adds Gauss-Seidel-style transient metrics for this stencil.
-        plot_cases.extend([(f"1D_FD_{method_arg}.gif", f"Advection 1D - {display_name} FD", u_matrix, u_ex), (f"1D_GS_{method_arg}.gif", f"Advection 1D - {display_name} GS", u_iter, u_ex)])
-                                                                                                # Registers FD and GS animations for this stencil.
+        rows.append(ExampleTools.transient_row(f"{display_name} Matrix", u_ex, u_matrix))       # Adds matrix-formulation transient metrics for this stencil.
+        rows.append(ExampleTools.transient_row(f"{display_name} Stencil", u_ex, u_iter))        # Adds node-wise stencil transient metrics for this stencil.
+        plot_cases.extend([(f"1D_Matrix_{method_arg}.gif", f"Advection 1D - {display_name} Matrix", u_matrix, u_ex), (f"1D_Stencil_{method_arg}.gif", f"Advection 1D - {display_name} Stencil", u_iter, u_ex)])
+                                                                                                # Registers matrix and stencil animations for this stencil.
 
     ExampleTools.print_metrics("1D Results (Transient)", rows)                                  # Prints one comparable table for all 1D advection methods.
 
@@ -142,12 +142,12 @@ def run_2d_example(show=False, save_path=RESULTS_DIR, nodes=41, time_steps=800, 
         u_matrix, u_ex = CAdvection.Advection2D(x, y, time_steps, u, a_case, b_case, method=method_arg)
                                                                                                 # Solves the 2D case with the matrix implementation.
         u_iter, _      = CAdvection.Advection_2D_iter(x, y, time_steps, u, a_case, b_case, method=method_arg)
-                                                                                                # Solves the 2D case with the iterative implementation.
+                                                                                                # Solves the 2D case with the node-wise stencil implementation.
 
-        rows.append(ExampleTools.transient_row(f"{display_name} FD", u_ex, u_matrix))           # Adds finite-difference formulation transient metrics for this stencil.
-        rows.append(ExampleTools.transient_row(f"{display_name} GS", u_ex, u_iter))             # Adds Gauss-Seidel-style transient metrics for this stencil.
-        plot_cases.extend([(f"2D_FD_{method_arg}.gif", f"Advection 2D - {display_name} FD", u_matrix, u_ex), (f"2D_GS_{method_arg}.gif", f"Advection 2D - {display_name} GS", u_iter, u_ex)])
-                                                                                                # Registers FD and GS animations for this stencil.
+        rows.append(ExampleTools.transient_row(f"{display_name} Matrix", u_ex, u_matrix))       # Adds matrix-formulation transient metrics for this stencil.
+        rows.append(ExampleTools.transient_row(f"{display_name} Stencil", u_ex, u_iter))        # Adds node-wise stencil transient metrics for this stencil.
+        plot_cases.extend([(f"2D_Matrix_{method_arg}.gif", f"Advection 2D - {display_name} Matrix", u_matrix, u_ex), (f"2D_Stencil_{method_arg}.gif", f"Advection 2D - {display_name} Stencil", u_iter, u_ex)])
+                                                                                                # Registers matrix and stencil animations for this stencil.
 
     ExampleTools.print_metrics("2D Results (Transient)", rows)                                  # Prints one comparable table for all 2D advection methods.
 

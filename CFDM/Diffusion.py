@@ -92,7 +92,7 @@ def Diffusion1D(x, t, u, v):
 
 def Diffusion1D_iter(x, t, u, v):
     """
-    Transient 1D diffusion using a Gauss–Seidel-style explicit update.
+    Transient 1D diffusion using a node-wise explicit stencil update.
 
     Parameters
     ----------
@@ -227,8 +227,8 @@ def Diffusion2D(x, y, t, u, v, implicit=False, lam=0.5):
 
 def Diffusion2D_iter(x, y, t, u, v, implicit=False, lam=0.5):
     """
-    Transient 2D diffusion via a Gauss–Seidel-style iterative scheme
-    with the 5-point stencil on interior nodes.
+    Transient 2D diffusion via a node-wise stencil formulation
+    on interior nodes.
 
     Parameters
     ----------

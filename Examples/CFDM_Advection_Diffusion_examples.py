@@ -91,30 +91,30 @@ def run_1d_example(show=False, save_path=RESULTS_DIR, nodes=21, time_steps=200, 
 
     x                   = np.linspace(0, 1, nodes)                                              # Builds the 1D spatial mesh over the unit interval.
 
-    u_explicit_fd, u_ex = CAdvDiff.AdvectionDiffusion1D(x, time_steps, u_exact, nu, a, implicit=False)
-                                                                                                # Solves the 1D explicit problem with the FD matrix formulation.
-    u_explicit_gs, _    = CAdvDiff.AdvectionDiffusion1D_iter(x, time_steps, u_exact, nu, a, implicit=False)
-                                                                                                # Solves the 1D explicit problem with the GS iterative formulation.
-    u_cn_fd, _          = CAdvDiff.AdvectionDiffusion1D(x, time_steps, u_exact, nu, a, implicit=True, lam=0.5)
-                                                                                                # Solves the 1D Crank-Nicolson problem with the FD matrix formulation.
-    u_cn_gs, _          = CAdvDiff.AdvectionDiffusion1D_iter(x, time_steps, u_exact, nu, a, implicit=True, lam=0.5)
-                                                                                                # Solves the 1D Crank-Nicolson problem with the GS iterative formulation.
+    u_explicit_matrix, u_ex = CAdvDiff.AdvectionDiffusion1D(x, time_steps, u_exact, nu, a, implicit=False)
+                                                                                                # Solves the 1D explicit problem with the matrix formulation.
+    u_explicit_stencil, _   = CAdvDiff.AdvectionDiffusion1D_iter(x, time_steps, u_exact, nu, a, implicit=False)
+                                                                                                # Solves the 1D explicit problem with the node-wise stencil formulation.
+    u_cn_matrix, _          = CAdvDiff.AdvectionDiffusion1D(x, time_steps, u_exact, nu, a, implicit=True, lam=0.5)
+                                                                                                # Solves the 1D Crank-Nicolson problem with the matrix formulation.
+    u_cn_stencil, _         = CAdvDiff.AdvectionDiffusion1D_iter(x, time_steps, u_exact, nu, a, implicit=True, lam=0.5)
+                                                                                                # Solves the 1D Crank-Nicolson problem with the node-wise stencil formulation.
 
     ExampleTools.print_metrics("1D Results (Transient)", [                                      # Prints a common metric table over the full 1D time history.
-        ExampleTools.transient_row("Explicit FD", u_ex, u_explicit_fd),                         # Adds explicit FD transient error metrics.
-        ExampleTools.transient_row("Explicit GS", u_ex, u_explicit_gs),                         # Adds explicit GS transient error metrics.
-        ExampleTools.transient_row("Crank-Nicolson FD", u_ex, u_cn_fd),                         # Adds Crank-Nicolson FD transient error metrics.
-        ExampleTools.transient_row("Crank-Nicolson GS", u_ex, u_cn_gs),                         # Adds Crank-Nicolson GS transient error metrics.
+        ExampleTools.transient_row("Explicit Matrix", u_ex, u_explicit_matrix),                 # Adds explicit matrix transient error metrics.
+        ExampleTools.transient_row("Explicit Stencil", u_ex, u_explicit_stencil),               # Adds explicit stencil transient error metrics.
+        ExampleTools.transient_row("Crank-Nicolson Matrix", u_ex, u_cn_matrix),                 # Adds Crank-Nicolson matrix transient error metrics.
+        ExampleTools.transient_row("Crank-Nicolson Stencil", u_ex, u_cn_stencil),               # Adds Crank-Nicolson stencil transient error metrics.
     ])                                                                                          # Closes the 1D metric table definition.
 
-    Graphs.Transient_1D(x, u_explicit_fd, u_ex, title="Advection-Diffusion 1D - Explicit FD", show=show, save_path=ExampleTools.output_path(save_path, "1D_FD_Explicit.gif"))
-                                                                                                # Animates the explicit FD approximation against the exact solution.
-    Graphs.Transient_1D(x, u_explicit_gs, u_ex, title="Advection-Diffusion 1D - Explicit GS", show=show, save_path=ExampleTools.output_path(save_path, "1D_GS_Explicit.gif"))
-                                                                                                # Animates the explicit GS approximation against the exact solution.
-    Graphs.Transient_1D(x, u_cn_fd, u_ex, title="Advection-Diffusion 1D - Crank-Nicolson FD", show=show, save_path=ExampleTools.output_path(save_path, "1D_FD_CN.gif"))
-                                                                                                # Animates the Crank-Nicolson FD approximation against the exact solution.
-    Graphs.Transient_1D(x, u_cn_gs, u_ex, title="Advection-Diffusion 1D - Crank-Nicolson GS", show=show, save_path=ExampleTools.output_path(save_path, "1D_GS_CN.gif"))
-                                                                                                # Animates the Crank-Nicolson GS approximation against the exact solution.
+    Graphs.Transient_1D(x, u_explicit_matrix, u_ex, title="Advection-Diffusion 1D - Explicit Matrix", show=show, save_path=ExampleTools.output_path(save_path, "1D_Matrix_Explicit.gif"))
+                                                                                                # Animates the explicit matrix approximation against the exact solution.
+    Graphs.Transient_1D(x, u_explicit_stencil, u_ex, title="Advection-Diffusion 1D - Explicit Stencil", show=show, save_path=ExampleTools.output_path(save_path, "1D_Stencil_Explicit.gif"))
+                                                                                                # Animates the explicit stencil approximation against the exact solution.
+    Graphs.Transient_1D(x, u_cn_matrix, u_ex, title="Advection-Diffusion 1D - Crank-Nicolson Matrix", show=show, save_path=ExampleTools.output_path(save_path, "1D_Matrix_CN.gif"))
+                                                                                                # Animates the Crank-Nicolson matrix approximation against the exact solution.
+    Graphs.Transient_1D(x, u_cn_stencil, u_ex, title="Advection-Diffusion 1D - Crank-Nicolson Stencil", show=show, save_path=ExampleTools.output_path(save_path, "1D_Stencil_CN.gif"))
+                                                                                                # Animates the Crank-Nicolson stencil approximation against the exact solution.
 
 
 def run_2d_example(show=False, save_path=RESULTS_DIR, nodes=21, time_steps=200, nu=0.1, a=0.1, b=0.1):
@@ -171,30 +171,30 @@ def run_2d_example(show=False, save_path=RESULTS_DIR, nodes=21, time_steps=200, 
     y_1d                = np.linspace(0, 1, nodes)                                              # Builds the y-coordinate mesh nodes.
     x, y                = np.meshgrid(x_1d, y_1d)                                               # Expands 1D coordinate vectors into a rectangular 2D mesh.
 
-    u_explicit_fd, u_ex = CAdvDiff.AdvectionDiffusion2D(x, y, time_steps, u_exact, nu, a, b, implicit=False)
-                                                                                                # Solves the 2D explicit problem with the FD matrix formulation.
-    u_explicit_gs, _    = CAdvDiff.AdvectionDiffusion2D_iter(x, y, time_steps, u_exact, nu, a, b, implicit=False)
-                                                                                                # Solves the 2D explicit problem with the GS iterative formulation.
-    u_cn_fd, _          = CAdvDiff.AdvectionDiffusion2D(x, y, time_steps, u_exact, nu, a, b, implicit=True, lam=0.5)
-                                                                                                # Solves the 2D Crank-Nicolson problem with the FD matrix formulation.
-    u_cn_gs, _          = CAdvDiff.AdvectionDiffusion2D_iter(x, y, time_steps, u_exact, nu, a, b, implicit=True, lam=0.5)
-                                                                                                # Solves the 2D Crank-Nicolson problem with the GS iterative formulation.
+    u_explicit_matrix, u_ex = CAdvDiff.AdvectionDiffusion2D(x, y, time_steps, u_exact, nu, a, b, implicit=False)
+                                                                                                # Solves the 2D explicit problem with the matrix formulation.
+    u_explicit_stencil, _   = CAdvDiff.AdvectionDiffusion2D_iter(x, y, time_steps, u_exact, nu, a, b, implicit=False)
+                                                                                                # Solves the 2D explicit problem with the node-wise stencil formulation.
+    u_cn_matrix, _          = CAdvDiff.AdvectionDiffusion2D(x, y, time_steps, u_exact, nu, a, b, implicit=True, lam=0.5)
+                                                                                                # Solves the 2D Crank-Nicolson problem with the matrix formulation.
+    u_cn_stencil, _         = CAdvDiff.AdvectionDiffusion2D_iter(x, y, time_steps, u_exact, nu, a, b, implicit=True, lam=0.5)
+                                                                                                # Solves the 2D Crank-Nicolson problem with the node-wise stencil formulation.
 
     ExampleTools.print_metrics("2D Results (Transient)", [                                      # Prints a common metric table over the full 2D time history.
-        ExampleTools.transient_row("Explicit FD", u_ex, u_explicit_fd),                         # Adds explicit FD transient error metrics.
-        ExampleTools.transient_row("Explicit GS", u_ex, u_explicit_gs),                         # Adds explicit GS transient error metrics.
-        ExampleTools.transient_row("Crank-Nicolson FD", u_ex, u_cn_fd),                         # Adds Crank-Nicolson FD transient error metrics.
-        ExampleTools.transient_row("Crank-Nicolson GS", u_ex, u_cn_gs),                         # Adds Crank-Nicolson GS transient error metrics.
+        ExampleTools.transient_row("Explicit Matrix", u_ex, u_explicit_matrix),                 # Adds explicit matrix transient error metrics.
+        ExampleTools.transient_row("Explicit Stencil", u_ex, u_explicit_stencil),               # Adds explicit stencil transient error metrics.
+        ExampleTools.transient_row("Crank-Nicolson Matrix", u_ex, u_cn_matrix),                 # Adds Crank-Nicolson matrix transient error metrics.
+        ExampleTools.transient_row("Crank-Nicolson Stencil", u_ex, u_cn_stencil),               # Adds Crank-Nicolson stencil transient error metrics.
     ])                                                                                          # Closes the 2D metric table definition.
 
-    Graphs.Transient_2D(x, y, u_explicit_fd, u_ex, title="Advection-Diffusion 2D - Explicit FD", show=show, save_path=ExampleTools.output_path(save_path, "2D_FD_Explicit.gif"))
-                                                                                                # Animates the explicit FD approximation against the exact surface.
-    Graphs.Transient_2D(x, y, u_explicit_gs, u_ex, title="Advection-Diffusion 2D - Explicit GS", show=show, save_path=ExampleTools.output_path(save_path, "2D_GS_Explicit.gif"))
-                                                                                                # Animates the explicit GS approximation against the exact surface.
-    Graphs.Transient_2D(x, y, u_cn_fd, u_ex, title="Advection-Diffusion 2D - Crank-Nicolson FD", show=show, save_path=ExampleTools.output_path(save_path, "2D_FD_CN.gif"))
-                                                                                                # Animates the Crank-Nicolson FD approximation against the exact surface.
-    Graphs.Transient_2D(x, y, u_cn_gs, u_ex, title="Advection-Diffusion 2D - Crank-Nicolson GS", show=show, save_path=ExampleTools.output_path(save_path, "2D_GS_CN.gif"))
-                                                                                                # Animates the Crank-Nicolson GS approximation against the exact surface.
+    Graphs.Transient_2D(x, y, u_explicit_matrix, u_ex, title="Advection-Diffusion 2D - Explicit Matrix", show=show, save_path=ExampleTools.output_path(save_path, "2D_Matrix_Explicit.gif"))
+                                                                                                # Animates the explicit matrix approximation against the exact surface.
+    Graphs.Transient_2D(x, y, u_explicit_stencil, u_ex, title="Advection-Diffusion 2D - Explicit Stencil", show=show, save_path=ExampleTools.output_path(save_path, "2D_Stencil_Explicit.gif"))
+                                                                                                # Animates the explicit stencil approximation against the exact surface.
+    Graphs.Transient_2D(x, y, u_cn_matrix, u_ex, title="Advection-Diffusion 2D - Crank-Nicolson Matrix", show=show, save_path=ExampleTools.output_path(save_path, "2D_Matrix_CN.gif"))
+                                                                                                # Animates the Crank-Nicolson matrix approximation against the exact surface.
+    Graphs.Transient_2D(x, y, u_cn_stencil, u_ex, title="Advection-Diffusion 2D - Crank-Nicolson Stencil", show=show, save_path=ExampleTools.output_path(save_path, "2D_Stencil_CN.gif"))
+                                                                                                # Animates the Crank-Nicolson stencil approximation against the exact surface.
 
 
 def main(show=False, save_path=RESULTS_DIR, nodes_1d=21, nodes_2d=21, time_steps=200):

@@ -68,18 +68,18 @@ def run_1d_example(show=False, save_path=RESULTS_DIR, nodes=21, time_steps=400, 
     u = lambda x, t, v: np.exp(-np.pi**2*v*t) * np.cos(np.pi*x)                                 # Defines the exact 1D heat-equation benchmark solution.
     x = np.linspace(0, 1, nodes)                                                                # Builds the 1D spatial mesh over the unit interval.
 
-    u_fd, u_ex = CDiffusion.Diffusion1D(x, time_steps, u, diffusivity)                          # Solves the 1D transient problem with the matrix scheme.
-    u_gs, _    = CDiffusion.Diffusion1D_iter(x, time_steps, u, diffusivity)                     # Solves the same 1D problem with Gauss-Seidel iterations.
+    u_matrix, u_ex  = CDiffusion.Diffusion1D(x, time_steps, u, diffusivity)                     # Solves the 1D transient problem with the matrix scheme.
+    u_stencil, _    = CDiffusion.Diffusion1D_iter(x, time_steps, u, diffusivity)                # Solves the same 1D problem with the node-wise stencil.
 
     ExampleTools.print_metrics("1D Results (Transient)", [                                      # Prints a common metric table over the full 1D time history.
-        ExampleTools.transient_row("FD", u_ex, u_fd),                                           # Adds matrix-scheme transient error metrics.
-        ExampleTools.transient_row("GS", u_ex, u_gs),                                           # Adds iterative-scheme transient error metrics.
+        ExampleTools.transient_row("Matrix", u_ex, u_matrix),                                   # Adds matrix-scheme transient error metrics.
+        ExampleTools.transient_row("Stencil", u_ex, u_stencil),                                 # Adds node-wise stencil transient error metrics.
     ])                                                                                          # Closes the 1D metric table definition.
 
-    Graphs.Transient_1D(x, u_fd, u_ex, title="Diffusion 1D - FD", show=show, save_path=ExampleTools.output_path(save_path, "1D_FD.gif"))
+    Graphs.Transient_1D(x, u_matrix, u_ex, title="Diffusion 1D - Matrix", show=show, save_path=ExampleTools.output_path(save_path, "1D_Matrix.gif"))
                                                                                                 # Animates the matrix approximation against the exact solution.
-    Graphs.Transient_1D(x, u_gs, u_ex, title="Diffusion 1D - GS", show=show, save_path=ExampleTools.output_path(save_path, "1D_GS.gif"))
-                                                                                                # Animates the iterative approximation against the exact solution.
+    Graphs.Transient_1D(x, u_stencil, u_ex, title="Diffusion 1D - Stencil", show=show, save_path=ExampleTools.output_path(save_path, "1D_Stencil.gif"))
+                                                                                                # Animates the node-wise stencil approximation against the exact solution.
 
 
 def run_2d_example(show=False, save_path=RESULTS_DIR, nodes=21, time_steps=400, diffusivity=0.2):
@@ -109,18 +109,18 @@ def run_2d_example(show=False, save_path=RESULTS_DIR, nodes=21, time_steps=400, 
     y_1d = np.linspace(0, 1, nodes)                                                             # Builds the y-coordinate mesh nodes.
     x, y = np.meshgrid(x_1d, y_1d)                                                              # Expands 1D coordinate vectors into a rectangular 2D mesh.
 
-    u_fd, u_ex = CDiffusion.Diffusion2D(x, y, time_steps, u, diffusivity)                       # Solves the 2D transient problem with the matrix scheme.
-    u_gs, _    = CDiffusion.Diffusion2D_iter(x, y, time_steps, u, diffusivity)                  # Solves the same 2D problem with Gauss-Seidel iterations.
+    u_matrix, u_ex = CDiffusion.Diffusion2D(x, y, time_steps, u, diffusivity)                   # Solves the 2D transient problem with the matrix scheme.
+    u_stencil, _   = CDiffusion.Diffusion2D_iter(x, y, time_steps, u, diffusivity)              # Solves the same 2D problem with the node-wise stencil.
 
     ExampleTools.print_metrics("2D Results (Transient)", [                                      # Prints a common metric table over the full 2D time history.
-        ExampleTools.transient_row("FD", u_ex, u_fd),                                           # Adds matrix-scheme transient error metrics.
-        ExampleTools.transient_row("GS", u_ex, u_gs),                                           # Adds iterative-scheme transient error metrics.
+        ExampleTools.transient_row("Matrix", u_ex, u_matrix),                                   # Adds matrix-scheme transient error metrics.
+        ExampleTools.transient_row("Stencil", u_ex, u_stencil),                                 # Adds node-wise stencil transient error metrics.
     ])                                                                                          # Closes the 2D metric table definition.
 
-    Graphs.Transient_2D(x, y, u_fd, u_ex, title="Diffusion 2D - FD", show=show, save_path=ExampleTools.output_path(save_path, "2D_FD.gif"))
+    Graphs.Transient_2D(x, y, u_matrix, u_ex, title="Diffusion 2D - Matrix", show=show, save_path=ExampleTools.output_path(save_path, "2D_Matrix.gif"))
                                                                                                 # Animates the matrix approximation against the exact surface.
-    Graphs.Transient_2D(x, y, u_gs, u_ex, title="Diffusion 2D - GS", show=show, save_path=ExampleTools.output_path(save_path, "2D_GS.gif"))
-                                                                                                # Animates the iterative approximation against the exact surface.
+    Graphs.Transient_2D(x, y, u_stencil, u_ex, title="Diffusion 2D - Stencil", show=show, save_path=ExampleTools.output_path(save_path, "2D_Stencil.gif"))
+                                                                                                # Animates the node-wise stencil approximation against the exact surface.
 
 
 def main(show=False, save_path=RESULTS_DIR, nodes_1d=21, nodes_2d=21, time_steps=400):
